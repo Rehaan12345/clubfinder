@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+    <script src="../static/index.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <title> {% block title %}Clubs{% endblock %} </title>
+</head>
+    <body> 
+
+        <!-- Main Nav Bar: -->
+        <nav id="mainnav">
+            <ul id="header" class="nav">
+                <li><a class="navlink" href="/">Home</a></li>
+                <li><a class="navlink" href="/clubs">Club Directory</a></li>
+                <li><a class="navlink" href="/createaclub">Create a Club</a></li>
+                <li><a class="navlink" href="/login">Login</a></li>
+                <li><a class="navlink" href="/signup">Signup</a></li>
+            </ul>
+        </nav> 
+
+        {% block body %}
+
+        <h1><center>Clubs</center></h1>
+
+        <!-- The Main Container (where the clubs are held): -->
+        <div class="maincontainer" id="maincontainer">
+            <!-- Clubs are added here: -->
+            {% for club in club_info %}
+                <div class="club" id="{{ club.club_name }}">
+                    <div id="{{ club.club_name }}1">{{ club.club_name }}</div>
+                    <br><br>
+                    <button data-viewclub-target="#clubdesc" class="clubbutton" id="viewclub{{ club.club_name }}" type="button" onclick="openModal()">View Club</button>
+                    <!-- Modal: -->
+                    <div class="clubdesc" id="clubdesc{{ club.club_name }}">
+                        <div class="clubdescheader">
+                            <div class="clubdescname">Join {{ club.club_name }}</div>
+                            <button data-close-button class="clubclosebutton" onclick="closeModal()">&times;</button>
+                        </div>
+                        <div class="clubdescdesc" id="clubdescdesc{{ club.club_name }}">{{ club.description }}</div>
+                    </div>
+                    <!-- ^ End of Modal ^ -->
+                    <br><br>
+                    <button method="POST" name="joinclubbutton" class="clubbutton" id="joinclubbutton" type="button" onclick="joinClub()">Join Club</button>
+                    <br><br>
+                    <button method="POST" name="leaveclubbutton" class="clubbutton" id="leaveclubbutton" type="button" onclick="leaveClub()">Leave Club</button>
+                    <div class="overlay" id="overlay{{ club.club_name }}"></div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Make a Club Form: 
+        <div class="makeaclub" id="makeaclub">
+            <div class="form">
+                <h3>Create a Club</h3>
+                <form method="POST" id="mainform">
+                    <label for="nameofclub">Club Name:</label>
+                    <br>
+                    <input type="text" id="nameofclub" name="nameofclub">
+                    <br><br>
+                    <input id="submit" type="submit" value="Create Club" onclick="addNewClub()">
+                </form>
+            </div>
+            <input type="submit" value="Clear Clubs" id="clear" onclick="clearClubs()">
+        </div> -->
+
+        <!-- Club Log -->
+
+
+        {% endblock %}
+
+        <!-- Flash Messages (included in all pages): -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            {% if category == "error" %}
+
+            <div class="alert show"> 
+                <span class="msg">{{ message }}</span>
+            </div>
+
+            {% else %}
+
+            <div class="success show">
+                <span class="msg"> {{ message }} </span>
+            </div>
+
+            {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+    </body>
+</html>

@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<h1><center>Your Clubs:</center></h1>
+
+<div class="maincontainer">
+    {% for club in clubsJoined %}
+    {{ club }}
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="makeaclubok">
+    <div class="title">Create A Club Form</div>
+    <form action="#" method="POST">
+        <div class="userdetails">
+            <div class="inputbox">
+                <span class="details">Club Name</span>
+                <input type="text" placeholder="Club Name" name="clubname" required>
+            </div>
+            <div class="inputbox">
+                <span class="details">President's Email</span>
+                <input type="text" placeholder="clubpresident@cpsd.us" name="presidentemail" required>
+            </div>
+            <div class="inputbox">
+                <span class="details">Vice President's Email</span>
+                <input type="text" placeholder="clubvicepresident@cpsd.us (if any)" name="vicepresidentemail1" >
+            </div>
+            <div class="inputbox">
+                <span class="details">Vice President's Email</span>
+                <input type="text" placeholder="clubvicepresident@cpsd.us (if any)" name="vicepresidentemail2">
+            </div>
+            <div class="inputbox">
+                <span class="details">Vice President's Email</span>
+                <input type="text" placeholder="clubvicepresident@cpsd.us (if any)" name="vicepresidentemail3">
+            </div>
+            <div class="inputbox">
+                <span class="details">Advisor's Email</span>
+                <input type="text" placeholder="clubadvisor@cpsd.us" name="advisoremail" required>
+            </div>
+            <div class="inputbox">
+                <span class="details">Room Number</span>
+                <input type="text" placeholder="Room Number" name="roomnumber" required>
+            </div>
+            <div class="inputbox">
+                <span class="details">Club Start Time</span>
+                <input type="text" placeholder="Start time" name="clubstarttime" required>
+            </div>
+            <div class="inputbox">
+                <span class="details">Club Description</span>
+                <input type="text" placeholder="Brief description of club" name="clubdescription" required>
+            </div>
+        </div>
+        <div class="button">
+            <input type="submit" value="Confirm">
+        </div>
+    </form>
+</div>
+
+{% endblock %}
