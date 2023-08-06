@@ -118,7 +118,7 @@ function joinClub() {
     const buttonParentNode = joinButton.parentNode.id;
     console.log("Elements found");
         console.log("Second function starts");
-        // const joinClubButton = document.getElementById("joinclubbutton");  
+        // const joinClubButton = document.getElementById("joinclubbutton");  jdhfjh 
         joinButton.classList.add("active");
         const clubName = document.getElementById(buttonParentNode + "1").textContent;
         // Sends to the python server which club the user has just joined (w/ AJAX):
