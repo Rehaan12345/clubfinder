@@ -168,7 +168,7 @@ body {
     text-align: center;
 }
 
-/***************** Main Container Styling and child classes styling: *****************/
+/***************** Main Container Styling and child classes styling: ***************
 .maincontainer {
     width: 90vh;
     height: 90vh;
@@ -176,7 +176,7 @@ body {
     border: 10px solid;
     border-radius: 10px;
     
-    /* Flexbox styling: */
+    /* Flexbox styling: 
     display: grid;
     grid-template-columns: repeat(3, 30vh);
 }
@@ -191,7 +191,7 @@ body {
     border: 5px solid;
     border-radius: 10px;
     word-wrap:break-word;
-}
+} */
 
 /********** Club Quick View Modal: **********/
 .clubdesc {
@@ -391,7 +391,7 @@ body {
     background: #17ff60;
 }
 
-/******************** Club Buttons: *****************/
+/******************** Club Buttons: ****************
 .clubbutton {
     border-radius: 20px;
     background-color:#439ee3;
@@ -407,7 +407,7 @@ body {
 
 .clubbutton.active {
     background-color: red;
-}
+} */
 
 /********** Create a club form: **********/
 
@@ -511,4 +511,93 @@ form .button input:hover {
     .userdetails::-webkit-scrollbar {
         width: 5px;
     }
+}
+
+/******************** Club Card Styling: (New / Updated) ********************/
+.maincontainer {
+    display: grid;
+    min-height: 100vh;
+    place-items: center;
+    line-height: 1.6;
+}
+
+.club {
+    /* color */
+    /* Add a background image - potentially ok */
+    padding: 10rem 0 0;
+    max-width: 35ch;
+    overflow: hidden;
+
+    transition: transform 500ms ease;
+}
+
+.club:hover,
+.club:focus-within {
+    transform: scale(1.05);
+}
+
+.clubcontent {
+    padding: 1.5rem;
+    background: linear-gradient(
+        hsl(0 0% 0% / 1),
+        hsl(0 0% 0% / .8)
+    );
+    border-radius: 15px;
+}
+
+.clubtitle {
+    color: white;
+    position: relative;
+    width: max-content;
+}
+
+.clubtitle::after {
+    content: "";
+    position: absolute;
+    height: 4px;
+    left: -1.5rem;
+    bottom: 0;
+    width: calc(100% + 1.5rem);
+    background: #17ff60;
+    transform-origin: left;
+    transition: transform 500ms ease;
+}
+
+.club:hover .clubtitle::after {
+    transform: scaleX(1);
+}
+
+@media (hover) {
+    /* .clubcontent {
+        transform: translateY(70%);
+        transition: transform 1s ease;
+    } */
+    .club:hover .clubcontent,
+    .club:focus-within .clubcontent {
+        transform: translateY(0);
+        transition-delay: 500ms;
+    }
+
+    .club:focus-within .clubcontent {
+        transition-duration: 0ms;
+    }
+
+    .clubtitle::after {
+        transform: scaleX(0);
+    }
+}
+
+.clubbutton {
+    cursor: pointer;
+    display: inline;
+    text-decoration: none;
+    color: black;
+    background-color: #17ff60;
+    padding: 0.5em 1.25em;
+    border-radius: 10px;
+}
+
+.clubbutton:hover,
+.clubbutton:focus {
+    background-color: #009122;
 }

@@ -20,34 +20,38 @@
                 <li><a class="navlink" href="/login">Login</a></li>
                 <li><a class="navlink" href="/signup">Signup</a></li>
             </ul>
-        </nav> 
+        </nav>  
 
         {% block body %}
 
         <h1><center>Clubs</center></h1>
 
         <!-- The Main Container (where the clubs are held): -->
-        <div class="maincontainer" id="maincontainer">
+        <div class="maincontainer" id="maincontainer"> 
             <!-- Clubs are added here: -->
             {% for club in club_info %}
-                <div class="club" id="{{ club.club_name }}">
-                    <div id="{{ club.club_name }}1">{{ club.club_name }}</div>
-                    <br><br>
-                    <button data-viewclub-target="#clubdesc" class="clubbutton" id="viewclub{{ club.club_name }}" type="button" onclick="openModal()">View Club</button>
-                    <!-- Modal: -->
-                    <div class="clubdesc" id="clubdesc{{ club.club_name }}">
-                        <div class="clubdescheader">
-                            <div class="clubdescname">Join {{ club.club_name }}</div>
-                            <button data-close-button class="clubclosebutton" onclick="closeModal()">&times;</button>
+                <div class="club" id="{{ club.club_name }}"> <!-- Card -->
+                    <div class="clubcontent" id="{{ club.club_name }}1"> <!-- Card content -->
+                        <div class="clubtitle" id="{{ club.club_name }}1">{{ club.club_name }}</div> <!-- Card title  -->
+                        <br><br>
+                        <button data-viewclub-target="#clubdesc" class="clubbutton" id="viewclub{{ club.club_name }}" type="button" onclick="openModal()">View More</button> <!-- Button -->
+                        <p class="shortdesc"></p> <!-- Card body -->
+                        <!-- Modal: -->
+                        <div class="clubdesc" id="clubdesc">
+                            <div class="clubdescheader">
+                                <div class="clubdescname">Join {{ club.club_name }}</div>
+                                <button data-close-button class="clubclosebutton" onclick="closeModal()">&times;</button>
+                            </div>
+                            <div class="clubdescdesc" id="clubdescdesc{{ club.club_name }}">{{ club.description }}</div>
                         </div>
-                        <div class="clubdescdesc" id="clubdescdesc{{ club.club_name }}">{{ club.description }}</div>
+                        <!-- ^ End of Modal ^ -->
+                        <br><br>
+                        <button method="POST" name="joinclubbutton" class="clubbutton" id="joinclubbutton" type="button" onclick="joinClub()">Join Club</button>
+                        <br><br>
+                        <button method="POST" name="leaveclubbutton" class="clubbutton" id="leaveclubbutton" type="button" onclick="leaveClub()">Leave Club</button>
+                        <div class="overlay" id="overlay"></div>
                     </div>
-                    <!-- ^ End of Modal ^ -->
-                    <br><br>
-                    <button method="POST" name="joinclubbutton" class="clubbutton" id="joinclubbutton" type="button" onclick="joinClub()">Join Club</button>
-                    <br><br>
-                    <button method="POST" name="leaveclubbutton" class="clubbutton" id="leaveclubbutton" type="button" onclick="leaveClub()">Leave Club</button>
-                    <div class="overlay" id="overlay{{ club.club_name }}"></div>
+                    
                 </div>
             {% endfor %}
         </div>
