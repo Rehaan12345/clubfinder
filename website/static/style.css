@@ -3,11 +3,15 @@ body {
     margin: 0;
     margin-bottom: 20vh;
     padding: 0;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    background-color: #adadad;
+    font-family:'Courier New', Courier, monospace;
+    background: linear-gradient(45deg, rgb(0, 173, 0), rgb(0, 45, 27));
     letter-spacing: 1px;
     text-decoration: none;
     display: grid;
+}
+
+#mainh1 {
+    color: white;
 }
 
 /***************** Login / Signup Styles: *****************/ 
@@ -151,8 +155,8 @@ body {
 
 /***************** Nav Styling: *****************/
 #mainnav {
-    background: #0082e6;
-    list-style-type: none;
+    background: #003903;
+    list-style-type: none; 
 }
 
 #mainnav ul { 
@@ -161,46 +165,27 @@ body {
     /* overflow: hidden; */
 }
 
+#mainnav .nav .navlink {
+    color: white;
+    text-decoration: none;
+}
+
 #mainnav ul li {
     display: inline-block;
     line-height: 40px;
     margin: 0 5px;
     text-align: center;
+    color: white;
 }
-
-/***************** Main Container Styling and child classes styling: ***************
-.maincontainer {
-    width: 90vh;
-    height: 90vh;
-    margin: 0 auto;
-    border: 10px solid;
-    border-radius: 10px;
-    
-    /* Flexbox styling: 
-    display: grid;
-    grid-template-columns: repeat(3, 30vh);
-}
-
-.club {
-    width: 100px;
-    height: 150px;
-    background-color: #0082e6;
-    padding: 2em;
-    color:black;
-    text-align: center;
-    border: 5px solid;
-    border-radius: 10px;
-    word-wrap:break-word;
-} */
 
 /********** Club Quick View Modal: **********/
 .clubdesc {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0);
+    /*transform: translate(-50%, -50%) scale(1); */
     transition: 200ms ease-in-out;
-    border: 1px solid black;
+    border: 10px solid red;
     border-radius: 5px;
     z-index: 10;
     background-color: white;
@@ -208,8 +193,9 @@ body {
     max-width: 80%;
 }
 
-.clubdesc.active {
-    transform: translate(-50%, -50%) scale(1);
+.clubdesc::backdrop {
+    background: linear-gradient(45deg, red, blue);
+    opacity: .3;
 }
 
 .clubdescheader {
@@ -391,24 +377,6 @@ body {
     background: #17ff60;
 }
 
-/******************** Club Buttons: ****************
-.clubbutton {
-    border-radius: 20px;
-    background-color:#439ee3;
-    border: .5px black;
-    width: 70px;
-    height: 40px;
-    display: grid;
-}
-
-.clubbutton:hover {
-    background-color: #02518d;
-}
-
-.clubbutton.active {
-    background-color: red;
-} */
-
 /********** Create a club form: **********/
 
 .makeaclubok {
@@ -437,7 +405,7 @@ body {
     bottom: 0;
     height: 3px;
     width: 30px;
-    background:#0082e6;
+    background:#01ab2e;
 }
 
 .makeaclubok form .userdetails {
@@ -489,11 +457,11 @@ form .button input {
     font-weight: 500;
     border-radius: 5px;;
     letter-spacing: 1px;
-    background: rgb(10, 15, 105);
+    background: rgb(0, 100, 33);
 }
 
 form .button input:hover {
-    background:rgb(42, 58, 241);
+    background:rgb(0, 23, 9);
 }
 
 @media (max-width: 584px) {
@@ -516,8 +484,12 @@ form .button input:hover {
 /******************** Club Card Styling: (New / Updated) ********************/
 .maincontainer {
     display: grid;
+    place-content:center;
+    margin-top: 10px;
+    grid-template-columns: repeat(3, 40vh);
+    gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
     min-height: 100vh;
-    place-items: center;
     line-height: 1.6;
 }
 
@@ -527,13 +499,26 @@ form .button input:hover {
     padding: 10rem 0 0;
     max-width: 35ch;
     overflow: hidden;
-
     transition: transform 500ms ease;
 }
 
 .club:hover,
 .club:focus-within {
-    transform: scale(1.05);
+    transform: scale(1.01);
+}
+
+.shortdesc {
+    color: white;
+    opacity: 1;
+}
+
+.shortdesc::after {
+    content: "";
+    color: white;
+}
+
+.club:hover .shortdesc::after {
+    transform: scaleX(1);
 }
 
 .clubcontent {

@@ -1,61 +1,3 @@
-// ********** Adds new club function: ********** //
-// Keeps track of the number of clubs created: 
-let numClubs = 0;
-// Waits for the window to load before finding the id of the submit button and making sure it is not null, all before waiting for the user to click on it and call the function addNewClub():
-//window.onload = function() {
-    //const submitButton = document.getElementById("submit");
-    //if (submitButton == null) {
-        //console.log("submit button is null, returning.");
-      //  return;
-    //}
-    //else submitButton.addEventListener("click", addNewClub);
-//}
-    
-function addNewClub(e) {
-    console.log("Function starts");
-    // KEEPS THE FORM ELEMENTS ON THE PAGE!!!: WOWZERS!
-    event.preventDefault();
-    console.log("Prevented Default");
-    // Stores the "maincontainer" div element:
-    const mainContainer = document.getElementById("maincontainer");
-    console.log("Main container found");
-    // Finds the name of the club that the user typed in:
-    const clubName = document.getElementById("nameofclub").value;
-    console.log("clubName: " + clubName + " secured");
-    // Checks to make sure clubName has a value, if not it returns and a club is not created:
-    if (clubName.length < 1) {
-        console.log("Club name too short, returned");
-        return;
-    }
-    // ELSE, creates the new club:
-    const newClub = document.createElement("div");
-    console.log("div created");
-    // Increments the number of clubs:
-    numClubs++;
-    console.log("numClubs incremented");
-    // Adds the "club" class to the new element: 
-    newClub.classList.add("club");
-    console.log("club class added");
-    // Adds the new club id to the new element:
-    newClub.setAttribute("id", "club" + numClubs);
-    console.log("id added");
-    // Adds the new club to the "maincontainer" class in HTML: 
-    mainContainer.appendChild(newClub);
-    console.log("new club added to maincontainer div");
-    // Calls the new club the correct name:
-    newClub.innerHTML = clubName;
-    console.log("club successfully added");
-};
-// Clear all clubs:
-function clearClubs() {
-    if (numClubs > 0) {
-        for (let i = 0; i < numClubs; i++) {
-            const club = document.querySelector(".club");
-            club.remove();
-        }
-    }
-}
-
 // ********** Flash close buttons: ********** //
 // Close Buttons automatically after 5 seconds: 
 setTimeout(function(){
@@ -68,30 +10,53 @@ setTimeout(function(){
     $(".success").addClass("hide");
 }, 5000);
 
-// ********** View Club Popup Modal (Open and close functions): ********** //
-function openModal() {
-    const modal = document.getElementById("clubdesc");
-    const parentModal = modal.parentElement.id;
-    console.log("parentModal: " + parentModal);
-    const overlay = document.getElementById("overlay");
-    if (modal == null || overlay == null) {
-        console.log("Modal or overlay is null.");
-        return;
-    } 
-    modal.classList.add("active");
-    overlay.classList.add("active");
-}
+// Waits for the window to be fully loaded before starting this function:
+window.addEventListener("DOMContentLoaded", () => {
+    // Finds the parent element of all the card/club child elements:
+    const parent = document.querySelector(".maincontainer");
+    // Adds an event listener to that element, calling the openModal() function once it has been clicked:
+    parent.addEventListener("click", openModal); 
+});
 
-function closeModal() {
-    const modal = document.getElementById("clubdesc");
-    const overlay = document.getElementById("overlay");
-    if (modal == null || overlay == null) {
-        console.log("Modal or overlay is null.");
-        return;
-    } 
-    modal.classList.remove("active");
-    overlay.classList.remove("active");
-} 
+function openModal(e) {
+    // Finds the clicked element:
+    const elementClickedOn = e.target;
+    console.log(elementClickedOn);
+    // The target of the button that was clicked: 
+    let elementClickedOnTarget = elementClickedOn.formTarget;
+    console.log(elementClickedOnTarget);
+    // Makes sure the clicked on element is the correct element:
+    if (elementClickedOnTarget && elementClickedOnTarget.length) {
+        // Removes the hash ("#") from the value of the id: 
+        for (let i = 0; i < elementClickedOnTarget.length; i++) {
+            if (elementClickedOnTarget.indexOf("#") === i) {
+                elementClickedOnTarget = elementClickedOnTarget.substring(i + 1);
+                console.log("New: " + elementClickedOnTarget);
+            }
+        }
+        // Finds the correct modal with the new and correct id:
+        const modal = document.getElementById(elementClickedOnTarget);
+        console.log(modal);
+        // Shows the modal:
+        modal.showModal();
+        // The id number of the club that was selected: ("club.id"):
+        let idNum = -1;
+        // Finds the id number of the clud (The last digits after the underscore ("_")):
+        for (let i = 0; i < elementClickedOnTarget.length; i++) {
+            if (elementClickedOnTarget.indexOf("_") === i) {
+                idNum = elementClickedOnTarget.substring(i + 1);
+                console.log(idNum);
+            }
+        }
+        // Finds the correct close club button with the correct id number:
+        const closeButton = document.getElementById("clubclosebutton_" + idNum); 
+        console.log(closeButton.parentElement.parentElement.id);
+        // Waits for a click and closes that modal: 
+        closeButton.addEventListener("click", () => {
+            modal.close();
+        });
+    }  
+};
 
 // ********** Join club, leave club button functions: ********** // 
 /*function joinClub() {
