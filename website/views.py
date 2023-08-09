@@ -10,6 +10,7 @@ clubsJoined = []
 
 @views.route("/", methods=["GET", "POST"])
 def home():
+     print(f"Current user: {current_user}")
      # Finds the club the user joined:
      clubName = request.args.get("nameOfClub")
      # Adds new club to the club list:
@@ -26,13 +27,13 @@ def home():
          print(clubsJoined)
      if request.method == "POST":
         boxname = request.form.get("nameofclub")
-        return render_template("layout.html", boxname=boxname, clubsJoined=clubsJoined, club_info=Club.query.all()) 
+        return render_template("layout.html", boxname=boxname, clubsJoined=clubsJoined, club_info=Club.query.all(), user=current_user) 
     
-     return render_template("layout.html", clubsJoined=clubsJoined, club_info=Club.query.all())
+     return render_template("layout.html", clubsJoined=clubsJoined, club_info=Club.query.all(), user=current_user)
 
 @views.route("/clubs")
 def clubs():
-    return render_template("clubs.html", clubsJoined=clubsJoined, club_info=Club.query.all())
+    return render_template("clubs.html", clubsJoined=clubsJoined, club_info=Club.query.all(), user=current_user)
 
 @views.route("/createaclub", methods=["GET", "POST"])
 def createaclub():
@@ -69,7 +70,7 @@ def createaclub():
         db.session.add(new_club)
         db.session.commit()
         flash("Your new club has been created!", category="success")
-        return render_template("layout.html")
+        return render_template("layout.html", user=current_user)
 
 
-    return render_template("createaclub.html")
+    return render_template("createaclub.html", user=current_user)

@@ -17,8 +17,15 @@
                 <li><a class="navlink" href="/">Home</a></li>
                 <li><a class="navlink" href="/clubs">Club Directory</a></li>
                 <li><a class="navlink" href="/createaclub">Create a Club</a></li>
-                <li><a class="navlink" href="/login">Login</a></li>
-                <li><a class="navlink" href="/signup">Signup</a></li>
+            </ul>
+            <ul id="header" class="nav">
+                {% if user.is_authenticated %}
+                    <li><a class="navlink" id="loggedinas" href="#">Logged in as {{ user.email }}</a></li>
+                    <li><a class="navlink" href="/logout">Logout</a></li>
+                {% else %}
+                    <li><a class="navlink" href="/login">Login</a></li>
+                    <li><a class="navlink" href="/signup">Signup</a></li>
+                {% endif %}
             </ul>
         </nav>  
 

@@ -178,6 +178,8 @@ body {
 #mainnav {
     background: var(--navheader);
     list-style-type: none; 
+    display: flex;
+    justify-content: space-between;
 }
 
 #mainnav .nav { 
