@@ -25,7 +25,7 @@ function openModal(e) {
     // The target of the button that was clicked: 
     let elementClickedOnTarget = elementClickedOn.formTarget;
     console.log(elementClickedOnTarget);
-    // Makes sure the clicked on element is the correct element:
+    // Makes sure the clicked on element is the correct element: 
     if (elementClickedOnTarget && elementClickedOnTarget.length) {
         // Removes the hash ("#") from the value of the id: 
         for (let i = 0; i < elementClickedOnTarget.length; i++) {
@@ -111,3 +111,32 @@ function leaveClub() {
 //function leaveClub(clubID) {
     
 //};
+
+//******************** Color Picker JS: ********************/
+// Stores all of the themes:
+window.addEventListener("DOMContentLoaded", () => {
+    const colorThemes = document.querySelectorAll(".theme");
+
+    // Stores the theme in the localStorage:
+    const storeTheme = function (theme) {
+        localStorage.setItem("theme", theme);
+    };
+
+    const retrieveTheme = function() {
+        const activeTheme = localStorage.getItem("theme");
+        colorThemes.forEach((themeOption) => {
+            if (themeOption.id === activeTheme) {
+                themeOption.checked = true;
+            }
+        })
+    }
+    
+    colorThemes.forEach((themeOption) => {
+        themeOption.addEventListener("click", () => {
+            storeTheme(themeOption.id);
+        });
+    });
+    
+    // Applies the correct theme: 
+    retrieveTheme();
+});

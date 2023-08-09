@@ -15,16 +15,33 @@
         <nav id="mainnav">
             <ul id="header" class="nav">
                 <li><a class="navlink" href="/">Home</a></li>
-                <li><a class="navlink" href="/clubs">Club_Directory</a></li>
-                <li><a class="navlink" href="/createaclub">Create_a_Club</a></li>
+                <li><a class="navlink" href="/clubs">Club Directory</a></li>
+                <li><a class="navlink" href="/createaclub">Create a Club</a></li>
                 <li><a class="navlink" href="/login">Login</a></li>
                 <li><a class="navlink" href="/signup">Signup</a></li>
             </ul>
         </nav>  
 
+        <form class="colorpicker" action="">
+            <fieldset>
+                <legend class="visuallyhidden">Pick a color scheme</legend>
+                <label class="visuallyhidden" for="BlackGreen">Black/Green</label>
+                <input class="theme" type="radio" id="BlackGreen" name="theme">
+
+                <label class="visuallyhidden" for="light">Light</label>
+                <input class="theme" type="radio" id="light" name="theme">
+
+                <label class="visuallyhidden" for="teal">teal</label>
+                <input class="theme" type="radio" id="teal" name="theme">
+
+                <label class="visuallyhidden" for="BlackBlue">Black/Blue</label>
+                <input class="theme" type="radio" id="BlackBlue" name="theme">
+            </fieldset>
+        </form>
+
         {% block body %}
 
-        <h1 id="mainh1"><center>Clubs</center></h1>
+        <h1 id="main1"><center>Clubs</center></h1>
 
         <!-- The Main Container (where the clubs are held): -->
         <div class="maincontainer" id="maincontainer"> 
@@ -57,24 +74,6 @@
                 </div>
             {% endfor %}
         </div>
-
-        <!-- Make a Club Form: 
-        <div class="makeaclub" id="makeaclub">
-            <div class="form">
-                <h3>Create a Club</h3>
-                <form method="POST" id="mainform">
-                    <label for="nameofclub">Club Name:</label>
-                    <br>
-                    <input type="text" id="nameofclub" name="nameofclub">
-                    <br><br>
-                    <input id="submit" type="submit" value="Create Club" onclick="addNewClub()">
-                </form>
-            </div>
-            <input type="submit" value="Clear Clubs" id="clear" onclick="clearClubs()">
-        </div> -->
-
-        <!-- Club Log -->
-
 
         {% endblock %}
 
