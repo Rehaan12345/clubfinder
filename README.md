@@ -27,13 +27,13 @@ This project uses Flask, a lightweight Python framework.
   - Every time a club is created, it gets added the database class **Club**. This is stored by SQL. Instead of a list of each club getting passed to the frontend, the backends send the entire **Club** *class* to the frontend. 
     - Ex: 
   
-        ```
+        ```Python
         return render_template("layout.html", club_info=Club.query.all(), user=current_user)
         ```
         This return statement redirects the user to the file "layout.html" (home page) and sends in all the information that is in the **Club** class in the variable *club_info*. The *user* variable sends the current user's information to "layout.html." Now, in the "layout.html" file, I can access all of the passed in information with the templating language Jinja. 
 
         - Ex: 
-            ```
+            ```Python
             {% for club in club_info %}
                         <div class="club" id="{{ club.club_name }}1">
                             <div class="clubcontent" id="{{ club.club_name }}"> 
@@ -46,7 +46,7 @@ This project uses Flask, a lightweight Python framework.
 
   - Every time a user joins a club, that club gets added to the **joined_clubs** table in the **models.py** file. This table links the two other database classes, **User** and **Club**, which each store all the information about the subject. **joined_clubs** stores foreign keys, or links to both clubs, in that table. So when a user joins *Drone Club* for example, the id for the **User** who joined and the id for *Drone Club* gets stored in **joined_clubs**. A completed model looks something like this:
 
-    ```
+    ```Python 
     Political Awareness Club
     [<User 2>, <User 1>, <User 3>]
     ---
@@ -70,7 +70,7 @@ This project uses Flask, a lightweight Python framework.
 
     Leaving clubs is very simple. The id for the user who left and the id for the club they're leaving both get deleted from the **joined_clubs** table. 
     - Ex: 
-        ```
+        ```Python
         current_user.clubs.remove(Club.query.filter_by(club_name=leave_club).first())
         ```
         The name *clubs* is how the table **joined_clubs** gets referenced by the **User** class. The **Club** class references **joined_clubs** as *members*.
