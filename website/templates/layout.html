@@ -15,8 +15,10 @@
         <nav id="mainnav">
             <ul id="header" class="nav">
                 <li><a class="navlink" href="/">Home</a></li>
+                {% if user.is_authenticated %}
                 <li><a class="navlink" href="/clubs">Club Directory</a></li>
                 <li><a class="navlink" href="/createaclub">Create a Club</a></li>
+                {% endif %}
             </ul>
             <ul id="header" class="nav">
                 {% if user.is_authenticated %}
@@ -66,15 +68,15 @@
                         <dialog class="clubdesc" id="clubdesc_{{ club.id }}">
                             <div class="clubdescheader">
                                 <div class="clubdescname">Join {{ club.club_name }}</div>
-                                <button data-close-button id="clubclosebutton_{{ club.id }}" class="clubclosebutton"">&times;</button>
+                                <button data-close-button id="clubclosebutton_{{ club.id }}" class="clubclosebutton">&times;</button>
                             </div>
                             <div class="clubdescdesc" id="clubdescdesc{{ club.club_name }}">{{ club.description }}</div>
                         </dialog>
                         <!-- ^ End of Modal ^ -->
                         <br><br>
-                        <button method="POST" name="joinclubbutton" class="clubbutton" id="joinclubbutton" type="button" onclick="joinClub()">Join Club</button>
+                        <button method="GET" name="joinclubbutton_{{ club.id }}" class="clubbutton" id="joinclubbutton_{{ club.id }}" type="button">Join Club</button>
                         <br><br>
-                        <button method="POST" name="leaveclubbutton" class="clubbutton" id="leaveclubbutton" type="button" onclick="leaveClub()">Leave Club</button>
+                        <button method="GET" name="leaveclubbutton_{{ club.id }}" class="clubbutton" id="leaveclubbutton_{{ club.id }}" type="button">Leave Club</button>
                         <div class="overlay" id="overlay"></div>
                     </div>
                     
@@ -90,13 +92,15 @@
             {% for category, message in messages %}
             {% if category == "error" %}
 
-            <div class="alert show"> 
+            <div class="alert show" id="flash"> 
+                <button class="btn-close">&times;</button>
                 <span class="msg">{{ message }}</span>
             </div>
 
             {% else %}
 
-            <div class="success show">
+            <div class="success show" id="flash">
+                <button class="btn-close">&times;</button>
                 <span class="msg"> {{ message }} </span>
             </div>
 

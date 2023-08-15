@@ -1,15 +1,19 @@
 // ********** Flash close buttons: ********** //
-// Close Buttons automatically after 5 seconds: 
-setTimeout(function(){
-    $(".alert").removeClass("show");
-    $(".alert").addClass("hide");
-}, 5000);
+window.addEventListener("DOMContentLoaded", () => {
+    // Closes the flashed message on click:
+    const closebutton = document.getElementById("flash");
+    closebutton.addEventListener("click", () => {
+        closebutton.classList.remove("show");
+        closebutton.classList.add("hide");
+    });
+    // The button goes away after 5 seconds:
+    setTimeout(() => {
+        closebutton.classList.remove("show");
+        closebutton.classList.add("hide");
+    }, 5000)
+});
 
-setTimeout(function(){
-    $(".success").removeClass("show");
-    $(".success").addClass("hide");
-}, 5000);
-
+// ********** Open / Close modal functions: ********** // 
 // Waits for the window to be fully loaded before starting this function:
 window.addEventListener("DOMContentLoaded", () => {
     // Finds the parent element of all the card/club child elements:
@@ -18,6 +22,7 @@ window.addEventListener("DOMContentLoaded", () => {
     parent.addEventListener("click", openModal); 
 });
 
+// Opens the modal:
 function openModal(e) {
     // Finds the clicked element:
     const elementClickedOn = e.target;
@@ -37,7 +42,7 @@ function openModal(e) {
         // Finds the correct modal with the new and correct id:
         const modal = document.getElementById(elementClickedOnTarget);
         console.log(modal);
-        // Shows the modal:
+        // Actually opens/shows the modal:
         modal.showModal();
         // The id number of the club that was selected: ("club.id"):
         let idNum = -1;
@@ -53,40 +58,47 @@ function openModal(e) {
         console.log(closeButton.parentElement.parentElement.id);
         // Waits for a click and closes that modal: 
         closeButton.addEventListener("click", () => {
+            // Closes the modal:
             modal.close();
         });
-    }  
-};
+    };  
+}; 
 
-// ********** Join club, leave club button functions: ********** // 
-/*function joinClub() {
-    const joinClubButton = document.querySelector("#joinclubbutton");
-    const jCBparentNode = joinClubButton.parentNode; 
-    console.log(jCBparentNode.joinClubButton);
-    //jCBparentNode.joinClubButton.classList.add("active");
-};*/
+// ********** Join / Leave club functions: ********** //
+// Waits for the window to be fully loaded before starting this function:
+window.addEventListener("DOMContentLoaded", () => {
+    // Finds the parent element of all the card/club child elements:
+    const parent = document.querySelector(".maincontainer");
+    // Adds an event listener to that element, calling the openModal() function once it has been clicked:
+    parent.addEventListener("click", joinOrLeaveClub); 
+});
 
-function joinClub() {
-    const parentdiv = document.getElementById("maincontainer");
-    console.log("parentDiv: " + parentdiv.id);
-    const joinButton = document.getElementById("joinclubbutton");
-    console.log("JCB id: " + joinButton.id);
-    const joinButtonParent = joinButton.parentElement;
-    console.log("joinButtonParent id: " + joinButtonParent.id);
-    console.log("Description: " + document.getElementById("clubdescdesc" + joinButton));
-    // An array of all the child elements of the parentdiv, as shown above. 
-    const clubs = parentdiv.querySelectorAll(".clubdesc"); 
-    console.log(clubs);
-    const pDfirstChild = parentdiv.firstElementChild.id;
-    console.log(pDfirstChild); 
+// Joins the club function:
+function joinOrLeaveClub(e) {
+    // Finds the clicked on element:
+    const elementClickedOn = e.target;
+    console.log(elementClickedOn);
+    // The target of the button that was clicked:
+    let elementClickedOnTarget = elementClickedOn.id;
+    console.log("Elementclickontarget: " + elementClickedOnTarget);
+    // Removes the last digits from the joinclubbutton id.
+    for (let i = 0; i < elementClickedOnTarget.length; i++) {
+        if (elementClickedOnTarget.indexOf("_") === i) {
+            elementClickedOnTarget = elementClickedOnTarget.substring(0, i);
+            console.log("ElementclickedontargetFINAL: " + elementClickedOnTarget);
+            break;
+        }
+    }
 
-    const buttonParentNode = joinButton.parentNode.id;
-    console.log("Elements found");
-        console.log("Second function starts");
-        // const joinClubButton = document.getElementById("joinclubbutton");  
-        joinButton.classList.add("active");
-        const clubName = document.getElementById(buttonParentNode + "1").textContent;
-        // Sends to the python server which club the user has just joined (w/ AJAX):
+    const joinClubButton = "joinclubbutton"; 
+    const leaveClubButton = "leaveclubbutton"; 
+
+    if (elementClickedOnTarget.localeCompare(joinClubButton) === 0) {
+        console.log("Join club button pressed.");
+
+        const clubName = elementClickedOn.parentElement.id;
+        console.log(clubName);
+
         $.ajax({
             url: "",
             // Sending this information to the backend Python server in a "GET" request: 
@@ -95,24 +107,35 @@ function joinClub() {
             // The data to send to the backend server:
             data: {
                 // Sending the name of the club the user wants to join:
-                nameOfClub: clubName
+                joinClub: clubName
             },
             // A success message if all goes well, also for debugging:
-            success: console.log("Successfully requested to join " + clubName /* Change this later */)
-        });
-    }
+            success: console.log("Successfully requested to join " + clubName) // (Change this later)
+        }); 
+    } 
+    else if (elementClickedOnTarget.localeCompare(leaveClubButton) === 0) {
+        console.log("Leave club button pressed.");
 
-function leaveClub() {
-    const joinClubButton = document.querySelector("#joinclubbutton");
-    joinClubButton.classList.remove("active");
+        const clubName = elementClickedOn.parentElement.id;
+        console.log(clubName);
+
+        $.ajax({
+            url: "",
+            // Sending this information to the backend Python server in a "GET" request: 
+            type: "GET",
+            contentType: "application/json",
+            // The data to send to the backend server:
+            data: {
+                // Sending the name of the club the user wants to join:
+                leaveClub: clubName
+            },
+            // A success message if all goes well, also for debugging:
+            success: console.log("Successfully requested to leave " + clubName) /* Change this later */
+        }); 
+    }
 }
 
-// Leave club function:
-//function leaveClub(clubID) {
-    
-//};
-
-//******************** Color Picker JS: ********************/
+// ********** Color Picker JS: ********** //
 // Stores all of the themes:
 window.addEventListener("DOMContentLoaded", () => {
     const colorThemes = document.querySelectorAll(".theme");
@@ -129,7 +152,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 themeOption.checked = true;
             }
         })
-    }
+    };
     
     colorThemes.forEach((themeOption) => {
         themeOption.addEventListener("click", () => {

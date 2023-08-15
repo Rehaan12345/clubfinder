@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash
+from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
 from .models import User, Club 
 from . import db 
@@ -6,34 +6,65 @@ from . import db
 views = Blueprint("views", __name__)  
 
 # The list of all the clubs the user is in:
-clubsJoined = []
+# clubs_joined = []
 
 @views.route("/", methods=["GET", "POST"])
 def home():
-     print(f"Current user: {current_user}")
-     # Finds the club the user joined:
-     clubName = request.args.get("nameOfClub")
-     # Adds new club to the club list:
-     clubsJoined.append(clubName)
-     # Printed for debugging:
-     print(clubsJoined)
-     # Finds the club the user wants to leave:
-     clubToLeave = request.args.get("clubLeft")
-     # Makes sure the user is already in that club:
-     if clubToLeave in clubsJoined:
-         # If they are, that club gets removed from the club list:
-         clubsJoined.remove(clubToLeave)
-         # Printed for debugging:
-         print(clubsJoined)
-     if request.method == "POST":
-        boxname = request.form.get("nameofclub")
-        return render_template("layout.html", boxname=boxname, clubsJoined=clubsJoined, club_info=Club.query.all(), user=current_user) 
+    print(f"Current user: {current_user}")
+    join_club = request.args.get("joinClub")
+
+    if join_club is not None:
+        if Club.query.filter_by(club_name=join_club).first() in current_user.clubs:
+            flash("You're already in that club.")
+            print("error")
+        else:
+            print(f"User wants to join {join_club}")
+            if Club.query.filter_by(club_name=join_club).first():
+                print(f"{join_club} found!")
+            else:
+                print(f"{join_club} not found!")
+            print(f"{Club.query.filter_by(club_name=join_club).first()}")
+            current_user.clubs.append(Club.query.filter_by(club_name=join_club).first())
+            print(current_user.clubs)
+            db.session.commit()
+            clubs = Club.query.all()
+            for club in clubs:
+                print(club.club_name) 
+                print(club.members)
+                print("---")
+            users = User.query.all()
+            for user in users:
+                print(user.email)
+                print(user.clubs)
+                print("---")
+            flash(f"{join_club} joined!", category="success")
+    else:
+        print(f"Request to join {join_club} failed!") 
     
-     return render_template("layout.html", clubsJoined=clubsJoined, club_info=Club.query.all(), user=current_user)
+    leave_club = request.args.get("leaveClub")
+    if leave_club is not None:
+        print(current_user.clubs)
+        leave_club_id = Club.query.filter_by(club_name=leave_club).first()
+        print(leave_club_id)
+        if leave_club_id in current_user.clubs:
+            print(f"User wants to leave {leave_club}") 
+            print(Club.query.filter_by(club_name=leave_club).first())
+            current_user.clubs.remove(Club.query.filter_by(club_name=leave_club).first())
+            db.session.commit()
+            print(f"Successfully left {leave_club}")
+            flash(f"Left {join_club}!", category="success")
+            # return render_template("layout.html", club_info=Club.query.all(), user=current_user)
+            print(f"Current user clubs: {current_user.clubs}")
+        else:
+            flash(f"You aren't in {join_club}!", category="error")
+            # return render_template("layout.html", club_info=Club.query.all(), user=current_user)
+            print(f"User is not in {leave_club}")
+
+    return render_template("layout.html", club_info=Club.query.all(), user=current_user)
 
 @views.route("/clubs")
 def clubs():
-    return render_template("clubs.html", clubsJoined=clubsJoined, club_info=Club.query.all(), user=current_user)
+    return render_template("clubs.html", club_info=Club.query.all(), user=current_user)
 
 @views.route("/createaclub", methods=["GET", "POST"])
 def createaclub():
@@ -70,7 +101,7 @@ def createaclub():
         db.session.add(new_club)
         db.session.commit()
         flash("Your new club has been created!", category="success")
-        return render_template("layout.html", user=current_user)
+        return render_template("layout.html", user=current_user, club_info=Club.query.all())
 
 
     return render_template("createaclub.html", user=current_user)

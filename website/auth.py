@@ -57,4 +57,5 @@ def signup():
 @login_required # Makes sure we cannot access this route / page unless the user is logged in - can't logged out if not logged in.  
 def logout():
     logout_user() # Logs out the current user. 
+    flash("Logged out", category="success")
     return redirect(url_for("auth.login"))

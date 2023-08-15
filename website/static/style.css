@@ -623,6 +623,7 @@ form .button input:hover {
 }
 
 .colorpicker > fieldset {
+    opacity: .8;
     border: 0;
     display: flex;
     gap: 2rem;
