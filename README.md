@@ -1,6 +1,8 @@
 # CRLS clubfinder
 
-## Find, join, leave, and create clubs for the CRLS community.
+## About the project
+
+#### Find, join, leave, and create clubs for the CRLS community.
 
 I created this website for CRLS students to have an easier place to find clubs. Currently we only find out about clubs on club day at the start of the year. This website makes it so year round, students can join new clubs as soon as their schedule changes. It allows students to view descriptions and see what the club is about directly from the website, without having to rely on secondhand information. 
 
@@ -10,7 +12,7 @@ I will work with the school to make the process of creating your own clubs much 
 
 If you have any ideas or questions regarding the website and its functionality, let me know by emailing me at **25ranjaria@cpsd.us.**
 
-# About the code
+## About the code
 
 This project uses Flask, a lightweight Python framework. 
 
@@ -65,3 +67,10 @@ This project uses Flask, a lightweight Python framework.
     ---
     ```
     Every **Club** can have as many *unique* members (the same member can't join the same club more than once), and every **User** can join as many *unique* clubs. This relationship is modeled in a many-to-many relationship between the database models **User** and **Club**.
+
+    Leaving clubs is very simple. The id for the user who left and the id for the club they're leaving both get deleted from the **joined_clubs** table. 
+    - Ex: 
+        ```
+        current_user.clubs.remove(Club.query.filter_by(club_name=leave_club).first())
+        ```
+        The name *clubs* is how the table **joined_clubs** gets referenced by the **User** class. The **Club** class references **joined_clubs** as *members*.
