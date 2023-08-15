@@ -198,12 +198,15 @@ body {
     text-decoration: none;
 }
 
+#mainnav .nav .navlink:focus {
+    color: black;
+}
+
 #mainnav ul li {
     display: inline-block;
     line-height: 40px;
     margin: 0 5px;
-    text-align: center;
-    color: var(--textcolor);
+    text-align: center; 
 }
 
 /********** Club Quick View Modal: **********/

@@ -72,7 +72,7 @@
         {% endwith %}
 
         {% block body %}
-        
+
             <h1 id="main1"><center>Clubs</center></h1>
 
             <!-- The Main Container (where the clubs are held): -->
@@ -96,8 +96,8 @@
                                 <div class="clubdescdesc" id="clubdescdesc{{ club.club_name }}">
                                     Club President: {{ club.president_email }}
                                     <br><br>
-                                    Vice Presidents: {{ club.vicepresident_email1 }},&nbsp;{{ club.vicepresident_email2 }},&nbsp;{{ club.vicepresident_email3 }}
-                                    <br><br>
+                                    {% if club.vicepresident_email1 %}Vice President{% if club.vicepresident_email1 and club.vicepresident_email2 %}s{% endif %}: {{ club.vicepresident_email1 }}{% endif %}{% if club.vicepresident_email2 %},&nbsp;{{ club.vicepresident_email2 }}{% endif %}{% if club.vicepresident_email3 %},&nbsp;{{ club.vicepresident_email3 }} {% endif %}
+                                    <br><br> 
                                     Club Advisor: {{ club.advisor_email }}
                                     <br><br>
                                     Club Description: {{ club.description }}
