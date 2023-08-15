@@ -284,7 +284,7 @@ body {
     right: 0;
     top: 10px;
     border-radius: 4px;
-    border-left: 8px solid var(--alertorangesideborder);
+    border-left: 8px solid var(--alertorangemesssage);
     overflow: hidden;
     opacity: 1;
     pointer-events: auto;
@@ -297,7 +297,7 @@ body {
 
 .alert.show {
     animation: show_slide 1s ease forwards;
-  }
+}
 
 @keyframes show_slide {
     0% {
@@ -361,7 +361,7 @@ body {
     right: 0;
     top: 10px;
     border-radius: 4px;
-    border-left: 8px solid var(--alertgreensideborder);
+    border-left: 8px solid var(--alertgreenmessage);
     overflow: hidden;
     opacity: 1;
     pointer-events: auto;

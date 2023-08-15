@@ -4,9 +4,35 @@
 
 <h1><center>Your Clubs:</center></h1>
 
-<div class="maincontainer">
-    {% for club in clubsJoined %}
-    {{ club }}
+<!-- The Main Container (where the clubs are held): -->
+<div class="maincontainer" id="maincontainer"> 
+    <!-- Clubs are added here: -->
+    {% for club in in_clubs %}
+        <div class="club" id="{{ club.club_name }}1"> <!-- Card -->
+            <div class="clubcontent" id="{{ club.club_name }}"> <!-- Card content -->
+                <div class="clubtitle" id="{{ club.club_name }}1">{{ club.club_name }}</div> <!-- Card title  -->
+                <br><br>
+                <button formTarget="#clubdesc_{{ club.id }}" class="clubbutton" id="viewclub" type="button">View More</button> <!-- Button -->
+                <p class="shortdesc">
+                    Club President: {{ club.president_email }}
+                </p> <!-- Card body -->
+                <!-- Modal: -->
+                <dialog class="clubdesc" id="clubdesc_{{ club.id }}">
+                    <div class="clubdescheader">
+                        <div class="clubdescname">Join {{ club.club_name }}</div>
+                        <button data-close-button id="clubclosebutton_{{ club.id }}" class="clubclosebutton">&times;</button>
+                    </div>
+                    <div class="clubdescdesc" id="clubdescdesc{{ club.club_name }}">{{ club.description }}</div>
+                </dialog>
+                <!-- ^ End of Modal ^ -->
+                <br><br>
+                <button method="GET" name="joinclubbutton_{{ club.id }}" class="clubbutton" id="joinclubbutton_{{ club.id }}" type="button">Join Club</button>
+                <br><br>
+                <button method="GET" name="leaveclubbutton_{{ club.id }}" class="clubbutton" id="leaveclubbutton_{{ club.id }}" type="button">Leave Club</button>
+                <div class="overlay" id="overlay"></div>
+            </div>
+            
+        </div>
     {% endfor %}
 </div>
 

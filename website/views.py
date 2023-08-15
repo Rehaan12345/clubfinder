@@ -64,7 +64,7 @@ def home():
 
 @views.route("/clubs")
 def clubs():
-    return render_template("clubs.html", club_info=Club.query.all(), user=current_user)
+    return render_template("clubs.html", in_clubs=current_user.clubs, user=current_user)
 
 @views.route("/createaclub", methods=["GET", "POST"])
 def createaclub():
