@@ -16,7 +16,7 @@
             <ul id="header" class="nav">
                 <li><a class="navlink" href="/">Home</a></li>
                 {% if user.is_authenticated %}
-                <li><a class="navlink" href="/clubs">Club Directory</a></li>
+                <li><a class="navlink" href="/clubs">My Clubs</a></li>
                 <li><a class="navlink" href="/createaclub">Create a Club</a></li>
                 {% endif %}
             </ul>
@@ -48,44 +48,6 @@
             </fieldset>
         </form>
 
-        {% block body %}
-
-        <h1 id="main1"><center>Clubs</center></h1>
-
-        <!-- The Main Container (where the clubs are held): -->
-        <div class="maincontainer" id="maincontainer"> 
-            <!-- Clubs are added here: -->
-            {% for club in club_info %}
-                <div class="club" id="{{ club.club_name }}1"> <!-- Card -->
-                    <div class="clubcontent" id="{{ club.club_name }}"> <!-- Card content -->
-                        <div class="clubtitle" id="{{ club.club_name }}1">{{ club.club_name }}</div> <!-- Card title  -->
-                        <br><br>
-                        <button formTarget="#clubdesc_{{ club.id }}" class="clubbutton" id="viewclub" type="button">View More</button> <!-- Button -->
-                        <p class="shortdesc">
-                            Club President: {{ club.president_email }}
-                        </p> <!-- Card body -->
-                        <!-- Modal: -->
-                        <dialog class="clubdesc" id="clubdesc_{{ club.id }}">
-                            <div class="clubdescheader">
-                                <div class="clubdescname">Join {{ club.club_name }}</div>
-                                <button data-close-button id="clubclosebutton_{{ club.id }}" class="clubclosebutton">&times;</button>
-                            </div>
-                            <div class="clubdescdesc" id="clubdescdesc{{ club.club_name }}">{{ club.description }}</div>
-                        </dialog>
-                        <!-- ^ End of Modal ^ -->
-                        <br><br>
-                        <button method="GET" name="joinclubbutton_{{ club.id }}" class="clubbutton" id="joinclubbutton_{{ club.id }}" type="button">Join Club</button>
-                        <br><br>
-                        <button method="GET" name="leaveclubbutton_{{ club.id }}" class="clubbutton" id="leaveclubbutton_{{ club.id }}" type="button">Leave Club</button>
-                        <div class="overlay" id="overlay"></div>
-                    </div>
-                    
-                </div>
-            {% endfor %}
-        </div>
-
-        {% endblock %}
-
         <!-- Flash Messages (included in all pages): -->
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
@@ -108,6 +70,53 @@
             {% endfor %}
         {% endif %}
         {% endwith %}
+
+        {% block body %}
+        
+            <h1 id="main1"><center>Clubs</center></h1>
+
+            <!-- The Main Container (where the clubs are held): -->
+            <div class="maincontainer" id="maincontainer"> 
+                <!-- Clubs are added here: -->
+                {% for club in club_info %}
+                    <div class="club" id="{{ club.club_name }}1"> <!-- Card -->
+                        <div class="clubcontent" id="{{ club.club_name }}"> <!-- Card content -->
+                            <div class="clubtitle" id="{{ club.club_name }}1">{{ club.club_name }}</div> <!-- Card title  -->
+                            <br><br>
+                            <button formTarget="#clubdesc_{{ club.id }}" class="clubbutton" id="viewclub" type="button">View More</button> <!-- Button -->
+                            <p class="shortdesc">
+                                Club President: {{ club.president_email }}
+                            </p> <!-- Card body -->
+                            <!-- Modal: -->
+                            <dialog class="clubdesc" id="clubdesc_{{ club.id }}">
+                                <div class="clubdescheader">
+                                    <div class="clubdescname">Join {{ club.club_name }}</div>
+                                    <button data-close-button id="clubclosebutton_{{ club.id }}" class="clubclosebutton">&times;</button>
+                                </div>
+                                <div class="clubdescdesc" id="clubdescdesc{{ club.club_name }}">
+                                    Club President: {{ club.president_email }}
+                                    <br><br>
+                                    Vice Presidents: {{ club.vicepresident_email1 }},&nbsp;{{ club.vicepresident_email2 }},&nbsp;{{ club.vicepresident_email3 }}
+                                    <br><br>
+                                    Club Advisor: {{ club.advisor_email }}
+                                    <br><br>
+                                    Club Description: {{ club.description }}
+                                    <br><br>
+                                    {{ club.club_name }} is located in room {{ club.room_number }}, and starts at {{ club.start_time }}.
+                                </div>
+                            </dialog>
+                            <!-- ^ End of Modal ^ -->
+                            <br><br>
+                            <button method="GET" name="joinclubbutton_{{ club.id }}" class="clubbutton" id="joinclubbutton_{{ club.id }}" type="button">Join Club</button>
+                            <br><br>
+                            <button method="GET" name="leaveclubbutton_{{ club.id }}" class="clubbutton" id="leaveclubbutton_{{ club.id }}" type="button">Leave Club</button> 
+                        </div>
+                        
+                    </div>
+                {% endfor %}
+            </div>
+
+        {% endblock %}
 
     </body>
 </html>

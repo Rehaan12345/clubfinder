@@ -60,7 +60,19 @@ function openModal(e) {
         closeButton.addEventListener("click", () => {
             // Closes the modal:
             modal.close();
-        });
+        }); 
+        // Closes the modal when clicking outside (copied from WebDevSimplified's code):
+        modal.addEventListener("click", e => {
+            const dialogDimensions = modal.getBoundingClientRect()
+            if (
+              e.clientX < dialogDimensions.left ||
+              e.clientX > dialogDimensions.right ||
+              e.clientY < dialogDimensions.top ||
+              e.clientY > dialogDimensions.bottom
+            ) {
+              modal.close()
+            }
+          })
     };  
 }; 
 

@@ -208,16 +208,14 @@ body {
 
 /********** Club Quick View Modal: **********/
 .clubdesc {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    /*transform: translate(-50%, -50%) scale(1); */
+    position: fixed; 
     transition: 200ms ease-in-out;
-    border: 10px solid red;
-    border-radius: 5px;
+    border: 5px solid var(--bg2);
+    border-radius: 10px;
     z-index: 10;
     background-color: white;
     width: 500px;
+    height: 500px;
     max-width: 80%;
 }
 
@@ -245,24 +243,7 @@ body {
 
 .clubdescdesc {
     padding: 10px 15px;
-}
-
-.overlay {
-    position: fixed;
-    opacity: 0; 
-    transition: 200ms ease-in-out;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--overlay);
-    pointer-events: none;
-}
-
-.overlay.active {
-    pointer-events: all;
-    opacity: 1;
-}
+} 
 
 /***************** Make a club form styling: *****************/
 .makeaclub {
@@ -513,7 +494,8 @@ form .button input:hover {
     gap: 10px;
     grid-auto-rows: minmax(100px, auto);
     min-height: 100vh;
-    line-height: 1.6;
+    line-height: 1.6; 
+    max-width: 100%;
 }
 
 .club {

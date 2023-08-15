@@ -2,7 +2,7 @@
 
 {% block body %}
 
-<h1><center>Your Clubs:</center></h1>
+<h1 id="main1"><center>My Clubs:</center></h1>
 
 <!-- The Main Container (where the clubs are held): -->
 <div class="maincontainer" id="maincontainer"> 
@@ -26,10 +26,6 @@
                 </dialog>
                 <!-- ^ End of Modal ^ -->
                 <br><br>
-                <button method="GET" name="joinclubbutton_{{ club.id }}" class="clubbutton" id="joinclubbutton_{{ club.id }}" type="button">Join Club</button>
-                <br><br>
-                <button method="GET" name="leaveclubbutton_{{ club.id }}" class="clubbutton" id="leaveclubbutton_{{ club.id }}" type="button">Leave Club</button>
-                <div class="overlay" id="overlay"></div>
             </div>
             
         </div>
