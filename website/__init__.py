@@ -2,9 +2,15 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path 
 from flask_login import LoginManager 
+from flask_admin import Admin 
+from flask_admin.contrib.sqla import ModelView
 
+# Initializing the SQL database:
 db = SQLAlchemy()
 DB_NAME = "database.db"
+
+# Initializing the admin page:
+admin = Admin()
 
 def create_app():
     app = Flask(__name__)
@@ -21,6 +27,11 @@ def create_app():
 
     with app.app_context():
         db.create_all()
+        admin.init_app(app)
+
+    # Adding both classes (User and Club) to the admin page:
+    admin.add_view(ModelView(User, db.session))
+    admin.add_view(ModelView(Club, db.session))
 
     login_manager = LoginManager()
     # Where the user goes if they're not logged in. 
