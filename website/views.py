@@ -5,10 +5,8 @@ from . import db
 
 views = Blueprint("views", __name__)  
 
-# The list of all the clubs the user is in:
-# clubs_joined = []
-
 @views.route("/", methods=["GET", "POST"])
+@login_required
 def home():
     print(f"Current user: {current_user}")
     join_club = request.args.get("joinClub")
@@ -63,10 +61,17 @@ def home():
     return render_template("layout.html", club_info=Club.query.all(), user=current_user)
 
 @views.route("/clubs")
+@login_required
 def clubs():
     return render_template("clubs.html", in_clubs=current_user.clubs, user=current_user)
 
+@views.route("/clubdashboard")
+@login_required
+def club_dashboard():
+    return render_template("clubdashboard.html", club_info=Club.query.all(), user_info=User.query.all(), user=current_user)
+
 @views.route("/createaclub", methods=["GET", "POST"])
+@login_required
 def createaclub():
     # Accepting the post request:
     if request.method == "POST":
@@ -79,6 +84,9 @@ def createaclub():
         room_number = request.form.get("roomnumber")
         start_time = request.form.get("clubstarttime")
         description = request.form.get("clubdescription")
+        president = User.query.filter_by(email=president_email).first()
+        president.is_leader = True 
+        print(f"President: {president}")
         # Verifying the post request:
         # name = Club.query.filter_by(club_name=club_name).first() 
         # email = User.query.filter_by(email=email).first()

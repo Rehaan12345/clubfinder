@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}Club Dashboard{% endblock %}
+
+{% block body %}
+
+    {% if user.is_leader %}
+        <h1>You are a leader!</h1>
+            {% for club in club_info %}
+                    {% if club.president_email == current_user.email %}
+                        <br><br>
+                        Club President: {{ club.president_email }} 
+                        <br><br>
+                        User Email: {{ current_user.email }}
+                        <br><br>
+                        Club: {{ club.club_name }}
+                        <br><br><br>
+                    {% endif %}
+            {% endfor %}
+    {% endif %}
+
+{% endblock %}

@@ -16,8 +16,11 @@
             <ul id="header" class="nav">
                 <li><a class="navlink" href="/">Home</a></li>
                 {% if user.is_authenticated %}
-                <li><a class="navlink" href="/clubs">My Clubs</a></li>
-                <li><a class="navlink" href="/createaclub">Create a Club</a></li>
+                    <li><a class="navlink" href="/clubs">My Clubs</a></li>
+                    <li><a class="navlink" href="/createaclub">Create a Club</a></li>
+                {% if user.is_leader %}
+                    <li><a class="navlink" href="/clubdashboard">Club Dashboard</a></li>
+                {% endif %}
                 {% endif %}
             </ul>
             <ul id="header" class="nav">
@@ -50,25 +53,21 @@
 
         <!-- Flash Messages (included in all pages): -->
         {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-            {% if category == "error" %}
-
-            <div class="alert show" id="flash"> 
-                <button class="btn-close">&times;</button>
-                <span class="msg">{{ message }}</span>
-            </div>
-
-            {% else %}
-
-            <div class="success show" id="flash">
-                <button class="btn-close">&times;</button>
-                <span class="msg"> {{ message }} </span>
-            </div>
-
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if category == "error" %}
+                        <div class="alert show" id="flash"> 
+                            <button class="btn-close">&times;</button>
+                            <span class="msg">{{ message }}</span>
+                        </div>
+                    {% else %}
+                        <div class="success show" id="flash">
+                            <button class="btn-close">&times;</button>
+                            <span class="msg"> {{ message }} </span>
+                        </div>
+                    {% endif %}
+                {% endfor %}
             {% endif %}
-            {% endfor %}
-        {% endif %}
         {% endwith %}
 
         {% block body %}
@@ -90,7 +89,7 @@
                             <!-- Modal: -->
                             <dialog class="clubdesc" id="clubdesc_{{ club.id }}">
                                 <div class="clubdescheader">
-                                    <div class="clubdescname">Join {{ club.club_name }}</div>
+                                    <div class="clubdescname">{{ club.club_name }}</div>
                                     <button data-close-button id="clubclosebutton_{{ club.id }}" class="clubclosebutton">&times;</button>
                                 </div>
                                 <div class="clubdescdesc" id="clubdescdesc{{ club.club_name }}">
