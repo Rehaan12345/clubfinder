@@ -35,6 +35,12 @@ body {
     color: white;
 }
 
+#profileicon {
+    width: 3%;
+    height: 3%;
+    mix-blend-mode:multiply;
+}
+
 /***************** Login / Signup Styles: *****************/ 
 .center {
     font-family: Arial, Helvetica, sans-serif;
@@ -181,25 +187,23 @@ body {
     display: flex;
     justify-content: space-between; 
 }
-
+/* 
 #mainnav .nav { 
     margin-right: 20px;
     margin-left: 20px;
     /* overflow: hidden; */
-}
+/* }  */
 
 #mainnav .nav .navlink {
     color: var(--textcolor);
     text-decoration: none;
-}
+} 
 
+.dropdown.active > .navlink,
 #mainnav .nav .navlink:hover {
-    color: var(--bg1);
+    background: var(--bg1);
     text-decoration: none;
-}
-
-#mainnav .nav .navlink:focus {
-    color: black;
+    border-radius: 10px; 
 }
 
 #mainnav ul li {
@@ -207,6 +211,95 @@ body {
     line-height: 40px;
     margin: 0 5px;
     text-align: center; 
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.activeclick {
+    background: var(--bg1);
+    text-decoration: none;
+    border-radius: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+/* Sub menus (dropdowns:) */
+.loggedinassubmenu {
+    display: none;
+}
+
+#mainnav ul li:hover .loggedinassubmenu {
+    display: block;
+    position: absolute;
+    background: var(--bg1);
+    margin-top: 1px;
+    margin-left: -500px;
+    border-radius: 10px;
+    z-index: 10;
+}
+
+#mainnav ul li:hover .loggedinassubmenu ul {
+    display: block; 
+    border-radius: 5px;
+}
+
+#mainnav ul li:hover .loggedinassubmenu ul li {
+    width: 150px;
+    padding: 10px;
+    border-bottom: 1px dotted #fff;
+    background: transparent;
+    border-radius: 5px;
+    text-align: left;
+}
+
+#mainnav ul li:hover .loggedinassubmenu ul li:last-child {
+    border-bottom: none;
+}
+
+#mainnav ul li:hover .loggedinassubmenu ul li a:hover {
+    color: var(--bg2);
+}
+
+.dropdownlink {
+    background: none;
+    border: none;
+    text-decoration: none;
+    color: var(--bg1);
+    cursor: pointer;
+    padding: 0;
+    margin-right: 300px;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdownmenu {
+    position: absolute;
+    margin-right: 300px;
+    width: 30vh;
+    right: 0;
+    top: calc(100% + .25rem);
+    background-color: rgb(57, 57, 57);
+    padding: .75rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 50px 0 rgba(0, 0, 0, .5);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+    transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+}
+
+.dropdown.active > .navlink + .dropdownmenu {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0px);
+} 
+
+.dropdownlinks {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 /********** Club Quick View Modal: **********/

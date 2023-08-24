@@ -14,22 +14,43 @@
         <!-- Main Nav Bar: -->
         <nav id="mainnav">
             <ul id="header" class="nav">
-                <li><a class="navlink" href="/">Home</a></li>
+                <li class="activeclick navlink"><a class="navlink" href="/">Home</a></li>
                 {% if user.is_authenticated %}
-                    <li><a class="navlink" href="/clubs">My Clubs</a></li>
-                    <li><a class="navlink" href="/createaclub">Create a Club</a></li>
+                    <li class="navlink"><a class="navlink" href="/clubs">My Clubs</a></li>
+                    <li class="navlink"><a class="navlink" href="/createaclub">Create a Club</a></li>
                 {% if user.is_leader %}
-                    <li><a class="navlink" href="/clubdashboard">Club Dashboard</a></li>
+                    <li class="navlink"><a class="navlink" href="/clubdashboard">Club Dashboard</a></li>
                 {% endif %}
                 {% endif %}
             </ul>
             <ul id="header" class="nav">
-                {% if user.is_authenticated %}
-                    <li><a class="navlink" id="loggedinas" href="#">Logged in as {{ user.email }}</a></li>
-                    <li><a class="navlink" href="/logout">Logout</a></li>
+                {% if user.is_authenticated %} 
+                <!--<div class="dropdown">
+                    <li class="navlink" id="loggedinas">Profile
+                        <div class="loggedinassubmenu">
+                            <ul>
+                                <li class="navlink">Logged in as {{ current_user.email }}</li>
+                                <li><a class="navlink" href="/logout">Logout</a></li>
+                                <li><a class="navlink" href="#">Login as a Club Leader</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </div> -->
+
+                    <div class="dropdown" data-dropdown>
+                        <button class="navlink dropdownlink" data-dropdown-button>Profile</button>
+                        <div class="dropdownmenu">
+                            <div class="dropdownlinks">
+                                <a href="#" class="navlink">Logged in as {{ current_user.email }}</a>
+                                <a href="#" class="navlink">Login as Club Leader</a>
+                                <a href="/logout" class="navlink">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                    
                 {% else %}
-                    <li><a class="navlink" href="/login">Login</a></li>
-                    <li><a class="navlink" href="/signup">Signup</a></li>
+                    <li class="navlink"><a class="navlink" href="/login">Login</a></li>
+                    <li class="navlink"><a class="navlink" href="/signup">Signup</a></li>
                 {% endif %}
             </ul>
         </nav>  
