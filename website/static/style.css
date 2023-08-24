@@ -17,6 +17,7 @@
     --insideclubbutton: black;
     --clubbuttonnormal: rgb(0, 243, 20);
     --clubbuttonhoverfocus: rgb(0, 150, 0);
+    --fontfamily: 'Courier New', Courier, monospace;
 }
 
 /******************** Body Styling: ********************/
@@ -24,7 +25,7 @@ body {
     margin: 0;
     margin-bottom: 20vh;
     padding: 0;
-    font-family:'Courier New', Courier, monospace;
+    font-family:var(--fontfamily);
     background: linear-gradient(45deg, var(--bg1), var(--bg2));
     letter-spacing: 1px;
     text-decoration: none;
@@ -584,10 +585,9 @@ form .button input:hover {
 /******************** Club Card Styling: (New / Updated) ********************/
 .maincontainer {
     display: grid;
-    place-content:center;
-    margin-top: 10px;
+    place-content:center; 
     grid-template-columns: repeat(3, 40vh);
-    gap: 10px;
+    gap: 80px;
     grid-auto-rows: minmax(100px, auto);
     min-height: 100vh;
     line-height: 1.6; 
@@ -596,11 +596,11 @@ form .button input:hover {
 
 .club {
     /* color */
-    /* Add a background image - potentially ok */
-    padding: 10rem 0 0;
+    /* Add a background image - potentially ok */ 
     max-width: 35ch;
     overflow: hidden;
     transition: transform 500ms ease;
+    margin-top: -50px;
 }
 
 .club:hover,
@@ -827,4 +827,47 @@ form .button input:hover {
     --insideclubbutton: black;
     --clubbuttonnormal: #6682aa;
     --clubbuttonhoverfocus: #2760aa;
+}
+
+/********** Search Bar Styling: **********/
+.searchwrapperwrapper {
+    display: grid; 
+    justify-content: left;
+    margin-left: 17%;
+}
+
+.searchwrapper { 
+    height: 30px;
+    display: flex;
+    cursor: pointer;
+    padding: 10px 20px;
+    background: #fff;
+    border-radius: 30px;
+    align-items: center;
+} 
+
+.searchwrapper:hover input {
+    width: 400px;
+    transition-delay: .7s;
+}
+
+.searchwrapper input {
+    width: 0;
+    outline: none;
+    border: none;
+    font-weight: 500;
+    transition: 0.5s;
+    background: transparent;
+    font-size: 1rem; 
+    font-family: var(--fontfamily);
+}
+
+.searchwrapper a .fas {
+    color: var(--bg1);
+    font-size: 25px; 
+    transition: all 0.5s ease-in-out;
+} 
+
+.searchwrapper a .fas:hover {
+    transform: rotate(720deg) scale(1.3); 
 }

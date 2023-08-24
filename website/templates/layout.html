@@ -7,6 +7,8 @@
     <link rel="stylesheet" type="text/css" href="../static/style.css">
     <script src="../static/index.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title> {% block title %}Clubs{% endblock %} </title>
 </head>
     <body> 
@@ -94,7 +96,21 @@
 
         {% block body %}
 
-            <h1 id="main1"><center>Clubs</center></h1>
+            <h1 id="main1">
+                <center>Clubs <br>
+                ______________________________________________________________</center>
+            </h1>
+
+            <!-- Search Bar: -->
+            <div class="searchwrapperwrapper">
+                <div class="searchwrapper">
+                    <!-- <label for="search">Search Clubs</label> -->
+                    <input type="search" id="search" name="q" placeholder="Club or Email" hx-get="/search" hx-trigger="keyup changed delay:500ms" hx-target=".maincontainer">
+                    <a href="#">
+                        <i class="fas fa-search"></i>
+                    </a>
+                </div>
+            </div>
 
             <!-- The Main Container (where the clubs are held): -->
             <div class="maincontainer" id="maincontainer"> 

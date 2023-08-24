@@ -111,5 +111,20 @@ def createaclub():
         flash("Your new club has been created!", category="success")
         return render_template("layout.html", user=current_user, club_info=Club.query.all())
 
-
     return render_template("createaclub.html", user=current_user)
+
+# Search:
+@views.route("/search")
+def search():
+    # q gets the value of q, which was passed in from the input field from the HTML. 
+    q = request.args.get("q")
+    print(q)
+
+    if q:
+        # If the user types something in, all of teh clubs will filter if they have (or contain) the value of q. 
+        results = Club.query.filter(Club.club_name.contains(q) | Club.president_email.contains(q)).order_by(Club.club_name.asc()).all()
+    else:
+        # Else, if there is no value in q, results will be set to every item in the Club class. 
+        results = Club.query.all()
+    
+    return render_template("searchresults.html", results=results)
