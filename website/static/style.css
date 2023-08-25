@@ -202,6 +202,10 @@ body {
     text-decoration: none;
 } 
 
+.navlink:hover {
+    padding: 5px;
+}
+
 .dropdown.active > .navlink,
 #mainnav .nav .navlink:hover {
     background: var(--bg1);
@@ -226,50 +230,12 @@ body {
     padding-right: 5px;
 }
 
-/* Sub menus (dropdowns:) */
-.loggedinassubmenu {
-    display: none;
-}
-
-#mainnav ul li:hover .loggedinassubmenu {
-    display: block;
-    position: absolute;
-    background: var(--bg1);
-    margin-top: 1px;
-    margin-left: -500px;
-    border-radius: 10px;
-    z-index: 10;
-}
-
-#mainnav ul li:hover .loggedinassubmenu ul {
-    display: block; 
-    border-radius: 5px;
-}
-
-#mainnav ul li:hover .loggedinassubmenu ul li {
-    width: 150px;
-    padding: 10px;
-    border-bottom: 1px dotted #fff;
-    background: transparent;
-    border-radius: 5px;
-    text-align: left;
-}
-
-#mainnav ul li:hover .loggedinassubmenu ul li:last-child {
-    border-bottom: none;
-}
-
-#mainnav ul li:hover .loggedinassubmenu ul li a:hover {
-    color: var(--bg2);
-}
-
 .dropdownlink {
     background: none;
     border: none;
     text-decoration: none;
     color: var(--bg1);
-    cursor: pointer;
-    padding: 0;
+    cursor: pointer; 
     margin-right: 300px;
 }
 
@@ -300,9 +266,10 @@ body {
 } 
 
 .dropdownlinks {
+    z-index: 10;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 2.5rem; 
 }
 
 /********** Club Quick View Modal: **********/
@@ -343,6 +310,10 @@ body {
 .clubdescdesc {
     padding: 10px 15px;
 } 
+
+.fa-regular {
+    font-size: 30px; 
+}
 
 /***************** Make a club form styling: *****************/
 .makeaclub {
@@ -848,6 +819,7 @@ form .button input:hover {
     align-items: center;
 } 
 
+.searchwrapper:focus,
 .searchwrapper:hover input {
     width: 400px;
     transition-delay: .7s;

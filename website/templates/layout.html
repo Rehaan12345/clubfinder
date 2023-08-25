@@ -27,20 +27,8 @@
             </ul>
             <ul id="header" class="nav">
                 {% if user.is_authenticated %} 
-                <!--<div class="dropdown">
-                    <li class="navlink" id="loggedinas">Profile
-                        <div class="loggedinassubmenu">
-                            <ul>
-                                <li class="navlink">Logged in as {{ current_user.email }}</li>
-                                <li><a class="navlink" href="/logout">Logout</a></li>
-                                <li><a class="navlink" href="#">Login as a Club Leader</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                </div> -->
-
                     <div class="dropdown" data-dropdown>
-                        <button class="navlink dropdownlink" data-dropdown-button>Profile</button>
+                        <button class="navlink dropdownlink fa-regular fa-user" data-dropdown-button></button> 
                         <div class="dropdownmenu">
                             <div class="dropdownlinks">
                                 <a href="#" class="navlink">Logged in as {{ current_user.email }}</a>
@@ -50,7 +38,6 @@
                             </div>
                         </div>
                     </div>
-                    
                 {% else %}
                     <li class="navlink"><a class="navlink" href="/login">Login</a></li>
                     <li class="navlink"><a class="navlink" href="/signup">Signup</a></li>
