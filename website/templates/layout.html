@@ -161,8 +161,8 @@
                                 <div class="clubdescdesc" id="clubdescdesc{{ club.club_name }}">
                                     Club President: {{ club.president_email }}
                                     <br><br>
-                                    {% if club.vicepresident_email1 %}Vice President{% if club.vicepresident_email1 and club.vicepresident_email2 %}s{% endif %}: {{ club.vicepresident_email1 }}{% endif %}{% if club.vicepresident_email2 %},&nbsp;{{ club.vicepresident_email2 }}{% endif %}{% if club.vicepresident_email3 %},&nbsp;{{ club.vicepresident_email3 }} {% endif %}
-                                    <br><br> 
+                                    {% if club.vicepresident_email1 or club.vicepresident_email2 or club.vicepresident_email3 %}Vice President{% if club.vicepresident_email1 and club.vicepresident_email2 %}s{% endif %}: {{ club.vicepresident_email1 }}{% endif %}{% if club.vicepresident_email2 %},&nbsp;{{ club.vicepresident_email2 }}{% endif %}{% if club.vicepresident_email3 %},&nbsp;{{ club.vicepresident_email3 }}<br><br>{% endif %}
+                                     
                                     Club Advisor: {{ club.advisor_email }}
                                     <br><br>
                                     Club Description: {{ club.description }}
