@@ -887,8 +887,7 @@ form .button input:hover {
     text-shadow: 0 1px 4px rgba(0, 0, 0, .3);
     border-radius: 30px;
     font-size: 18px;
-    transition: 0.5s;
-    user-select: none;
+    transition: 0.5s; 
     overflow: hidden;
 }
 

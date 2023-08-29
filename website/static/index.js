@@ -202,3 +202,28 @@ window.addEventListener("DOMContentLoaded", ()=> {
         });
     });
 });
+
+//********** Filter By Button Functionality: **********/
+window.addEventListener("DOMContentLoaded", () => {
+    const filterByButtons = document.querySelectorAll(".filter");
+    for (let i = 0; i < filterByButtons.length; i++) {
+        let numClicked = 1;
+        filterByButtons[i].addEventListener("click", (e) => {
+            numClicked++;
+            if ((numClicked % 2) === 0){
+                const filter = e.target.id;
+                console.log("User clicked on " + filter);
+                $.ajax({
+                    url: "",
+                    type: "GET",
+                    contentType: "application/json",
+                    data: {
+                        filterby: filter
+                    },
+                    success: console.log("Successfully sent " + filter + " to the backend.")
+                })
+            }
+
+        });
+    }
+});

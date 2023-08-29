@@ -8,9 +8,9 @@ views = Blueprint("views", __name__)
 @views.route("/", methods=["GET", "POST"])
 @login_required
 def home():
+    # Join / Leave Club Buttions functionality: 
     print(f"Current user: {current_user}")
     join_club = request.args.get("joinClub")
-
     if join_club is not None:
         if Club.query.filter_by(club_name=join_club).first() in current_user.clubs:
             flash("You're already in that club.")
@@ -57,6 +57,28 @@ def home():
             flash(f"You aren't in {join_club}!", category="error")
             # return render_template("layout.html", club_info=Club.query.all(), user=current_user)
             print(f"User is not in {leave_club}")
+
+    # Filter By Buttons Functionality:
+    filterby = request.args.get("filterby")
+    print(f"Filterby: {filterby}")
+    '''
+        Filter by list: 
+            - clubsjoined
+            - clubsnotjoined
+            - morningclubs
+            - afternoon clubs
+    '''
+    club_info=Club.query.all()
+    if filterby == "clubsjoined":
+        print("Clubs Joined!")
+        print(current_user.clubs)
+        return render_template("layout.html", club_info=current_user.clubs, user=current_user)
+    elif filterby == "clubsnotjoined":
+        print("Clubs Not Joined!")
+    elif filterby == "morningclubs":
+        print("Morning Clubs!")
+    elif filterby == "afternoonclubs":
+        print("Afternoon Clubs!")
 
     return render_template("layout.html", club_info=Club.query.all(), user=current_user)
 

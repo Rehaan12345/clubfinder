@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title> {% block title %}Clubs{% endblock %} </title>
 </head>
-    <body> 
+    <body>
 
         <!-- Main Nav Bar: -->
         <nav class="mainnav" id="mainnav">
@@ -111,28 +111,28 @@
                     <!-- <label for="filterbyclubsjoined">Clubs Joined</label> -->
                     <div>
                         <label>
-                            <input type="checkbox" id="filterbyclubsjoined">
+                            <input method="GET" type="checkbox" id="clubsjoined" class="filter">
                             <span class="filterbylist">Clubs Joined</span>
                         </label> 
                     </div>
                     <!-- <label for="filterbyclubsnotjoined">Clubs Not Joined</label> -->
                     <div>
                         <label>
-                            <input type="checkbox" id="filterbyclubsnotjoined">
+                            <input method="GET" type="checkbox" id="clubsnotjoined" class="filter">
                             <span class="filterbylist">Clubs Not Joined</span>
                         </label> 
                     </div>
                     <!-- <label for="filterbymorningclubs">Morning Clubs</label> -->
                     <div>
                         <label>
-                            <input type="checkbox" id="filterbymorningclubs">
+                            <input method="GET" type="checkbox" id="morningclubs" class="filter">
                             <span class="filterbylist">Morning Clubs</span>
                         </label>
                     </div> 
                     <!-- <label for="filterbyafternoonclubs">Afternoon Clubs</label> -->
                     <div>
                         <label>
-                            <input type="checkbox" id="filterbyafternoonclubs">
+                            <input method="GET" type="checkbox" id="afternoonclubs" class="filter">
                             <span class="filterbylist">Afternoon Clubs</span>
                         </label> 
                     </div> 
