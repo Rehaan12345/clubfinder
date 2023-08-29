@@ -14,7 +14,10 @@
     <body> 
 
         <!-- Main Nav Bar: -->
-        <nav id="mainnav">
+        <nav class="mainnav" id="mainnav">
+            <div class="hamburger">
+                <i class="fa-solid fa-bars"></i>
+            </div>
             <ul id="header" class="nav">
                 <li class="activeclick navlink"><a class="navlink" href="/">Home</a></li>
                 {% if user.is_authenticated %}
@@ -25,7 +28,7 @@
                 {% endif %}
                 {% endif %}
             </ul>
-            <ul id="header" class="nav">
+            <ul id="header2" class="nav">
                 {% if user.is_authenticated %} 
                     <div class="dropdown" data-dropdown>
                         <button class="navlink dropdownlink fa-regular fa-user" data-dropdown-button></button> 
@@ -85,19 +88,57 @@
 
             <h1 id="main1">
                 <center>Clubs <br>
-                ______________________________________________________________</center>
+
+                <!-- Search Bar: -->
+                <div class="searchwrapperwrapper">
+                    <div class="searchwrapper">
+                        <!-- <label for="search">Search Clubs</label> -->
+                        <input type="search" id="search" name="q" placeholder="Club or Email" hx-get="/search" hx-trigger="keyup changed delay:500ms" hx-target=".maincontainer">
+                        <a href="#">
+                            <i class="fas fa-search"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- ______________________________________________________________ -->
+            </center>
             </h1>
 
-            <!-- Search Bar: -->
-            <div class="searchwrapperwrapper">
-                <div class="searchwrapper">
-                    <!-- <label for="search">Search Clubs</label> -->
-                    <input type="search" id="search" name="q" placeholder="Club or Email" hx-get="/search" hx-trigger="keyup changed delay:500ms" hx-target=".maincontainer">
-                    <a href="#">
-                        <i class="fas fa-search"></i>
-                    </a>
-                </div>
+            <div class="homemenu">
+                <!-- Filter By: -->
+                <div class="filterbywrapper"> 
+                    <!-- <div class="filterbytitle">Filter By</div> -->
+                    <!-- <label for="filterbyclubsjoined">Clubs Joined</label> -->
+                    <div>
+                        <label>
+                            <input type="checkbox" id="filterbyclubsjoined">
+                            <span class="filterbylist">Clubs Joined</span>
+                        </label> 
+                    </div>
+                    <!-- <label for="filterbyclubsnotjoined">Clubs Not Joined</label> -->
+                    <div>
+                        <label>
+                            <input type="checkbox" id="filterbyclubsnotjoined">
+                            <span class="filterbylist">Clubs Not Joined</span>
+                        </label> 
+                    </div>
+                    <!-- <label for="filterbymorningclubs">Morning Clubs</label> -->
+                    <div>
+                        <label>
+                            <input type="checkbox" id="filterbymorningclubs">
+                            <span class="filterbylist">Morning Clubs</span>
+                        </label>
+                    </div> 
+                    <!-- <label for="filterbyafternoonclubs">Afternoon Clubs</label> -->
+                    <div>
+                        <label>
+                            <input type="checkbox" id="filterbyafternoonclubs">
+                            <span class="filterbylist">Afternoon Clubs</span>
+                        </label> 
+                    </div> 
+                </div> 
             </div>
+            
 
             <!-- The Main Container (where the clubs are held): -->
             <div class="maincontainer" id="maincontainer"> 
