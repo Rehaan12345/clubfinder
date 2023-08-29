@@ -2,6 +2,7 @@
 :root {
     --bg1: rgb(0, 173, 0);
     --bg2: rgb(0, 45, 27);
+    --textcolor: white;
     --labelcolor: #adadad;
     --loginbefore: #2691d9;
     --passcolor: #a6a6a6;
