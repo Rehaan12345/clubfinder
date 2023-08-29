@@ -14,7 +14,7 @@ def home():
     if join_club is not None:
         if Club.query.filter_by(club_name=join_club).first() in current_user.clubs:
             flash("You're already in that club.")
-            print("error")
+            print(f"{current_user} is already in {join_club}")
         else:
             print(f"User wants to join {join_club}")
             if Club.query.filter_by(club_name=join_club).first():
