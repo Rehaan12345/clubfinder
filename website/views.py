@@ -72,7 +72,9 @@ def home():
     if filterby == "clubsjoined":
         print("Clubs Joined!")
         print(current_user.clubs)
-        return render_template("layout.html", club_info=current_user.clubs, user=current_user)
+        # print(f"Club Info: {club_info}") 
+        # return render_template("clubs.html", club_info=current_user.clubs, user=current_user)
+        # return url_for("views.clubs")
     elif filterby == "clubsnotjoined":
         print("Clubs Not Joined!")
     elif filterby == "morningclubs":
@@ -85,7 +87,7 @@ def home():
 @views.route("/clubs")
 @login_required
 def clubs():
-    return render_template("clubs.html", in_clubs=current_user.clubs, user=current_user)
+    return render_template("clubs.html", club_info=current_user.clubs, user=current_user)
 
 @views.route("/clubdashboard")
 @login_required
