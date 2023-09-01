@@ -104,32 +104,27 @@
             </center>
             </h1>
 
+            <!-- Filter By Buttons:
             <div class="homemenu">
-                <!-- Filter By: -->
-                <div class="filterbywrapper"> 
-                    <!-- <div class="filterbytitle">Filter By</div> -->
-                    <!-- <label for="filterbyclubsjoined">Clubs Joined</label> -->
+                <!-- Filter By: 
                     <div>
                         <label>
                             <input method="GET" type="checkbox" id="clubsjoined" class="filter" value="checked">
                             <span class="filterbylist">Clubs Joined</span>
                         </label> 
                     </div>
-                    <!-- <label for="filterbyclubsnotjoined">Clubs Not Joined</label> -->
                     <div>
                         <label>
                             <input method="GET" type="checkbox" id="clubsnotjoined" class="filter" value="checked">
                             <span class="filterbylist">Clubs Not Joined</span>
                         </label> 
                     </div>
-                    <!-- <label for="filterbymorningclubs">Morning Clubs</label> -->
                     <div>
                         <label>
                             <input method="GET" type="checkbox" id="morningclubs" class="filter" value="checked">
                             <span class="filterbylist">Morning Clubs</span>
                         </label>
                     </div> 
-                    <!-- <label for="filterbyafternoonclubs">Afternoon Clubs</label> -->
                     <div>
                         <label>
                             <input method="GET" type="checkbox" id="afternoonclubs" class="filter" value="checked">
@@ -137,7 +132,7 @@
                         </label> 
                     </div> 
                 </div> 
-            </div>
+            </div> -->
 
             <!-- The Main Container (where the clubs are held): -->
             <div class="maincontainer" id="maincontainer"> 
@@ -170,10 +165,14 @@
                                 </div>
                             </dialog>
                             <!-- ^ End of Modal ^ -->
-                            <br><br>
+                            <br><br><br>
+                            {% if club not in joined_clubs %}
                             <button method="GET" name="joinclubbutton_{{ club.id }}" class="clubbutton" id="joinclubbutton_{{ club.id }}" type="button">Join Club</button>
-                            <br><br>
+                            {% endif %}
+                            {% if club in joined_clubs %}
                             <button method="GET" name="leaveclubbutton_{{ club.id }}" class="clubbutton" id="leaveclubbutton_{{ club.id }}" type="button">Leave Club</button> 
+                            {% endif %}
+                            <br><br>
                         </div>
                         
                     </div>
