@@ -87,6 +87,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
 // Joins the club function:
 function joinOrLeaveClub(e) {
+    // Club Id of the element that was clicked on:
+    let elementClickedOnTargetID = 0;
     // Finds the clicked on element:
     const elementClickedOn = e.target;
     console.log(elementClickedOn);
@@ -96,6 +98,8 @@ function joinOrLeaveClub(e) {
     // Removes the last digits from the joinclubbutton id.
     for (let i = 0; i < elementClickedOnTarget.length; i++) {
         if (elementClickedOnTarget.indexOf("_") === i) {
+            elementClickedOnTargetID = elementClickedOnTarget.substring(i + 1);
+            console.log("ElementclickedontargetFINAL's id: " + elementClickedOnTargetID);
             elementClickedOnTarget = elementClickedOnTarget.substring(0, i);
             console.log("ElementclickedontargetFINAL: " + elementClickedOnTarget);
             break;
@@ -107,6 +111,9 @@ function joinOrLeaveClub(e) {
 
     if (elementClickedOnTarget.localeCompare(joinClubButton) === 0) {
         console.log("Join club button pressed.");
+
+        // Reloads the page onclick:
+        window.location.reload();
 
         const clubName = elementClickedOn.parentElement.id;
         console.log(clubName);
@@ -127,6 +134,22 @@ function joinOrLeaveClub(e) {
     } 
     else if (elementClickedOnTarget.localeCompare(leaveClubButton) === 0) {
         console.log("Leave club button pressed.");
+
+        // Reloads the page onclick:
+        window.location.reload();
+
+        // // Only shows the correct club:
+        // elementClickedOn.classList.remove("show");
+        // elementClickedOn.classList.add("hide");
+
+        // localStorage.removeItem("In Club");
+
+        // if (elementClickedOnTargetID > 0) {
+        //     const join = document.getElementById("joinclubbutton_" + elementClickedOnTargetID);
+        //     console.log(join);
+        //     join.classList.remove("hide");
+        //     join.classList.add("show");
+        // } else return -1;
 
         const clubName = elementClickedOn.parentElement.id;
         console.log(clubName);

@@ -1,0 +1,9 @@
+{% for club in club_info %}
+    {% if club not in joined_clubs %}
+    <button method="GET" name="joinclubbutton_{{ club.id }}" class="clubbutton" id="joinclubbutton_{{ club.id }}" type="button">Join Club</button>
+    <br><br>
+    {% elif club in joined_clubs %}
+    <button method="GET" name="leaveclubbutton_{{ club.id }}" class="clubbutton" id="leaveclubbutton_{{ club.id }}" type="button">Leave Club</button> 
+    <br><br>
+    {% endif %}
+{% endfor %}

@@ -168,11 +168,11 @@
                             <br><br><br>
                             {% if club not in joined_clubs %}
                             <button method="GET" name="joinclubbutton_{{ club.id }}" class="clubbutton" id="joinclubbutton_{{ club.id }}" type="button">Join Club</button>
-                            {% endif %}
-                            {% if club in joined_clubs %}
+                            <br><br><br>
+                            {% elif club in joined_clubs %}
                             <button method="GET" name="leaveclubbutton_{{ club.id }}" class="clubbutton" id="leaveclubbutton_{{ club.id }}" type="button">Leave Club</button> 
+                            <br><br><br>
                             {% endif %}
-                            <br><br>
                         </div>
                         
                     </div>

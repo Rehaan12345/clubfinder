@@ -82,7 +82,7 @@ def home():
     elif filterby == "afternoonclubs":
         print("Afternoon Clubs!")
 
-    return render_template("layout.html", club_info=Club.query.all(), joined_clubs=current_user.clubs,user=current_user)
+    return render_template("layout.html", club_info=Club.query.all(), joined_clubs=current_user.clubs, user=current_user)
 
 @views.route("/clubs")
 @login_required
@@ -152,3 +152,7 @@ def search():
         results = Club.query.all()
     
     return render_template("searchresults.html", results=results)
+
+@views.route("/joinleavebuttons")
+def joinleavebuttons():
+    return render_template("joinleavebuttons.html", club_info=Club.query.all(), joined_clubs=current_user.clubs, user=current_user)

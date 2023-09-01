@@ -3,6 +3,7 @@
     --bg1: rgb(0, 173, 0);
     --bg2: rgb(0, 45, 27);
     --textcolor: white;
+    --navheader: rgb(0, 45, 27);
     --labelcolor: #adadad;
     --loginbefore: #2691d9;
     --passcolor: #a6a6a6;
@@ -666,6 +667,22 @@ form .button input:hover {
 .clubbutton:focus {
     background-color: var(--clubbuttonhoverfocus);
 }
+
+/* .join.show {
+    opacity: 1;
+}
+
+.join.hide {
+    display: none;
+}
+
+.leave.show {
+    opacity: 1;
+}
+
+.leave.hide {
+    display: none;
+} */
 
 /******************** Theme styling: ********************/
 
