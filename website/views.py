@@ -73,7 +73,7 @@ def home():
             print(club_found)
             flash("Club successfully found!", "success")
             print(club_found.members)
-            return render_template("clubdashboard.html", club_info=club_found.members, user=current_user)
+            return render_template("clubdashboard.html", club_info=Club.query.all(), user_info=User.query.all(), user=current_user)
         else:
             flash("No club found with matching code!", "error")
             print("None found")

@@ -4,14 +4,13 @@
 
 {% block body %}
 
-    <h1>Club Information:</h1>
+    <!-- <h1 class="clubinfo">Club Information:</h1> -->
 
     {% for club in club_info %}
 
         <div class="tablecontainer">
 
             <table class="clubtable">
-
 
                     {% if club.president_email == current_user.email %}
 
@@ -26,13 +25,15 @@
                                         <td data-cell="email">{{ member.email }}</td>
                                         <td data-cell="role">
                                             {% if member.email == current_user.email %}
-                                                Leader
+                                                President
+                                            {% elif member.email == club.vicepresident_email1 or member.email == club.vicepresident_email2 or member.email == club.vicepresident_email3 %}
+                                                Vice President
                                             {% else %}
                                                 {{ member.role }}
                                             {% endif %}
                                         </td>
-                                        <!-- <td>1</td> -->
                                     </tr>
+
                                 {% endfor %}      
 
                     {% endif %}    
