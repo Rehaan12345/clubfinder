@@ -226,7 +226,7 @@ window.addEventListener("DOMContentLoaded", ()=> {
     });
 });
 
-//********** Filter By Button Functionality: **********/
+// ********** Filter By Button Functionality: **********/
 window.addEventListener("DOMContentLoaded", () => {
     const filterByButtons = document.querySelectorAll(".filter");
     for (let i = 0; i < filterByButtons.length; i++) {
@@ -249,4 +249,33 @@ window.addEventListener("DOMContentLoaded", () => {
 
         });
     }
+});
+
+// ********** Connect to Club Modal & Button Functionalities: ********** //
+window.addEventListener("DOMContentLoaded", () => {
+    const connectToClubModal = document.getElementById("connecttoclubmodal");
+    const openClubModalButton = document.getElementById("connecttoclubbutton");
+    openClubModalButton.addEventListener("click", () => {
+        connectToClubModal.show();
+    });
+
+    const closeButton = document.getElementById("clubclosebutton"); 
+    // Waits for a click and closes that modal: 
+    closeButton.addEventListener("click", () => {
+        // Closes the modal:
+        connectToClubModal.close();
+    }); 
+    
+    // Fix this later:
+    connectToClubModal.addEventListener("click", e => {
+        const dialogDimensions = connectToClubModal.getBoundingClientRect()
+        if (
+          e.clientX < dialogDimensions.left ||
+          e.clientX > dialogDimensions.right ||
+          e.clientY < dialogDimensions.top ||
+          e.clientY > dialogDimensions.bottom
+        ) {
+            connectToClubModal.close()
+        }
+    });
 });

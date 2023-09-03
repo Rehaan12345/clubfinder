@@ -34,8 +34,8 @@
                         <button class="navlink dropdownlink fa-regular fa-user" data-dropdown-button></button> 
                         <div class="dropdownmenu">
                             <div class="dropdownlinks">
-                                <a href="#" class="navlink">Logged in as {{ current_user.email }}</a>
-                                <a href="#" class="navlink">Login as Club Leader</a>
+                                <a href="#" class="navlink" id="loggedinas">Logged in as {{ current_user.email }}</a>
+                                <a href="#" class="navlink" id="connecttoclubbutton">Connect to Club</a>
                                 <a href="/admin" class="navlink">Admin Dashboard</a>
                                 <a href="/logout" class="navlink">Logout</a>
                             </div>
@@ -47,6 +47,20 @@
                 {% endif %}
             </ul>
         </nav>  
+
+        <!-- Connect to club modal: -->
+        <dialog class="connecttoclub" id="connecttoclubmodal">
+            <div class="connecttoclubtitle">
+                <div class="header"><h1>Enter Club Password</h1></div> 
+                <button data-close-button id="clubclosebutton" class="clubclosebutton">&times;</button>
+            </div>
+            <div class="connecttoclubinputbox">
+                <form method="POST">
+                    <input class="connecttoclubinput" type="number" name="connecttoclubnumber">
+                    <input class="connecttoclubinput" id="connecttoclubsubmit" type="submit" value="Enter">
+                </form>
+            </div>
+        </dialog>
 
         <form class="colorpicker" action="">
             <fieldset>
@@ -106,7 +120,7 @@
 
             <!-- Filter By Buttons:
             <div class="homemenu">
-                <!-- Filter By: 
+                Filter By: 
                     <div>
                         <label>
                             <input method="GET" type="checkbox" id="clubsjoined" class="filter" value="checked">

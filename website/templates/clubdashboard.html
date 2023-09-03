@@ -4,19 +4,46 @@
 
 {% block body %}
 
-    {% if user.is_leader %}
-        <h1>You are a leader!</h1>
-            {% for club in club_info %}
+    <h1>Club Information:</h1>
+
+    {% for club in club_info %}
+
+        <div class="tablecontainer">
+
+            <table class="clubtable">
+
+
                     {% if club.president_email == current_user.email %}
-                        <br><br>
-                        Club President: {{ club.president_email }} 
-                        <br><br>
-                        User Email: {{ current_user.email }}
-                        <br><br>
-                        Club: {{ club.club_name }}
-                        <br><br><br>
-                    {% endif %}
-            {% endfor %}
-    {% endif %}
+
+                        <caption>{{ club }} Info:</caption>
+                    
+                        <tr>
+                            <th>Name</th>
+                            <th>Role</th>
+                        </tr>
+                                {% for member in club.members %}
+                                    <tr>
+                                        <td data-cell="email">{{ member.email }}</td>
+                                        <td data-cell="role">
+                                            {% if member.email == current_user.email %}
+                                                Leader
+                                            {% else %}
+                                                {{ member.role }}
+                                            {% endif %}
+                                        </td>
+                                        <!-- <td>1</td> -->
+                                    </tr>
+                                {% endfor %}      
+
+                    {% endif %}    
+        
+            </table>
+            
+        </div>
+
+    <br><br>
+    
+    {% endfor %}
+
 
 {% endblock %}

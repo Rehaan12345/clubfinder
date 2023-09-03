@@ -1,7 +1,10 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
 from .models import User, Club 
-from . import db 
+from . import db
+import random
+import smtplib
+from flask_mail import Mail, Message
 
 views = Blueprint("views", __name__)  
 
@@ -58,6 +61,23 @@ def home():
             # return render_template("layout.html", club_info=Club.query.all(), user=current_user)
             print(f"User is not in {leave_club}")
 
+    # Club Password Verification:
+    if request.method == "POST":
+        club_password = request.form.get("connecttoclubnumber")
+        clubs = Club.query.all()
+        for club in clubs:
+            print(club.secret_password)
+        print(club_password)
+        if Club.query.filter_by(secret_password=club_password).first():
+            club_found = Club.query.filter_by(secret_password=club_password).first()
+            print(club_found)
+            flash("Club successfully found!", "success")
+            print(club_found.members)
+            return render_template("clubdashboard.html", club_info=club_found.members, user=current_user)
+        else:
+            flash("No club found with matching code!", "error")
+            print("None found")
+
     # Filter By Buttons Functionality:
     filterby = request.args.get("filterby")
     print(f"Filterby: {filterby}")
@@ -110,7 +130,12 @@ def createaclub():
         description = request.form.get("clubdescription")
         president = User.query.filter_by(email=president_email).first()
         president.is_leader = True 
+        pres = User.query.filter_by(email=president_email)
+        pres.role = "Leader"
         print(f"President: {president}")
+        # Make sure the club president is the person who is currently logged in:
+        if president_email == current_user.email:
+            print("True")
         # Verifying the post request:
         # name = Club.query.filter_by(club_name=club_name).first() 
         # email = User.query.filter_by(email=email).first()
@@ -128,14 +153,62 @@ def createaclub():
         # elif not vpemail3:
         flash(f"Email {vicepresident_email3} not found, make sure their account has been created.", category="error")
         # else: 
-        new_club = Club(club_name=club_name, president_email=president_email, vicepresident_email1=vicepresident_email1, vicepresident_email2=vicepresident_email2, vicepresident_email3=vicepresident_email3, advisor_email=advisor_email, room_number=room_number, start_time=start_time, description=description)
+        # Making the random password:
+        secret_password = random.randint(100, 1000000)
+        print(f"Secret password: {secret_password}")
+        new_club = Club(club_name=club_name, president_email=president_email, vicepresident_email1=vicepresident_email1, vicepresident_email2=vicepresident_email2, vicepresident_email3=vicepresident_email3, advisor_email=advisor_email, room_number=room_number, start_time=start_time, description=description, secret_password=secret_password)
         print(f"New Club Name: {new_club.club_name}, President: {new_club.president_email}, VP1: {new_club.vicepresident_email1}, VP2: {new_club.vicepresident_email2}, VP3: {new_club.vicepresident_email3}, Advisor: {new_club.advisor_email}, Room Number: {new_club.room_number}, Start Time: {new_club.start_time}, Description: {new_club.description}")
         db.session.add(new_club)
         db.session.commit()
         flash("Your new club has been created!", category="success")
+
         return render_template("layout.html", user=current_user, club_info=Club.query.all())
 
     return render_template("createaclub.html", user=current_user)
+
+@views.route("/send_email/<email>")
+def send_email(email):
+        # Sending the email:
+        email_title = "Your club has been successfully added!"
+        sender = "crlsclubfinder@clubfinder.com"
+        message = Message(email_title, sender=sender, recipients=[current_user.email])
+        email_body = "Your secret club password is 1"
+        message.body = ""
+        data = {
+            "app_name": "clubfinder",
+            "title": email_title,
+            "body": email_body,
+        }
+        message.html = render_template("email.html", data=data)
+        try: 
+            Mail.send(message)
+            return "Email sent"
+        except Exception as e:
+            print(e)
+            return "The email was not sent"
+
+@views.route("/email")
+def email():
+    # Sending the email:
+    email_title = "Your club has been successfully added!"
+    sender = "crlsclubfinder@clubfinder.com"
+    msg = Message(email_title, sender=sender, recipients=[current_user.email])
+    email_body = "Your secret club password is 1"
+    msg.body = ""
+    data = {
+        "app_name": "clubfinder",
+        "title": email_title,
+        "body": email_body,
+    }
+    msg.html = render_template("email.html", data=data)
+    try: 
+        Mail.send(msg, sender)
+        return "Email sent"
+    except Exception as e:
+        print(e)
+        return f"The email was not sent. Error: {e}"
+        
+    return render_template("email.html")
 
 # Search:
 @views.route("/search")

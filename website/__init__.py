@@ -4,6 +4,8 @@ from os import path
 from flask_login import LoginManager 
 from flask_admin import Admin 
 from flask_admin.contrib.sqla import ModelView
+from flask_mail import Mail, Message
+import os
 
 # Initializing the SQL database:
 db = SQLAlchemy()
@@ -17,6 +19,13 @@ def create_app():
     app.config["SECRET_KEY"] = "rehaan"
     app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_NAME}" 
     db.init_app(app) 
+    # Configuring the mail messaging system:
+    app.config["MAIL_SERVER"] = "smtp@googlemail.com"
+    app.config["MAIL_PORT"] = 587
+    app.config["MAIL_USERNAME"] = "rehaan1099@gmail.com"
+    app.config["MAIL_PASSWORD"] = "exeawwlbuwodiuso"
+    app.config["MAIL_USE_TLS"] = True
+    mail = Mail(app) 
 
     # Import the blueprints:
     from .views import views 

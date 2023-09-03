@@ -17,6 +17,7 @@ class User(db.Model, UserMixin):
     # Everytime a club is joined, add into this "clubs" column the id for that club (A list). - This is an easy and the best way to store and keep track of who is in which club and how many clubs a user is in. secondary links the User class to the club_joined table, which was created and initialized above. backref is how the users are stored in the Club model; they are stored as "members": 
     clubs = db.relationship("Club", secondary=joined_clubs, backref="members")
     is_leader = db.Column(db.Boolean)
+    role = db.Column(db.String)
 
     def __str__(self):
         return self.email
@@ -33,6 +34,7 @@ class Club(db.Model):
     room_number = db.Column(db.Integer)
     start_time = db.Column(db.String(100))
     description = db.Column(db.String(5000))
+    secret_password = db.Column(db.Integer)
     # Foreign Key - This column references a user's id in the User database class. - A one to many relationship:
     # user_id = db.Column(db.Integer, db.ForeignKey("user.id")) 
     # user = db.relationship("User", secondary="user_club", back_populates="club")
