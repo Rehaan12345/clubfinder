@@ -1,5 +1,9 @@
 # CRLS clubfinder
 
+## Run the file
+
+If you're interested in running the developer version of the website, install the dependencies in the ```requirements.txt``` file, and run the main.py file. 
+
 ## About the project
 
 #### Find, join, leave, and create clubs for the CRLS community.
@@ -11,10 +15,6 @@ Leaders can post pictures and accomplishments from their club to convince new me
 I will work with the school to make the process of creating your own clubs much faster and more streamlined. The current process is very timeconsuming. 
 
 If you have any ideas or questions regarding the website and its functionality, let me know by emailing me at **25ranjaria@cpsd.us.**
-
-## Run the file
-
-If you're interested in running the developer version of the website, install the dependencies in the ```requirements.txt``` file, and run the main.py file. 
 
 ## About the code
 
