@@ -12,6 +12,10 @@ I will work with the school to make the process of creating your own clubs much 
 
 If you have any ideas or questions regarding the website and its functionality, let me know by emailing me at **25ranjaria@cpsd.us.**
 
+## Run the file
+
+If you're interested in running the developer version of the website, install the dependencies in the ```requirements.txt``` file, and run the main.py file. 
+
 ## About the code
 
 This project uses Flask, a lightweight Python framework. 
