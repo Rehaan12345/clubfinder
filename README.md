@@ -1,6 +1,6 @@
 # CRLS clubfinder
 
-## Run the file
+## Run the site
 
 If you're interested in running the developer version of the website, install the dependencies in the ```requirements.txt``` file, and run the main.py file. 
 
