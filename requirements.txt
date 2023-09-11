@@ -1,19 +1,6 @@
-# Install these dependencies and run the main.py file to run the developer site (if pip doesn't work on Mac/Linux, use pip3 instead):
-
-# pip install Flask
-Flask==2.3.2
-
-# pip install Flask-Admin
+Flask==2.3.3
 Flask_Admin==1.6.1
-
-# pip install Flask-Login
 Flask_Login==0.6.2
-
-# pip install Flask-Mail
 Flask_Mail==0.9.1
-
-# pip install SQLAlchemy
 flask_sqlalchemy==3.0.5
-
-# pip install Werkzeug
-Werkzeug==2.3.6
+Werkzeug==2.3.7
