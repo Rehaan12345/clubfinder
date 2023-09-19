@@ -17,7 +17,7 @@ def login():
             if check_password_hash(user.password, password): # Checks this user's password.
                 flash("Successfully logged in", category="success")
                 login_user(user, remember=True) # Logs in the user. Remembers the fact that this user is logged in until the user clears their browser history / session. Will be stored in the flask webserver - until the webserver restarts. 
-                return render_template("layout.html", user=current_user, name="main")
+                return render_template("layout.html", club_info=Club.query.all(), joined_clubs=current_user.clubs, user=current_user)
             else:
                 flash("Incorrect password, try again!", category="error")
         else: # If this user is not found:
@@ -49,7 +49,7 @@ def signup():
             db.session.commit()
             login_user(new_user, remember=True)
             flash("Your account has been created!", category="success")
-            return render_template("layout.html", user=current_user, name="main")
+            return render_template("layout.html", club_info=Club.query.all(), joined_clubs=current_user.clubs, user=current_user)
 
     return render_template("signup.html", user=current_user, name="auth")
 

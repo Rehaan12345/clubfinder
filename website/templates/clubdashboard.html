@@ -6,30 +6,50 @@
 
     <!-- <h1 class="clubinfo">Club Information:</h1> -->
 
+    <br><br>
+
     {% for club in club_info %}
 
-        <div class="tablecontainer">
+        {% if club.president_email == current_user.email or club.vicepresident_email1 == current_user.email or vicepresident_email2 == current_user.email or vicepresident_email3 == current_user.email  %}
 
-            <table class="clubtable">
-
-                    {% if club.president_email == current_user.email %}
+            <div class="tablecontainer" id="clubtable_{{ club.id }}">
+            
+                <table class="clubtable" id="clubtable_{{ club.id }}">
 
                         <caption>{{ club }} Info:</caption>
                     
                         <tr>
+                            <!-- <th>Member # (not id num! - instead, the member count.)</th> -->
+                            <th>Kick</th>
                             <th>Name</th>
                             <th>Role</th>
                         </tr>
                                 {% for member in club.members %}
-                                    <tr>
+                                <!-- <td>Member Count</td> -->
+                                    <tr id="clubtablerow">
+                                        <td>
+                                            {% if member.email == current_user.email or member.email == club.vicepresident_email1 or member.email == club.vicepresident_email2 or member.email == club.vicepresident_email3 %}
+                                            <i class="fa-solid fa-trash president" id="kickbutton_{{ club.id }}-{{ member.id }}*"></i>
+                                            {% else %}
+                                            <i class="fa-solid fa-trash" id="kickbutton_{{ club.id }}-{{ member.id }}"></i>
+                                            {% endif %}
+                                        </td>
+                                        <dialog class="kickmodal" id="kickbuttonconfirmationbutton_{{ club.id }}-{{ member.id }}">
+                                            Are you sure you want to kick {{ member.email }} from {{ club }}?
+                                            <div class="kickbuttonscontainer" id="{{ member.id }}">
+                                                <button class="kickconfirmbuttons yestokick_{{ club.id }}" id="yestokick_{{ club.id }}-{{ member.id }}">Yes</button>
+                                                <button class="kickconfirmbuttons notokick_{{ member.id }}" id="notokick_{{ club.id }}-{{ member.id }}">No</button>
+                                            </div>
+                                        </dialog>
                                         <td data-cell="email">{{ member.email }}</td>
                                         <td data-cell="role">
                                             {% if member.email == current_user.email %}
-                                                President
+                                                <i class="fa-solid fa-crown"></i> President
                                             {% elif member.email == club.vicepresident_email1 or member.email == club.vicepresident_email2 or member.email == club.vicepresident_email3 %}
                                                 Vice President
                                             {% else %}
-                                                {{ member.role }}
+                                                Member
+                                                <!-- {{ member.role }} -->
                                             {% endif %}
                                         </td>
                                     </tr>

@@ -279,3 +279,67 @@ window.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+// ********** Kick Member from Club Button Functionality: ********** //
+window.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("click", openKickModal); 
+});
+
+function openKickModal(e) {
+    let targetID = -1;
+    targetID = e.target.id;
+    console.log("Target id = " + targetID);
+    if (targetID.substring(targetID.length - 1).localeCompare("*") === 0) return;
+    let clubID = -1;
+    if (targetID.indexOf("_") > -1) {
+        clubID = targetID.substring(targetID.indexOf("_") + 1, targetID.indexOf("-"));
+    }
+    console.log("Club id = " + clubID);
+    let memberID = -1;
+    if (targetID.indexOf("-") > -1) {
+        memberID = targetID.substring(targetID.indexOf("-") + 1);
+    }
+    console.log("Member id = " + memberID);
+    let rest = "rehaan";
+    if (targetID.indexOf("_") > -1 && targetID.indexOf("-") > -1) {
+        rest = targetID.substring(0, targetID.indexOf("_"));
+    }
+    console.log("Rest: " + rest);
+    const kickButton = document.getElementById("kickbutton_" + clubID + "-" + memberID);
+    console.log(kickButton);
+    const kickModal = document.getElementById("kickbuttonconfirmationbutton_" + clubID + "-" + memberID);
+    console.log(kickModal);
+    if (rest.localeCompare("kickbutton") === 0) {
+        console.log("Kick Button clicked");
+        kickModal.showModal();
+        const noKick = document.getElementById("notokick_" + clubID + "-" + memberID);
+        noKick.addEventListener("click", () => {
+            kickModal.close();
+        })
+        const yesKick = document.getElementById("yestokick_" + clubID + "-" + memberID);
+        yesKick.addEventListener("click", () => {
+            $.ajax({
+                url: "",
+                type: "GET",
+                contentType: "application/json",
+                data: {
+                    removeClub: clubID,
+                    removeMember: memberID
+                },
+                success: kickModal.close()
+            })
+        })
+    }
+}
+
+// ********** Create a Club Required ********** //
+window.addEventListener("DOMContentLoaded", () => {
+    const requiredSymbol = document.querySelector(".fa-star-of-life");
+    console.log(requiredSymbol);
+    const createAClubRequiredModal = document.getElementById("createaclubrequiredmodal");
+    console.log(createAClubRequiredModal);
+    requiredSymbol.addEventListener("click", () => {
+        console.log("Opened modal");
+        createAClubRequiredModal.showModal();
+    })
+})
