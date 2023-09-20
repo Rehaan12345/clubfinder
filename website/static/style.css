@@ -991,6 +991,10 @@ form .button input:hover {
         margin-top: 100px;
         transition: .5s ease;
     }
+
+    .makeaclubok {
+        margin-top: 100px;
+    }
 }
 
 @media screen and (max-width: 1111px) {
