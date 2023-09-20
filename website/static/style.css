@@ -985,9 +985,9 @@ form .button input:hover {
 }
 
 /********** Resize when the viewport gets smaller: **********/ 
-@media screen and (max-width: 1478px) {
+@media screen and (max-width: 1500px) {
     .maincontainer {
-        grid-template-columns: repeat(2, 40vh);
+        grid-template-columns: repeat(3, 40vh);
         margin-top: 100px;
         transition: .5s ease;
     }
