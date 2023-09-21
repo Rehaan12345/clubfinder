@@ -7,11 +7,11 @@
     <form action="#" method="POST">
         <div class="userdetails">
             <div class="inputbox">
-                <span class="details">Club Name <i class="fa-solid fa-star-of-life" style="color: #ff0000;"></i></span>
+                <span class="details">Club Name <i class="fa-solid fa-star-of-life" id="clubname" style="color: #ff0000;"></i></span>
                 <input type="text" placeholder="Club Name" name="clubname" required>
             </div>
             <div class="inputbox">
-                <span class="details">President's Email <i class="fa-solid fa-star-of-life" style="color: #ff0000;"></i></span>
+                <span class="details">President's Email <i class="fa-solid fa-star-of-life" id="presidentemail" style="color: #ff0000;"></i></span>
                 <input type="text" placeholder="clubpresident@cpsd.us" name="presidentemail" required>
             </div>
             <div class="inputbox">
@@ -27,24 +27,25 @@
                 <input type="text" placeholder="clubvicepresident@cpsd.us (if any)" name="vicepresidentemail3">
             </div>
             <div class="inputbox">
-                <span class="details">Advisor's Email <i class="fa-solid fa-star-of-life" style="color: #ff0000;"></i></span>
+                <span class="details">Advisor's Email <i class="fa-solid fa-star-of-life" id="advisoremail" style="color: #ff0000;"></i></span>
                 <input type="text" placeholder="clubadvisor@cpsd.us" name="advisoremail" required>
             </div>
             <div class="inputbox">
-                <span class="details">Room Number <i class="fa-solid fa-star-of-life" style="color: #ff0000;"></i></span>
+                <span class="details">Room Number <i class="fa-solid fa-star-of-life" id="roomnumber" style="color: #ff0000;"></i></span>
                 <input type="number" placeholder="Room Number" name="roomnumber" required>
             </div>
             <div class="inputbox">
-                <span class="details">Club Start Time <i class="fa-solid fa-star-of-life" style="color: #ff0000;"></i></span>
+                <span class="details">Club Start Time <i class="fa-solid fa-star-of-life" id="clubstarttime" style="color: #ff0000;"></i></span>
                 <input type="time" placeholder="Start time" name="clubstarttime" required>
             </div>
             <div class="inputbox">
-                <span class="details">Club Description <i class="fa-solid fa-star-of-life" style="color: #ff0000;"></i></span>
+                <span class="details">Club Days <i class="fa-solid fa-star-of-life" id="clubstarttime" style="color: #ff0000;"></i></span>
+                <input type="text" placeholder="What day(s) does your club meet?" name="clubdays" required>
+            </div>
+            <div class="inputbox">
+                <span class="details">Club Description <i class="fa-solid fa-star-of-life" id="clubdescription" style="color: #ff0000;"></i></span>
                 <input type="text" id="inputthedescription" placeholder="Brief description of club" name="clubdescription" required>
             </div>
-            <dialog class="createaclubrequiredmodal" id="createaclubrequiredmodal">
-                <p>This field is required</p>
-            </dialog>
         </div>
         <div class="button">
             <input type="submit" value="Confirm">

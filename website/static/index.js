@@ -333,13 +333,26 @@ function openKickModal(e) {
 }
 
 // ********** Create a Club Required ********** //
-window.addEventListener("DOMContentLoaded", () => {
-    const requiredSymbol = document.querySelector(".fa-star-of-life");
-    console.log(requiredSymbol);
-    const createAClubRequiredModal = document.getElementById("createaclubrequiredmodal");
-    console.log(createAClubRequiredModal);
-    requiredSymbol.addEventListener("click", () => {
-        console.log("Opened modal");
-        createAClubRequiredModal.showModal();
-    })
-})
+// window.addEventListener("DOMContentLoaded", () => {
+//     // const requiredSymbol = document.querySelector(".fa-star-of-life");
+//     // console.log(requiredSymbol);
+//     const createAClubRequiredModal = document.getElementById("createaclubrequiredmodal");
+//     // console.log(createAClubRequiredModal);
+//     // requiredSymbol.addEventListener("click", () => {
+//     //     console.log("Opened modal");
+//     //     createAClubRequiredModal.showModal();
+//     // })
+//     window.addEventListener("click", (e) => {
+//         const clicked = e.target;
+//         const clickedId = e.target.id;
+//         console.log("Clickedid: " + clickedId);
+//         const clickedIdId = document.querySelector(".fa-star-of-life")
+//         clicked.getBoundingClientRect();
+//         console.log(clicked.getBoundingClientRect());
+//         createAClubRequiredModal.showModal();
+//         // Make sure the correct thing has been clicked (compare to className or id):
+//         // if (clicked.parentElement.localeCompare("details") === 0) {
+//         //     createAClubRequiredModal.showModal();
+//         // }
+//     })
+// })

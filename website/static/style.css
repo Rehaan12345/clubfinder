@@ -605,15 +605,20 @@ form .button input:hover {
 .fa-star-of-life {
     opacity: 1;
     font-size: 10px;
+    transition: all .3s ease;
 }
 
 .createaclubrequiredmodal {
-    width: 200px;
+    width: 300px;
     height: 200px;
 }
 
+#requiredmodalclosebutton {
+    float: right;
+}
+
 .fa-star-of-life:hover {
-    font-size: 20px;
+    transform: scale(1.4);
 }
 
 /******************** Club Card Styling: (New / Updated) ********************/
@@ -636,6 +641,7 @@ form .button input:hover {
     overflow: hidden;
     transition: transform 500ms ease;
     margin-top: -50px;
+    /* height: 800px; */
 }
 
 .club:hover,
@@ -664,12 +670,14 @@ form .button input:hover {
         var(--card2)
     );
     border-radius: 15px;
+    height: 400px;
 }
 
 .clubtitle {
     color: var(--textcolor);
     position: relative;
     width: max-content;
+    font-size: 18px;
 }
 
 .clubtitle::after {
@@ -1119,6 +1127,7 @@ form .button input:hover {
     width: 100%;
     background: var(--bg1);
     border-collapse: collapse;
+    margin-bottom: 10px;
 }
 
 .clubtable caption, th, td {
