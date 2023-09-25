@@ -155,6 +155,8 @@ def club_dashboard():
 @views.route("/createaclub", methods=["GET", "POST"])
 @login_required
 def createaclub():
+    days_selected = request.args.get("clubDays")
+    print(f"Days selected: {days_selected}")
     # Accepting the post request:
     if request.method == "POST":
         club_name = request.form.get("clubname")

@@ -356,3 +356,61 @@ function openKickModal(e) {
 //         // }
 //     })
 // })
+
+// ********** Text Area Dynamically Expanding: ********* //
+document.addEventListener("DOMContentLoaded", () => {
+    const textarea = document.getElementById("inputthedescription");
+    textarea.addEventListener("keyup", e => {
+        textarea.style.height = "45px";
+        let scHeight = e.target.scrollHeight;
+        console.log(scHeight);
+        textarea.style.height = `${scHeight}px`;
+    })
+});
+
+// ********** Choose Club Days: ********** //
+document.addEventListener("DOMContentLoaded", () => {
+    const selectbutton = document.querySelector(".selectbutton");
+    const items = document.querySelectorAll(".day");
+
+    selectbutton.addEventListener("click", () => {
+        selectbutton.classList.toggle("open");
+    });
+
+    let daysSelected = [];
+
+    items.forEach(item => {
+        item.addEventListener("click", () => {
+            item.classList.toggle("checked");
+
+            let checked = document.querySelectorAll(".checked");
+            let buttonText = document.querySelector(".buttontext");
+
+            if (checked && checked.length > 0) {
+                buttonText.innerHTML = `${checked.length} Selected`;
+                checked.forEach(day => {
+                    daysSelected.push(day.id);
+                    daysSelected.forEach(daye => {
+                        console.log(daye);
+                    })
+                })
+
+                // if (daysSelected.length > 0) {
+                    $.ajax({
+                        url: "",
+                        type: "GET",
+                        contentType: "application/json",
+                        data: {
+                            clubDays: daysSelected
+                        },
+                        success: console.log("Successfully sent!")
+                    })
+                // }
+
+            } else {
+                buttonText.innerHTML = "0 Selected";
+            }
+        })
+    })
+
+})

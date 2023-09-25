@@ -506,6 +506,7 @@ body {
     padding: 25px 30px;
     border-radius: 5px;
     display: grid;
+    /* grid-template-columns:auto; */
     place-items: center;
     position: absolute;
     top: 50%;
@@ -526,7 +527,11 @@ body {
     bottom: 0;
     height: 3px;
     width: 30px;
-    background:var(green1);
+    background: var(--bg1);
+}
+
+.makeaclubok form {
+    position: relative;
 }
 
 .makeaclubok form .userdetails {
@@ -547,6 +552,28 @@ form .userdetails .inputbox {
     margin: 5px;
 }
 
+#inputthedescription {
+    float:left;
+    max-width: 350px;
+    max-height: 200px;
+    height: 45px;
+    width: 100%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 15px;
+    font-size: 16px; 
+    border-bottom-width: 2px;
+    transition: all 0.5 ease;
+    resize: none;
+    font-family: var(--fontfamily);
+    font-size: 18px;
+}
+
+#inputthedescription::-webkit-scrollbar {
+    width: 0px;
+}
+
 .userdetails .inputbox input {
     height: 45px;
     width: 100%;
@@ -561,6 +588,114 @@ form .userdetails .inputbox {
 
 .userdetails .inputbox input:focus {
     border-color: var(--bg2);
+}
+
+.userdetails .inputbox #inputthedescription:focus {
+    border-color: var(--bg2);
+}
+
+.fa-chevron-down {
+    opacity: 1;
+}
+
+.selectbutton {
+    display: flex;
+    height: 50px;
+    align-items: center;
+    padding: 0 16px;
+    border-radius: 8px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.selectbutton .buttontext {
+    font-size: 17px;
+    font-weight: 400;
+    color: #333;
+}
+
+.selectbutton .arrowdwn {
+    display: flex;
+    height: 21px;
+    width: 21px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 14px;
+    background: var(--bg1);
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+    margin-left: 190px;
+}
+
+.selectbutton.open .arrowdwn {
+    transform: rotate(-180deg);
+}
+
+.selectdays {
+    position: relative;
+    margin-top: 15px;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .3);
+    display: none;
+}
+
+.selectbutton.open ~ .selectdays {
+    display: block;
+}
+
+.selectdays .day {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    height: 50px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.selectdays .day:hover {
+    background-color: var(--bg1);
+}
+
+.day .itemtext {
+    font-size: 16px;
+    font-weight: 400px;
+    color: black;
+}
+
+.day .checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 16px;
+    width: 16px;
+    border-radius: 4px;
+    margin-right: 12px;
+    margin-left: 10px;
+    border: 1.5px solid black;
+    transition: all 0.3s ease-in-out;
+}
+
+.day.checked .checkbox {
+    background-color: var(--bg2);
+    border-color: var(--bg2);
+}
+
+.checkbox .fa-check {
+    color: white;
+    font-size: 11px;
+    transform: scale(0);
+    transition: all 0.1s ease-in-out;
+}
+
+.day.checked .fa-check {
+    transform: scale(1);
+}
+
+.fa-check {
+    opacity: 1;
 }
 
 form .button {
