@@ -625,7 +625,7 @@ form .userdetails .inputbox {
     align-items: center;
     justify-content: center;
     transition: 0.3s;
-    margin-left: 190px;
+    margin-right: 10px;
 }
 
 .selectbutton.open .arrowdwn {

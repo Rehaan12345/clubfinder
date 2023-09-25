@@ -379,36 +379,59 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let daysSelected = [];
 
+    let buttonText = document.querySelector(".buttontext");
+
     items.forEach(item => {
         item.addEventListener("click", () => {
             item.classList.toggle("checked");
 
-            let checked = document.querySelectorAll(".checked");
-            let buttonText = document.querySelector(".buttontext");
+            function removeDuplicate(arr) { 
+                // Create a Set to store unique values
+                const uniqueSet = new Set(arr);
+                
+                // Convert the Set back to an array
+                const uniqueArray = [...uniqueSet];
+                
+                return uniqueArray;
+            }
 
-            if (checked && checked.length > 0) {
-                buttonText.innerHTML = `${checked.length} Selected`;
-                checked.forEach(day => {
-                    daysSelected.push(day.id);
-                    daysSelected.forEach(daye => {
-                        console.log(daye);
-                    })
+            if (item.classList.length > 1) {
+    
+                daysSelected.push(item.id);
+    
+                daysSelected = removeDuplicate(daysSelected);
+                
+                console.log(daysSelected);
+                if (daysSelected.length === 0) {
+                    buttonText.innerHTML = "0 Selected";
+                } else if (daysSelected.length === 5) {
+                    buttonText.innerHTML = "Everyday";
+                }
+                else { buttonText.innerHTML = daysSelected; }
+                $.ajax({
+                    url: "",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: {
+                        clubDays: daysSelected
+                    },
+                    success: console.log("Successfully sent " + daysSelected)
                 })
-
-                // if (daysSelected.length > 0) {
-                    $.ajax({
-                        url: "",
-                        type: "GET",
-                        contentType: "application/json",
-                        data: {
-                            clubDays: daysSelected
-                        },
-                        success: console.log("Successfully sent!")
-                    })
-                // }
-
             } else {
-                buttonText.innerHTML = "0 Selected";
+                let index = null;
+                for (let j = 0; j < daysSelected.length; j++) {
+                    if (daysSelected[j].localeCompare(item.id) === 0) {
+                        index = j;
+                        break;
+                    }
+                }
+                daysSelected.splice(index, 1);
+                console.log(daysSelected);
+
+                if (daysSelected.length === 0) {
+                    buttonText.innerHTML = "0 Selected";
+                } else { buttonText.innerHTML = daysSelected; }
+                
             }
         })
     })
