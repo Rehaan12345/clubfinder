@@ -562,10 +562,12 @@ form .userdetails .inputbox {
 
 #inputthedescription {
     float:left;
-    max-width: 350px;
+    min-width: 310px;
+    max-width: 310px;
+    min-height: 45px;
     max-height: 200px;
     height: 45px;
-    width: 100%;
+    width: 310px;
     outline: none;
     border-radius: 5px;
     border: 1px solid #ccc;
@@ -573,19 +575,18 @@ form .userdetails .inputbox {
     font-size: 16px; 
     border-bottom-width: 2px;
     transition: all 0.5 ease;
-    resize: none;
     font-family: var(--fontfamily);
     font-size: 18px;
     line-height: 45px;
 }
 
-#inputthedescription::-webkit-scrollbar {
+/* #inputthedescription::-webkit-scrollbar {
     width: 0px;
-}
+} */
 
 .userdetails .inputbox input {
     height: 45px;
-    width: 100%;
+    width: 310px;
     outline: none;
     border-radius: 5px;
     border: 1px solid #ccc;

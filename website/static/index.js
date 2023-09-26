@@ -386,6 +386,7 @@ document.addEventListener("DOMContentLoaded", () => {
         item.addEventListener("click", () => {
             item.classList.toggle("checked");
 
+            // ChatGPT Function:
             function removeDuplicate(arr) { 
                 // Create a Set to store unique values
                 const uniqueSet = new Set(arr);
@@ -409,15 +410,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     buttonText.innerHTML = "Everyday";
                 }
                 else { buttonText.innerHTML = daysSelected; }
-                $.ajax({
-                    url: "",
-                    type: "POST",
-                    contentType: "application/json",
-                    data: {
-                        clubDays: daysSelected
-                    },
-                    success: console.log("Successfully sent " + daysSelected)
-                })
             } else {
                 let index = null;
                 for (let j = 0; j < daysSelected.length; j++) {
@@ -434,6 +426,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else { buttonText.innerHTML = daysSelected; }
                 
             }
+        })
+    })
+
+    const submitButtono = document.querySelector(".button");
+    submitButtono.addEventListener("submit", () => {
+        $.ajax({
+            url: "",
+            type: "POST",
+            contentType: "application/json",
+            data: {
+                clubDays: JSON.stringify(daysSelected)
+            },
+            success: console.log("Successfully sent " + daysSelected)
         })
     })
 

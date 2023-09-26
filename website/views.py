@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
 from .models import User, Club 
+from .sendmail import send_mail
 from . import db
 import random
 import smtplib
@@ -155,8 +156,6 @@ def club_dashboard():
 @views.route("/createaclub", methods=["GET", "POST"])
 @login_required
 def createaclub():
-    days_selected = request.args.get("clubDays")
-    print(f"Days selected: {days_selected}")
     # Accepting the post request:
     if request.method == "POST":
         club_name = request.form.get("clubname")
@@ -168,6 +167,8 @@ def createaclub():
         room_number = request.form.get("roomnumber")
         start_time = request.form.get("clubstarttime")
         description = request.form.get("clubdescription")
+        club_days = request.form.get("clubDays")
+        print(f"Days selected: {club_days}")
         president = User.query.filter_by(email=president_email).first()
         president.is_leader = True 
         if vicepresident_email1:
@@ -205,8 +206,8 @@ def createaclub():
         # Making the random password:
         secret_password = random.randint(100, 1000000)
         print(f"Secret password: {secret_password}")
-        new_club = Club(club_name=club_name, president_email=president_email, vicepresident_email1=vicepresident_email1, vicepresident_email2=vicepresident_email2, vicepresident_email3=vicepresident_email3, advisor_email=advisor_email, room_number=room_number, start_time=start_time, description=description, secret_password=secret_password)
-        print(f"New Club Name: {new_club.club_name}, President: {new_club.president_email}, VP1: {new_club.vicepresident_email1}, VP2: {new_club.vicepresident_email2}, VP3: {new_club.vicepresident_email3}, Advisor: {new_club.advisor_email}, Room Number: {new_club.room_number}, Start Time: {new_club.start_time}, Description: {new_club.description}")
+        new_club = Club(club_name=club_name, president_email=president_email, vicepresident_email1=vicepresident_email1, vicepresident_email2=vicepresident_email2, vicepresident_email3=vicepresident_email3, advisor_email=advisor_email, room_number=room_number, start_time=start_time, description=description, secret_password=secret_password, club_day=club_days)
+        print(f"New Club Name: {new_club.club_name}, President: {new_club.president_email}, VP1: {new_club.vicepresident_email1}, VP2: {new_club.vicepresident_email2}, VP3: {new_club.vicepresident_email3}, Advisor: {new_club.advisor_email}, Room Number: {new_club.room_number}, Start Time: {new_club.start_time}, Description: {new_club.description}, Club Day(s): {new_club.club_day}")
         db.session.add(new_club)
         db.session.commit()
         pres.clubs.append(Club.query.filter_by(club_name=club_name).first())
