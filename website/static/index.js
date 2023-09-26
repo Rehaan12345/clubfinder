@@ -200,13 +200,14 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 // ********** Nav button functionality: ********** //
-// window.addEventListener("DOMContentLoaded", () => {
-//     const navElement = document.querySelector(".navlink");
-//     console.log("Target: " + navElement)
-//     navElement.addEventListener("click", () => {
-//         navElement.classList.add("activeclick");
-//     });
-// });
+window.addEventListener("DOMContentLoaded", () => {
+    const activePage = window.location.pathname;
+    document.querySelectorAll("nav a").forEach((link) => {
+        if (link.href === window.location.href) {
+            link.classList.add("activeclick");
+        }
+    });
+})
 
 window.addEventListener("DOMContentLoaded", ()=> {
     document.addEventListener("click", e=> {

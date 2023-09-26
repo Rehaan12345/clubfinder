@@ -202,17 +202,20 @@ body {
 #mainnav .nav .navlink {
     color: var(--textcolor);
     text-decoration: none;
+    padding: 5px;
 } 
-
+/* 
 .navlink:hover {
     padding: 5px;
-}
+} */
 
 .dropdown.active > .navlink,
 #mainnav .nav .navlink:hover {
     background: var(--bg1);
-    text-decoration: none;
+    /* text-decoration: none; */
     border-radius: 10px; 
+    padding: 5px;
+    /* color: red; */
 }
 
 #mainnav ul li {
@@ -225,11 +228,15 @@ body {
 }
 
 .activeclick {
+    position: relative;
     background: var(--bg1);
     text-decoration: none;
-    border-radius: 10px;
-    padding-left: 5px;
-    padding-right: 5px;
+    border-radius: 10px; 
+    padding: 5px; 
+    height: 5px;
+    bottom: 0;
+    z-index: 0;
+    transition: all .5s ease;
 }
 
 .dropdownlink {
@@ -502,6 +509,7 @@ body {
 /********** Create a club form: **********/
 .makeaclubok {
     max-width: 700px;
+    max-height: 1200px;
     width: 100%;
     padding: 25px 30px;
     border-radius: 5px;
@@ -568,6 +576,7 @@ form .userdetails .inputbox {
     resize: none;
     font-family: var(--fontfamily);
     font-size: 18px;
+    line-height: 45px;
 }
 
 #inputthedescription::-webkit-scrollbar {
@@ -599,7 +608,7 @@ form .userdetails .inputbox {
 }
 
 .selectbutton {
-    display: flex;
+    display: flex; 
     height: 50px;
     align-items: center;
     padding: 0 16px;
@@ -640,10 +649,15 @@ form .userdetails .inputbox {
     background-color: #fff;
     box-shadow: 0 5px 10px rgba(0, 0, 0, .3);
     display: none;
+    /* visibility: hidden; */
+    opacity: 0;
 }
 
 .selectbutton.open ~ .selectdays {
     display: block;
+    /* visibility: visible; */
+    opacity: 1;
+    transition: all .5s ease-in-out;
 }
 
 .selectdays .day {
