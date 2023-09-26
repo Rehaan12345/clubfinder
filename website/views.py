@@ -169,6 +169,33 @@ def createaclub():
         description = request.form.get("clubdescription")
         club_days = request.form.get("clubDays")
         print(f"Days selected: {club_days}")
+        senderemail = "crlsclubfinder@gmail.com"
+        senderpassword = "wmzhhaxtzqnvyuze"
+        subject = f"{club_name} has submitted you as their club advisor"
+        body = f"""Hello! 
+
+{ president_email } is signing their club, {club_name}, up to the ClubFinder website. They selected you as their club advisor. If you are not their advisor, please delete this email, or email 25ranjaria@cpsd.us for technical assistance. 
+
+If you are the advisor of {club_name}, and the below information looks correct, please use the code below to confirm both you and your club's identity:
+
+Club Name: {club_name}
+President: {president_email}
+Vice-President: {vicepresident_email1}
+Vice-President: {vicepresident_email2}
+Vice-President: {vicepresident_email3}
+Room Number: {room_number}
+Start Time: {start_time}
+Description: {description}
+Club Meetings: {club_days}
+
+Thank you!
+ClubFinder
+
+        """
+
+        send_mail(email_sender=senderemail, email_password=senderpassword, email_receiver=advisor_email, subject=subject, body=body)
+        flash("Email successfully sent!")
+
         president = User.query.filter_by(email=president_email).first()
         president.is_leader = True 
         if vicepresident_email1:
