@@ -1,6 +1,6 @@
 # CRLS clubfinder
 
-## Run the site
+## Run the developer site
 To run the site, clone this repository and copy the following commands in the directory terminal:
 
 ```
