@@ -46,6 +46,35 @@ body {
     mix-blend-mode:multiply;
 }
 
+.loader {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    background-color: var(--bg2);
+    position: absolute;
+}
+
+.loader>div {
+    height: 100px;
+    width: 100px;
+    border: 15px solid var(--bg2);
+    border-top-color: var(--bg1);
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 100%;
+    animation: spin 1.5s infinite linear;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 /***************** Login / Signup Styles: *****************/ 
 .center {
     font-family: Arial, Helvetica, sans-serif;
@@ -1044,10 +1073,19 @@ form .button input:hover {
 }
 
 /********** Search Bar Styling: **********/
+.homescreennavcontainer {
+    display: flex;
+    justify-content: center;
+    gap: 300px;
+    width: 100%;
+    max-width: 100%;
+    align-items: center;
+}
+
 .searchwrapperwrapper {
     display: grid; 
     justify-content: left;
-    margin-left: 17%;
+    /* margin-left: 17%; */
 }
 
 .searchwrapper { 
@@ -1067,13 +1105,13 @@ form .button input:hover {
 }
 
 .searchwrapper input {
-    width: 0;
+    width: 400px;
     outline: none;
     border: none;
     font-weight: 500;
     transition: 0.5s;
     background: transparent;
-    font-size: 1rem; 
+    font-size: 1.5rem; 
     font-family: var(--fontfamily);
 }
 
@@ -1234,6 +1272,25 @@ form .button input:hover {
     width: 700px;
     height: 500px;
     max-width: 80%;
+    top: 0;
+    left: 0;
+    transform: translate(-1%, 30%);
+}
+
+.connectclubbutton {
+    text-decoration: none;
+    border-radius: 30px;
+    padding: 15px;
+    background-color: var(--bg1);
+    width: 400px;
+    height: 60px;
+}
+
+#connecttoclubbutton {
+    text-decoration: none;
+    color: black;
+    font: var(--fontfamily);
+    font-size: 20px;
 }
 
 .connecttoclubtitle { 

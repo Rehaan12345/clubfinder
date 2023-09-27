@@ -76,16 +76,22 @@ def home():
         for club in clubs:
             print(club.secret_password)
         print(club_password)
+    
         if Club.query.filter_by(secret_password=club_password).first():
-            club_found = Club.query.filter_by(secret_password=club_password).first()
-            print(club_found)
-            flash("Club successfully found!", "success")
-            print(club_found.members)
-            current_user.is_leader = True
-            return render_template("clubdashboard.html", club_info=Club.query.all(), user_info=User.query.all(), user=current_user)
+            if current_user.role == "Advisor":
+                club_found = Club.query.filter_by(secret_password=club_password).first()
+                print(club_found)
+                flash("Club successfully found!", "success")
+                print(club_found.members)
+                current_user.is_leader = True
+                return render_template("clubdashboard.html", club_info=Club.query.all(), user_info=User.query.all(), user=current_user)
+            else:
+                print("Current user is not an advisor.")
+                flash("Your advisor has to verify your club's code before you can!", "error")
         else:
             flash("No club found with matching code!", "error")
             print("None found")
+        
 
     # Filter By Buttons Functionality:
     filterby = request.args.get("filterby")
@@ -167,6 +173,9 @@ def createaclub():
         room_number = request.form.get("roomnumber")
         start_time = request.form.get("clubstarttime")
         description = request.form.get("clubdescription")
+        # Making the random password:
+        secret_password = random.randint(100, 1000000)
+        print(f"Secret password: {secret_password}")
         club_days = request.form.get("clubDays")
         print(f"Days selected: {club_days}")
         senderemail = "crlsclubfinder@gmail.com"
@@ -187,6 +196,10 @@ Room Number: {room_number}
 Start Time: {start_time}
 Description: {description}
 Club Meetings: {club_days}
+
+CODE: {secret_password}
+Go to clubfinder.com, create an account, and hit "Verify Your Club," and type in your club's code. If the code works, your club is all set, and you can give this code to your club's president and vicepresidents. DO NOT GIVE THIS CODE TO CLUB MEMBERS.
+If this code doesn't work, please make sure you're logged in with the same email that you received this email on. You should be the only one able to use this code at first. Once you use it once, your club's presidents and vide presidents can use it after you. If the code still doesn't work, please email 25ranjaria@cpsd.us for technical assitance. 
 
 Thank you!
 ClubFinder
@@ -230,9 +243,6 @@ ClubFinder
         # elif not vpemail3:
         flash(f"Email {vicepresident_email3} not found, make sure their account has been created.", category="error")
         # else: 
-        # Making the random password:
-        secret_password = random.randint(100, 1000000)
-        print(f"Secret password: {secret_password}")
         new_club = Club(club_name=club_name, president_email=president_email, vicepresident_email1=vicepresident_email1, vicepresident_email2=vicepresident_email2, vicepresident_email3=vicepresident_email3, advisor_email=advisor_email, room_number=room_number, start_time=start_time, description=description, secret_password=secret_password, club_day=club_days)
         print(f"New Club Name: {new_club.club_name}, President: {new_club.president_email}, VP1: {new_club.vicepresident_email1}, VP2: {new_club.vicepresident_email2}, VP3: {new_club.vicepresident_email3}, Advisor: {new_club.advisor_email}, Room Number: {new_club.room_number}, Start Time: {new_club.start_time}, Description: {new_club.description}, Club Day(s): {new_club.club_day}")
         db.session.add(new_club)

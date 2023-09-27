@@ -32,6 +32,10 @@ def signup():
         username = request.form.get("username")
         password = request.form.get("password")
         confirm_password = request.form.get("confirm-password") 
+        role = "Member"
+        if email[0].isnumeric():
+            role = "Member"
+        else: role = "Advisor"
 
         # Makes sure two users don't use the same email address: 
         user = User.query.filter_by(email=email).first() 
@@ -44,7 +48,7 @@ def signup():
         elif len(password) < 7:
             flash("Your password must be greater than 6 characters!", category="error")
         else:
-            new_user = User(email=email, password=generate_password_hash(password, method="sha256"), is_leader=False, role="Member")
+            new_user = User(email=email, password=generate_password_hash(password, method="sha256"), is_leader=False, role=role)
             db.session.add(new_user) 
             db.session.commit()
             login_user(new_user, remember=True)

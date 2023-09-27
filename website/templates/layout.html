@@ -13,6 +13,11 @@
 </head>
     <body>
 
+        <!-- Loading Screen: -->
+        <!-- <div class="loader">
+            <div></div>
+        </div> -->
+
         <!-- Main Nav Bar: -->
         <nav class="mainnav" id="mainnav">
             <div class="hamburger">
@@ -35,7 +40,6 @@
                         <div class="dropdownmenu">
                             <div class="dropdownlinks">
                                 <a href="#" class="navlink" id="loggedinas">{{ current_user.email }} <i class="fa-regular fa-id-badge"></i></a>
-                                <!-- <a href="#" class="navlink" id="connecttoclubbutton">Connect to Club <i class="fa-solid fa-link"></i></a> -->
                                 <a class="navlink" href="/createaclub">Create a Club <i class="fa-solid fa-pencil"></i></a>
                                 <a href="/admin" class="navlink">Admin Dashboard <i class="fa-solid fa-table-columns"></i></a>
                                 <a href="https://github.com/Rehaan12345/clubfinder" class="navlink" target="_blank">View Github <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
@@ -49,20 +53,6 @@
                 {% endif %}
             </ul>
         </nav>  
-
-        <!-- Connect to club modal: -->
-        <dialog class="connecttoclub" id="connecttoclubmodal">
-            <div class="connecttoclubtitle">
-                <div class="header"><h1>Enter Club Password</h1></div> 
-                <button data-close-button id="clubclosebutton" class="clubclosebutton">&times;</button>
-            </div>
-            <div class="connecttoclubinputbox">
-                <form method="POST">
-                    <input class="connecttoclubinput" type="number" name="connecttoclubnumber">
-                    <input class="connecttoclubinput" id="connecttoclubsubmit" type="submit" value="Enter">
-                </form>
-            </div>
-        </dialog>
 
         <form class="colorpicker" action="">
             <fieldset>
@@ -103,22 +93,41 @@
         {% block body %}
 
             <h1 id="main1">
-                <center>Clubs <br>
+                <center>Clubs <br><br>
+                </center>
+                </h1>
 
                 <!-- Search Bar: -->
-                <div class="searchwrapperwrapper">
-                    <div class="searchwrapper">
-                        <!-- <label for="search">Search Clubs</label> -->
-                        <input type="search" id="search" name="q" placeholder="Club or Email" hx-get="/search" hx-trigger="keyup changed delay:500ms" hx-target=".maincontainer">
-                        <a href="#">
-                            <i class="fas fa-search"></i>
-                        </a>
+                <div class="homescreennavcontainer">
+                    <div class="searchwrapperwrapper">
+                        <div class="searchwrapper">
+                            <!-- <label for="search">Search Clubs</label> -->
+                            <input type="search" id="search" name="q" placeholder="Search a club or email" hx-get="/search" hx-trigger="keyup changed delay:500ms" hx-target=".maincontainer">
+                            <a href="#">
+                                <i class="fas fa-search"></i>
+                            </a>
+                        </div>
                     </div>
+                    <button class="connectclubbutton"><a href="#" class="navlink" id="connecttoclubbutton">Verify Your Club <i class="fa-solid fa-link"></i></a></button>
                 </div>
 
+                <br><br>
+
+                <!-- Connect to club modal: -->
+                <dialog class="connecttoclub" id="connecttoclubmodal">
+                    <div class="connecttoclubtitle">
+                        <div class="header"><h1>Enter Club Password</h1></div> 
+                        <button data-close-button id="clubclosebutton" class="clubclosebutton">&times;</button>
+                    </div>
+                    <div class="connecttoclubinputbox">
+                        <form method="POST">
+                            <input class="connecttoclubinput" type="number" name="connecttoclubnumber" required>
+                            <input class="connecttoclubinput" id="connecttoclubsubmit" type="submit" value="Enter">
+                        </form>
+                    </div>
+                </dialog>
+
                 <!-- ______________________________________________________________ -->
-            </center>
-            </h1>
 
             <!-- Filter By Buttons:
             <div class="homemenu">

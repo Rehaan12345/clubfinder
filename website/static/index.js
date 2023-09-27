@@ -443,3 +443,9 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
 })
+
+// ********** Animate on load script: ********** //
+$(window).on("load", () => {
+    $(".loader").fadeOut(1000);
+    $(".content").fadein(1000);
+})
