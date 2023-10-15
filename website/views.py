@@ -92,7 +92,6 @@ def home():
             flash("No club found with matching code!", "error")
             print("None found")
         
-
     # Filter By Buttons Functionality:
     filterby = request.args.get("filterby")
     print(f"Filterby: {filterby}")
@@ -173,6 +172,10 @@ def createaclub():
         room_number = request.form.get("roomnumber")
         start_time = request.form.get("clubstarttime")
         description = request.form.get("clubdescription")
+        new_advisor = User.query.filter_by(email=advisor_email).first()
+        if new_advisor:
+            new_advisor.role = "Advisor"
+
         # Making the random password:
         secret_password = random.randint(100, 1000000)
         print(f"Secret password: {secret_password}")
@@ -198,7 +201,8 @@ Description: {description}
 Club Meetings: {club_days}
 
 CODE: {secret_password}
-Go to clubfinder.com, create an account, and hit "Verify Your Club," and type in your club's code. If the code works, your club is all set, and you can give this code to your club's president and vicepresidents. DO NOT GIVE THIS CODE TO CLUB MEMBERS.
+
+Go to clubfinder.com, create an account with this email, and hit "Register Your Club," and type in your club's code. If the code works, your club is all set, and you can give this code to your club's president and vicepresidents. DO NOT GIVE THIS CODE TO CLUB MEMBERS.
 If this code doesn't work, please make sure you're logged in with the same email that you received this email on. You should be the only one able to use this code at first. Once you use it once, your club's presidents and vide presidents can use it after you. If the code still doesn't work, please email 25ranjaria@cpsd.us for technical assitance. 
 
 Thank you!
@@ -303,32 +307,32 @@ ClubFinder
         
 #     return render_template("email.html")
 
-@views.route("/send_email", methods=["GET", "POST"])
-def send_email():
-    email_address = "rehaan1099@gmail.com" # request.form['address']
-    email_subject = "Test Email!" # request.form['subject']
-    email_message = "This email works ok!" # request.form['message']
+# @views.route("/send_email", methods=["GET", "POST"])
+# def send_email():
+#     email_address = "rehaan1099@gmail.com" # request.form['address']
+#     email_subject = "Test Email!" # request.form['subject']
+#     email_message = "This email works ok!" # request.form['message']
 
-    sender_email = 'youremail'
-    sender_password = 'your password'
-    receiver_email = email_address
+#     sender_email = 'youremail'
+#     sender_password = 'your password'
+#     receiver_email = email_address
 
-    message = MIMEMultipart()
-    message['From'] = sender_email
-    message['To'] = receiver_email
-    message['Subject'] = email_subject
-    message.attach(MIMEText(email_message, 'plain'))
+#     message = MIMEMultipart()
+#     message['From'] = sender_email
+#     message['To'] = receiver_email
+#     message['Subject'] = email_subject
+#     message.attach(MIMEText(email_message, 'plain'))
 
-    # try:
-    server = smtplib.SMTP('smtp.gmail.com', 587)
-    server.starttls()
-    server.login(sender_email, sender_password)
-    server.sendmail(sender_email, receiver_email, message.as_string())
-    server.quit()
+#     # try:
+#     server = smtplib.SMTP('smtp.gmail.com', 587)
+#     server.starttls()
+#     server.login(sender_email, sender_password)
+#     server.sendmail(sender_email, receiver_email, message.as_string())
+#     server.quit()
 
-    #     return 'Email Sent!'
-    # except Exception as e:
-    #     return str(e)
+#     #     return 'Email Sent!'
+#     # except Exception as e:
+#     #     return str(e)
 
 # Search:
 @views.route("/search")

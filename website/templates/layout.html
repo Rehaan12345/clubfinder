@@ -24,22 +24,27 @@
                 <i class="fa-solid fa-bars"></i>
             </div>
             <ul id="header" class="nav">
-                <li class="navlink"><a class="navlink" href="/">Home <i class="fa-solid fa-house-user"></i></a></li>
+                <a class="navlink" href="/">Home <i class="fa-solid fa-house-user"></i></a>
                 {% if user.is_authenticated %}
                     <!-- <li class="navlink"><a class="navlink" href="/clubs">My Clubs</a></li> -->
+                    <a class="navlink" href="/createaclub">Register a Club <i class="fa-solid fa-pencil"></i></a>
+                    <a href="https://github.com/Rehaan12345/clubfinder" class="navlink" target="_blank">View Github <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    <a href="/logout" class="navlink">Logout <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
                 {% if user.is_leader %}
-                    <li class="navlink"><a class="navlink" href="/clubdashboard">Club Dashboard <i class="fa-solid fa-desktop"></i></a></li>
+                    <a class="navlink" href="/clubdashboard">Club Dashboard <i class="fa-solid fa-desktop"></i></a>
                 {% endif %}
                 {% endif %}
             </ul>
             <ul id="header2" class="nav">
                 {% if user.is_authenticated %} 
+                <div id="loggedinasok">
+                    <a class="navlink" id="loggedinas">{{ current_user.email }} <i class="fa-regular fa-id-badge"></i></a>
+                </div>
                     <div class="dropdown" data-dropdown>
                         <!-- Dropdown: -->
                         <button class="navlink dropdownlink fa-regular fa-user" data-dropdown-button></button> 
                         <div class="dropdownmenu">
                             <div class="dropdownlinks">
-                                <a href="#" class="navlink" id="loggedinas">{{ current_user.email }} <i class="fa-regular fa-id-badge"></i></a>
                                 <a class="navlink" href="/createaclub">Create a Club <i class="fa-solid fa-pencil"></i></a>
                                 <a href="/admin" class="navlink">Admin Dashboard <i class="fa-solid fa-table-columns"></i></a>
                                 <a href="https://github.com/Rehaan12345/clubfinder" class="navlink" target="_blank">View Github <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
@@ -54,7 +59,7 @@
             </ul>
         </nav>  
 
-        <form class="colorpicker" action="">
+        <!-- <form class="colorpicker" action="">
             <fieldset>
                 <legend class="visuallyhidden">Pick a color scheme</legend>
                 <label class="visuallyhidden" for="BlackGreen">Black/Green</label>
@@ -69,7 +74,7 @@
                 <label class="visuallyhidden" for="BlackBlue">Black/Blue</label>
                 <input class="theme" type="radio" id="BlackBlue" name="theme">
             </fieldset>
-        </form>
+        </form> -->
 
         <!-- Flash Messages (included in all pages): -->
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -93,7 +98,7 @@
         {% block body %}
 
             <h1 id="main1">
-                <center>Clubs <br><br>
+                <center>ClubFinder <br>
                 </center>
                 </h1>
 
@@ -108,7 +113,8 @@
                             </a>
                         </div>
                     </div>
-                    <button class="connectclubbutton"><a href="#" class="navlink" id="connecttoclubbutton">Verify Your Club <i class="fa-solid fa-link"></i></a></button>
+                    <!-- <button class="connectclubbutton navlink" id="connecttoclubbutton"><a href="#" class="navlink" id="connecttoclubbutton">Verify Your Club </a></button> -->
+                    <button class="connectclubbutton navlink" id="connecttoclubbutton">Verify Your Club <i class="fa-solid fa-link"></i></button>
                 </div>
 
                 <br><br>
@@ -165,9 +171,11 @@
                 {% for club in club_info %}
                     <div class="club" id="{{ club.club_name }}1"> <!-- Card -->
                         <div class="clubcontent" id="{{ club.club_name }}"> <!-- Card content -->
-                            <div class="clubtitle" id="{{ club.club_name }}1">{{ club.club_name }}{% if club in joined_clubs %} <i class="fa-solid fa-star"></i>{% endif %} {% if current_user.email == club.president_email or current_user.email == club.vicepresident_email1 or current_user.email == club.vicepresident_email2 or current_user.email == club.vicepresident_email3 %}<i class="fa-solid fa-crown"></i>{% endif %}</div> <!-- Card title  -->
+                            <div class="clubtitle" id="{{ club.club_name }}1">
+                                {{ club.club_name }}{% if club in joined_clubs %} <i class="fa-solid fa-star"></i>{% endif %} {% if current_user.email == club.president_email or current_user.email == club.vicepresident_email1 or current_user.email == club.vicepresident_email2 or current_user.email == club.vicepresident_email3 %}<i class="fa-solid fa-crown"></i>{% endif %}
+                            </div> <!-- Card title  -->
                             <br><br>
-                            <button formTarget="#clubdesc_{{ club.id }}" class="clubbutton" id="viewclub" type="button">View More</button> <!-- Button -->
+                            <!-- <button formTarget="#clubdesc_{{ club.id }}" class="clubbutton" id="viewclub" type="button">View More</button>  -->
                             <p class="shortdesc">
                                 Club President: {{ club.president_email }}
                                 <br><br>
