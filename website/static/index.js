@@ -449,3 +449,121 @@ $(window).on("load", () => {
     $(".loader").fadeOut(1000);
     $(".content").fadein(1000);
 })
+
+// ********** Opens view-more dialog when club title is clicked: ********** //
+// Waits for the window to be fully loaded before starting this function:
+window.addEventListener("DOMContentLoaded", () => {
+    // Finds the parent element of all the card/club child elements:
+    const parent = document.querySelector(".maincontainer");
+    // Adds an event listener to that element, calling the openModal() function once it has been clicked:
+    parent.addEventListener("mouseover", e => {
+        // Finds the clicked element:
+        const elementClickedOn = e.target;
+        console.log(elementClickedOn);
+        // The target of the button that was clicked: 
+        let elementClickedOnTarget = elementClickedOn.id;
+        console.log(elementClickedOnTarget);
+        // Makes sure the clicked on element is the correct element: 
+        if (elementClickedOnTarget && elementClickedOnTarget.length) {
+            // Checks if title is there:
+            if (elementClickedOnTarget.substring(0, 5).localeCompare("title") === 0) {
+                // Removes "title" from the id:
+                elementClickedOnTarget = elementClickedOnTarget.slice(5);
+                console.log("New elementclickedontarget: " + elementClickedOnTarget)
+                const clubdesc = "clubdesc_"
+                elementClickedOnTarget = clubdesc + elementClickedOnTarget;
+                console.log("Final clickedontarget ok: " + elementClickedOnTarget);
+                // Finds the correct modal with the new and correct id:
+                const modal = document.getElementById(elementClickedOnTarget);
+                console.log(modal);
+                // Actually opens/shows the modal:
+                modal.showModal();
+                // The id number of the club that was selected: ("club.id"):
+                let idNum = -1;
+                // Finds the id number of the clud (The last digits after the underscore ("_")):
+                for (let i = 0; i < elementClickedOnTarget.length; i++) {
+                    if (elementClickedOnTarget.indexOf("_") === i) {
+                        idNum = elementClickedOnTarget.substring(i + 1);
+                        console.log(idNum);
+                    }
+                }
+                // Finds the correct close club button with the correct id number:
+                const closeButton = document.getElementById("clubclosebutton_" + idNum); 
+                console.log(closeButton.parentElement.parentElement.id);
+                // Waits for a click and closes that modal: 
+                closeButton.addEventListener("click", () => {
+                    // Closes the modal:
+                    modal.close();
+                }); 
+                // Closes the modal when clicking outside (copied from WebDevSimplified's code):
+                modal.addEventListener("click", e => {
+                    const dialogDimensions = modal.getBoundingClientRect()
+                    if (
+                    e.clientX < dialogDimensions.left ||
+                    e.clientX > dialogDimensions.right ||
+                    e.clientY < dialogDimensions.top ||
+                    e.clientY > dialogDimensions.bottom
+                    ) {
+                    modal.close()
+                    }
+                })
+            }
+        };  
+    }); 
+});
+
+// Opens the modal:
+function openModal(e) {
+    // Finds the clicked element:
+    const elementClickedOn = e.target;
+    console.log(elementClickedOn);
+    // The target of the button that was clicked: 
+    let elementClickedOnTarget = elementClickedOn.id;
+    console.log(elementClickedOnTarget);
+    // Makes sure the clicked on element is the correct element: 
+    if (elementClickedOnTarget && elementClickedOnTarget.length) {
+        // Checks if title is there:
+        if (elementClickedOnTarget.substring(0, 5).localeCompare("title") === 0) {
+            // Removes "title" from the id:
+            elementClickedOnTarget = elementClickedOnTarget.slice(5);
+            console.log("New elementclickedontarget: " + elementClickedOnTarget)
+            const clubdesc = "clubdesc_"
+            elementClickedOnTarget = clubdesc + elementClickedOnTarget;
+            console.log("Final clickedontarget ok: " + elementClickedOnTarget);
+            // Finds the correct modal with the new and correct id:
+            const modal = document.getElementById(elementClickedOnTarget);
+            console.log(modal);
+            // Actually opens/shows the modal:
+            modal.showModal();
+            // The id number of the club that was selected: ("club.id"):
+            let idNum = -1;
+            // Finds the id number of the clud (The last digits after the underscore ("_")):
+            for (let i = 0; i < elementClickedOnTarget.length; i++) {
+                if (elementClickedOnTarget.indexOf("_") === i) {
+                    idNum = elementClickedOnTarget.substring(i + 1);
+                    console.log(idNum);
+                }
+            }
+            // Finds the correct close club button with the correct id number:
+            const closeButton = document.getElementById("clubclosebutton_" + idNum); 
+            console.log(closeButton.parentElement.parentElement.id);
+            // Waits for a click and closes that modal: 
+            closeButton.addEventListener("click", () => {
+                // Closes the modal:
+                modal.close();
+            }); 
+            // Closes the modal when clicking outside (copied from WebDevSimplified's code):
+            modal.addEventListener("click", e => {
+                const dialogDimensions = modal.getBoundingClientRect()
+                if (
+                  e.clientX < dialogDimensions.left ||
+                  e.clientX > dialogDimensions.right ||
+                  e.clientY < dialogDimensions.top ||
+                  e.clientY > dialogDimensions.bottom
+                ) {
+                  modal.close()
+                }
+              })
+        }
+    };  
+}; 

@@ -891,7 +891,7 @@ form .button input:hover {
     cursor: pointer;
 }
 
-.clubtitle::before {
+.clubtitle::after {
     content: "";
     position: absolute;
     height: 4px;
@@ -903,7 +903,7 @@ form .button input:hover {
     transition: transform 500ms ease;
 }
 
-.club:hover .clubtitle::before {
+.club:hover .clubtitle::after {
     transform: scaleX(1);
 }
 

@@ -171,7 +171,7 @@
                 {% for club in club_info %}
                     <div class="club" id="{{ club.club_name }}1"> <!-- Card -->
                         <div class="clubcontent" id="{{ club.club_name }}"> <!-- Card content -->
-                            <div class="clubtitle" id="{{ club.club_name }}1">
+                            <div class="clubtitle" id="title{{ club.id }}">
                                 {{ club.club_name }}{% if club in joined_clubs %} <i class="fa-solid fa-star"></i>{% endif %} {% if current_user.email == club.president_email or current_user.email == club.vicepresident_email1 or current_user.email == club.vicepresident_email2 or current_user.email == club.vicepresident_email3 %}<i class="fa-solid fa-crown"></i>{% endif %}
                             </div> <!-- Card title  -->
                             <br><br>
