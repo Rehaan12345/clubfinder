@@ -27,7 +27,7 @@
                 <a class="navlink" href="/">Home <i class="fa-solid fa-house-user"></i></a>
                 {% if user.is_authenticated %}
                     <!-- <li class="navlink"><a class="navlink" href="/clubs">My Clubs</a></li> -->
-                    <a class="navlink" href="/createaclub">Register a Club <i class="fa-solid fa-pencil"></i></a>
+                    <a class="navlink" href="/createaclub">Register Your Club <i class="fa-solid fa-pencil"></i></a>
                     <a href="https://github.com/Rehaan12345/clubfinder" class="navlink" target="_blank">View Github <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
                     <a href="/logout" class="navlink">Logout <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
                 {% if user.is_leader %}
@@ -185,6 +185,7 @@
                             <dialog class="clubdesc" id="clubdesc_{{ club.id }}">
                                 <div class="clubdescheader">
                                     <div class="clubdescname">{{ club.club_name }}</div>
+                                    <div class="closebuttonwrapper"></div>
                                     <button data-close-button id="clubclosebutton_{{ club.id }}" class="clubclosebutton">&times;</button>
                                 </div>
                                 <div class="clubdescdesc" id="clubdescdesc{{ club.club_name }}">

@@ -207,8 +207,9 @@ window.addEventListener("DOMContentLoaded", () => {
             link.classList.add("activeclick");
         }
     });
-})
+});
 
+// Profile dropdown menu:
 window.addEventListener("DOMContentLoaded", ()=> {
     document.addEventListener("click", e=> {
         const isDropDownButton = e.target.matches("[data-dropdown-button]");
@@ -226,6 +227,25 @@ window.addEventListener("DOMContentLoaded", ()=> {
         });
     });
 });
+
+// Register your club dropdown menu:
+// window.addEventListener("DOMContentLoaded", ()=> {
+//     document.addEventListener("click", e=> {
+//         const isDropDownButton = e.target.matches("[data-dropdown-button]");
+//         if(!isDropDownButton && e.target.closest("[data-dropdown]") != null) return;
+
+//         let currentDropDown;
+//         if(isDropDownButton) {
+//             currentDropDown = e.target.closest("[data-dropdown]");
+//             currentDropDown.classList.toggle("active");
+//         }
+        
+//         document.querySelectorAll("[data-dropdown].active").forEach(dropdown => {
+//             if (dropdown === currentDropDown) return;
+//             dropdown.classList.remove("active");
+//         });
+//     });
+// });
 
 // ********** Filter By Button Functionality: **********/
 window.addEventListener("DOMContentLoaded", () => {

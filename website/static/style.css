@@ -382,6 +382,20 @@ body {
     font-weight: bold;
 }
 
+.closebuttonwrapper {
+    cursor: pointer;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: rgb(173, 204, 163);
+    z-index: 1;
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+    opacity: 0;
+}
+
 .clubclosebutton {
     cursor: pointer;
     border: none;
@@ -389,6 +403,11 @@ body {
     background: none;
     font-size: 1.25rem;
     font-weight: bold;
+    /* z-index: 1; */
+}
+
+.clubclosebutton:hover ~ .closebuttonwrapper {
+    opacity: 1;
 }
 
 .clubdescdesc {
