@@ -172,6 +172,8 @@ def createaclub():
         room_number = request.form.get("roomnumber")
         start_time = request.form.get("clubstarttime")
         description = request.form.get("clubdescription")
+        club_days = request.args.get("clubDays")
+        print(f"Days selected: {club_days}")
         new_advisor = User.query.filter_by(email=advisor_email).first()
         if new_advisor:
             new_advisor.role = "Advisor"
@@ -179,8 +181,6 @@ def createaclub():
         # Making the random password:
         secret_password = random.randint(100, 1000000)
         print(f"Secret password: {secret_password}")
-        club_days = request.form.get("clubDays")
-        print(f"Days selected: {club_days}")
         senderemail = "crlsclubfinder@gmail.com"
         senderpassword = "wmzhhaxtzqnvyuze"
         subject = f"{club_name} has submitted you as their club advisor"
