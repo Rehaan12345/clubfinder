@@ -1525,14 +1525,14 @@ form .button input:hover {
 }
 
 .clubtable caption {
-    background: hsl(0 0% 0% / 0.7);
+    background: hsl(0 0% 0% / 1);
     font-size: 1.05rem;
     font-weight: 400;
     color: var(--textcolor);
 }
 
 .clubtable th {
-    background: hsl(0 0% 0% / 0.5);
+    background: hsl(0 0% 0% / 0.08);
 }
 
 .clubtable tr:nth-of-type(2n) {

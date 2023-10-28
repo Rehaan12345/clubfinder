@@ -112,10 +112,8 @@ function joinOrLeaveClub(e) {
     if (elementClickedOnTarget.localeCompare(joinClubButton) === 0) {
         console.log("Join club button pressed.");
 
-        // Reloads the page onclick:
-        window.location.reload();
-
-        const clubName = elementClickedOn.parentElement.id;
+        // const clubName = elementClickedOn.parentElement.id;
+        const clubName = elementClickedOnTargetID;
         console.log(clubName);
 
         $.ajax({
@@ -131,6 +129,9 @@ function joinOrLeaveClub(e) {
             // A success message if all goes well, also for debugging:
             success: console.log("Successfully requested to join " + clubName) // (Change this later)
         }); 
+
+        // Reloads the page onclick:
+        window.location.reload();
     } 
     else if (elementClickedOnTarget.localeCompare(leaveClubButton) === 0) {
         console.log("Leave club button pressed.");
@@ -151,7 +152,8 @@ function joinOrLeaveClub(e) {
         //     join.classList.add("show");
         // } else return -1;
 
-        const clubName = elementClickedOn.parentElement.id;
+        // const clubName = elementClickedOn.parentElement.id;
+        const clubName = elementClickedOnTargetID;
         console.log(clubName);
 
         $.ajax({

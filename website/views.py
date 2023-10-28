@@ -22,17 +22,17 @@ def home():
             print(user)
     join_club = request.args.get("joinClub")
     if join_club is not None:
-        if Club.query.filter_by(club_name=join_club).first() in current_user.clubs:
+        if Club.query.filter_by(id=join_club).first() in current_user.clubs:
             flash("You're already in that club.")
             print(f"{current_user} is already in {join_club}")
         else:
             print(f"User wants to join {join_club}")
-            if Club.query.filter_by(club_name=join_club).first():
+            if Club.query.filter_by(id=join_club).first():
                 print(f"{join_club} found!")
             else:
                 print(f"{join_club} not found!")
-            print(f"{Club.query.filter_by(club_name=join_club).first()}")
-            current_user.clubs.append(Club.query.filter_by(club_name=join_club).first())
+            print(f"{Club.query.filter_by(id=join_club).first()}")
+            current_user.clubs.append(Club.query.filter_by(id=join_club).first())
             print(current_user.clubs)
             db.session.commit()
             clubs = Club.query.all()
@@ -53,12 +53,12 @@ def home():
     leave_club = request.args.get("leaveClub")
     if leave_club is not None:
         print(current_user.clubs)
-        leave_club_id = Club.query.filter_by(club_name=leave_club).first()
+        leave_club_id = Club.query.filter_by(id=leave_club).first()
         print(leave_club_id)
         if leave_club_id in current_user.clubs:
             print(f"User wants to leave {leave_club}") 
-            print(Club.query.filter_by(club_name=leave_club).first())
-            current_user.clubs.remove(Club.query.filter_by(club_name=leave_club).first())
+            print(Club.query.filter_by(id=leave_club).first())
+            current_user.clubs.remove(Club.query.filter_by(id=leave_club).first())
             db.session.commit()
             print(f"Successfully left {leave_club}")
             flash(f"Left {join_club}!", category="success")
