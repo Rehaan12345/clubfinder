@@ -106,7 +106,6 @@
                 <div class="homescreennavcontainer">
                     <div class="searchwrapperwrapper">
                         <div class="searchwrapper">
-                            <!-- <label for="search">Search Clubs</label> -->
                             <input type="search" id="search" name="q" placeholder="Search a club or email" hx-get="/search" hx-trigger="keyup changed delay:500ms" hx-target=".maincontainer">
                             <a href="#">
                                 <i class="fas fa-search"></i>
@@ -179,7 +178,9 @@
                             <p class="shortdesc" id="content{{ club.id }}">
                                 Club President: {{ club.president_email }}
                                 <br><br>
-                                Located in room {{ club.room_number }}, and starts at {{ club.start_time }} on {{ club.club_day }}.
+                                Meets at {{ club.start_time }} <br>
+                                Meets on {{ club.club_day }} <br>
+                                Meets in room {{ club.room_number }} <br>
                             </p> <!-- Card body -->
                             <!-- Modal: -->
                             <dialog class="clubdesc" id="clubdesc_{{ club.id }}">

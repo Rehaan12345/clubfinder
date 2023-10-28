@@ -449,21 +449,6 @@ document.addEventListener("DOMContentLoaded", () => {
         })
     })
 
-    const submitButtono = document.querySelector(".submitnewclubbutton");
-    submitButtono.addEventListener("submit", () => {
-        alert("Submit started " + JSON.stringify(daysSelected));
-        $.ajax({
-            url: "",
-            type: "GET",
-            contentType: "application/json",
-            data: {
-                // clubDays: JSON.stringify(daysSelected)
-                clubDays: "test"
-            },
-            success: console.log("Successfully sent " + daysSelected)
-        })
-    })
-
 })
 
 // ********** Animate on load script: ********** //

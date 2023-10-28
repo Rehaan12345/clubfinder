@@ -172,8 +172,21 @@ def createaclub():
         room_number = request.form.get("roomnumber")
         start_time = request.form.get("clubstarttime")
         description = request.form.get("clubdescription")
-        club_days = request.args.get("clubDays")
+        club_days = request.form.getlist("clubday")
         print(f"Days selected: {club_days}")
+        club_days_final = ""
+        if len(club_days) == 1:
+            club_days_final = club_days[0]
+        elif len(club_days) == 2: 
+            club_days_final += club_days[0] + " and " + club_days[1]
+        else:
+            for i in range(len(club_days)):
+                if i == len(club_days) - 2:
+                    club_days_final += club_days[len(club_days) - 2] + " and " + club_days[len(club_days) - 1]
+                    break
+                club_days_final += club_days[i] + ", "
+            
+        print(f"Club days final: {club_days_final}")
         new_advisor = User.query.filter_by(email=advisor_email).first()
         if new_advisor:
             new_advisor.role = "Advisor"
@@ -198,7 +211,7 @@ Vice-President: {vicepresident_email3}
 Room Number: {room_number}
 Start Time: {start_time}
 Description: {description}
-Club Meetings: {club_days}
+Club Meetings: {club_days_final}
 
 CODE: {secret_password}
 
@@ -247,7 +260,7 @@ ClubFinder
         # elif not vpemail3:
         flash(f"Email {vicepresident_email3} not found, make sure their account has been created.", category="error")
         # else: 
-        new_club = Club(club_name=club_name, president_email=president_email, vicepresident_email1=vicepresident_email1, vicepresident_email2=vicepresident_email2, vicepresident_email3=vicepresident_email3, advisor_email=advisor_email, room_number=room_number, start_time=start_time, description=description, secret_password=secret_password, club_day=club_days)
+        new_club = Club(club_name=club_name, president_email=president_email, vicepresident_email1=vicepresident_email1, vicepresident_email2=vicepresident_email2, vicepresident_email3=vicepresident_email3, advisor_email=advisor_email, room_number=room_number, start_time=start_time, description=description, secret_password=secret_password, club_day=club_days_final)
         print(f"New Club Name: {new_club.club_name}, President: {new_club.president_email}, VP1: {new_club.vicepresident_email1}, VP2: {new_club.vicepresident_email2}, VP3: {new_club.vicepresident_email3}, Advisor: {new_club.advisor_email}, Room Number: {new_club.room_number}, Start Time: {new_club.start_time}, Description: {new_club.description}, Club Day(s): {new_club.club_day}")
         db.session.add(new_club)
         db.session.commit()

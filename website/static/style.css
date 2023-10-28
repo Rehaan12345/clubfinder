@@ -582,7 +582,7 @@ body {
 /********** Create a club form: **********/
 .makeaclubok {
     max-width: 700px;
-    max-height: 1200px;
+    max-height: 650px;
     width: 100%;
     padding: 25px 30px;
     border-radius: 5px;
@@ -615,6 +615,14 @@ body {
     position: relative;
 }
 
+.makeaclubok form .userdetails .userdetailsmain {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px 0 12px 0;
+    margin-bottom: 0;
+}
+
 .makeaclubok form .userdetails {
     display: flex;
     flex-wrap: wrap;
@@ -622,9 +630,20 @@ body {
     margin: 20px 0 12px 0;
 }
 
-form .userdetails .inputbox {
+form .userdetails .userdetailsmain .inputbox {
     margin-bottom: 15px;
     width: calc(100% / 2 - 20px);
+}
+
+form .userdetails .inputbox {
+    margin-bottom: 15px;
+    width: 100%
+}
+
+.userdetails .userdetailsmain .inputbox .details {
+    display: block;
+    font-weight: 500;
+    margin: 5px;
 }
 
 .userdetails .inputbox .details {
@@ -634,13 +653,13 @@ form .userdetails .inputbox {
 }
 
 #inputthedescription {
-    float:left;
-    min-width: 310px;
-    max-width: 310px;
+    float: left;
+    min-width: 677px;
+    max-width: 677px;
     min-height: 45px;
     max-height: 200px;
     height: 45px;
-    width: 310px;
+    /* width: 5000px; */
     outline: none;
     border-radius: 5px;
     border: 1px solid #ccc;
@@ -657,7 +676,7 @@ form .userdetails .inputbox {
     width: 0px;
 } */
 
-.userdetails .inputbox input {
+.userdetails .userdetailsmain .inputbox input {
     height: 45px;
     width: 310px;
     outline: none;
@@ -669,16 +688,71 @@ form .userdetails .inputbox {
     transition: all 0.5 ease;
 }
 
-.userdetails .inputbox input:focus {
+.userdetails .userdetailsmain .inputbox input:focus {
     border-color: var(--bg2);
 }
 
-.userdetails .inputbox #inputthedescription:focus {
+.userdetails .userdetailsmain .inputbox #inputthedescription:focus {
     border-color: var(--bg2);
 }
 
 .fa-chevron-down {
     opacity: 1;
+}
+
+.clubdaysdaysdays {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+}
+
+.clubdaysdaysdays .day {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.clubdaysdaysdays .day input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    height: 20px;
+    width: 20px;
+    background-color: darkgrey;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+}
+
+.clubdaysdaysdays .day label {
+    color: black;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.clubdaysdaysdays .day input[type="checkbox"]:after {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 600;
+    content: "\f00c";
+    font-size: 15px;
+    color: white;
+    display: none;
+}
+
+.clubdaysdaysdays .day input[type="checkbox"]:hover {
+    background-color: var(--bg1);
+}
+
+.clubdaysdaysdays .day input[type="checkbox"]:checked {
+    background-color: var(--bg1);
+}
+
+.clubdaysdaysdays .day input[type="checkbox"]:checked:after {
+    display: block;
 }
 
 .selectbutton {
@@ -722,9 +796,10 @@ form .userdetails .inputbox {
     padding: 16px;
     background-color: #fff;
     box-shadow: 0 5px 10px rgba(0, 0, 0, .3);
-    display: none;
+    width: 200px;
+    /* display: none; */
     /* visibility: hidden; */
-    opacity: 0;
+    /* opacity: 0; */
 }
 
 .selectbutton.open ~ .selectdays {
@@ -784,6 +859,10 @@ form .userdetails .inputbox {
 
 .fa-check {
     opacity: 1;
+}
+
+form .long {
+    width: 677px;
 }
 
 form .button {
@@ -855,6 +934,7 @@ form .button input:hover {
     line-height: 1.6; 
     max-width: 100%;
     transition: .5s ease;
+    /* margin-top: -100px; */
 }
 
 .club {
@@ -863,7 +943,7 @@ form .button input:hover {
     width: 300px;
     overflow: hidden;
     transition: transform 500ms ease;
-    margin-top: -50px;
+    /* margin-top: -50px; */
     /* height: 800px; */
     border: none;
     cursor: pointer;
