@@ -260,10 +260,38 @@ body {
 } */
 
 .dropdown {
+    display: block;
+}
+
+.user {
+    opacity: 0;
     display: none;
 }
 
-.dropdown.active > .navlink,
+.fa-user::after {
+    opacity: 0;
+    display: none;
+}
+
+.fa-user::before {
+    opacity: 0;
+    display: none;
+}
+
+.loggedinasas {
+    display: block;
+}
+
+#loggedinas {
+    font-size: 1rem;
+}
+
+.navlink:hover {
+    background: var(--bg1);
+    border-radius: 10px;
+}
+
+.dropdown.active >
 #mainnav .nav .navlink:hover {
     background: var(--bg1);
     /* text-decoration: none; */
@@ -1348,10 +1376,6 @@ form .button input:hover {
     .dropdown {
         display: block;
     }
-
-    #loggedinasok {
-        display: none;
-    }
 }
 
 @media screen and (max-width: 300px) {
@@ -1372,6 +1396,15 @@ form .button input:hover {
         margin-top: 100px;
         transition: .5s ease;
     } 
+
+    .fa-user::before {
+        display: block;
+        opacity: 1;
+    }
+
+    .loggedinasas {
+        display: none;
+    }
 
     .fa-solid {
         opacity: 1;
@@ -1457,6 +1490,21 @@ form .button input:hover {
     background-color: white;
     width: 400px;
     height: 60px;
+}
+
+#verifyclubbutton {
+    background-color: var(--bg2);
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    padding: 5px;
+    color: white;
+    padding: 10px;
+}
+
+#verifyclubbutton:hover {
+    background-color: gold;
+    color: black;
 }
 
 #connecttoclubbutton {

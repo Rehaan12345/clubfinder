@@ -220,6 +220,7 @@ window.addEventListener("DOMContentLoaded", ()=> {
         let currentDropDown;
         if(isDropDownButton) {
             currentDropDown = e.target.closest("[data-dropdown]");
+            // currentDropDown = document.querySelector("dropdown");
             currentDropDown.classList.toggle("active");
         }
         
@@ -277,7 +278,7 @@ window.addEventListener("DOMContentLoaded", () => {
 // ********** Connect to Club Modal & Button Functionalities: ********** //
 window.addEventListener("DOMContentLoaded", () => {
     const connectToClubModal = document.getElementById("connecttoclubmodal");
-    const openClubModalButton = document.getElementById("connecttoclubbutton");
+    const openClubModalButton = document.getElementById("verifyclubbutton");
     openClubModalButton.addEventListener("click", () => {
         connectToClubModal.show();
     });

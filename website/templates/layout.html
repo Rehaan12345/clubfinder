@@ -28,7 +28,7 @@
                 {% if user.is_authenticated %}
                     <!-- <li class="navlink"><a class="navlink" href="/clubs">My Clubs</a></li> -->
                     <a class="navlink" href="/createaclub">Register Your Club <i class="fa-solid fa-pencil"></i></a>
-                    <a href="https://github.com/Rehaan12345/clubfinder" class="navlink" target="_blank">View Github <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    <!-- <a href="https://github.com/Rehaan12345/clubfinder" class="navlink" target="_blank">View Github <i class="fa-solid fa-arrow-up-right-from-square"></i></a> -->
                     <a href="/logout" class="navlink">Logout <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
                 {% if user.is_leader %}
                     <a class="navlink" href="/clubdashboard">Club Dashboard <i class="fa-solid fa-desktop"></i></a>
@@ -37,18 +37,20 @@
             </ul>
             <ul id="header2" class="nav">
                 {% if user.is_authenticated %} 
-                <div id="loggedinasok">
-                    <a class="navlink" id="loggedinas">{{ current_user.email }} <i class="fa-regular fa-id-badge"></i></a>
-                </div>
+                <!-- <div id="loggedinasok">
+                    <button class="navlink dropdownlink" data-dropdown-button><a class="navlink" id="loggedinas">{{ current_user.email }} <i class="fa-regular fa-id-badge"></i></a></button>
+                </div> -->
                     <div class="dropdown" data-dropdown>
                         <!-- Dropdown: -->
-                        <button class="navlink dropdownlink fa-regular fa-user" data-dropdown-button></button> 
+                        <button class="navlink dropdownlink loggedinasas" data-dropdown-button><a class="navlink" id="loggedinas">{{ current_user.email }} <i class="fa-regular fa-id-badge"></i></a></button>
+                        <button class="navlink dropdownlink fa-regular fa-user user" data-dropdown-button></button> 
                         <div class="dropdownmenu">
                             <div class="dropdownlinks">
                                 <a class="navlink" href="/createaclub">Create a Club <i class="fa-solid fa-pencil"></i></a>
                                 <a href="/admin" class="navlink">Admin Dashboard <i class="fa-solid fa-table-columns"></i></a>
                                 <a href="https://github.com/Rehaan12345/clubfinder" class="navlink" target="_blank">View Github <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
                                 <a href="/logout" class="navlink">Logout <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+                                <button class="verifyclubbutton verifyclubbutton" id="verifyclubbutton">Verify Your Club <i class="fa-solid fa-link"></i></button>
                             </div>
                         </div>
                     </div>
@@ -58,6 +60,13 @@
                 {% endif %}
             </ul>
         </nav>  
+
+        <!-- <div class="newclubwrapper">
+            <div class="newclubdropdown">
+                <a class="newclublink" id="registeryourclub" href="/createaclub">Register Your Club <i class="fa-solid fa-pencil"></i></a>
+                <a class="newclublink" id="verifyyourclub" href=""><button class="" id="">Verify Your Club <i class="fa-solid fa-link"></i></button></a>
+            </div>
+        </div> -->
 
         <!-- <form class="colorpicker" action="">
             <fieldset>
@@ -98,7 +107,7 @@
         {% block body %}
 
             <h1 id="main1">
-                <center>ClubFinder <br>
+                <center>CRLS ClubFinder <br>
                 </center>
                 </h1>
 
@@ -113,7 +122,7 @@
                         </div>
                     </div>
                     <!-- <button class="connectclubbutton navlink" id="connecttoclubbutton"><a href="#" class="navlink" id="connecttoclubbutton">Verify Your Club </a></button> -->
-                    <button class="connectclubbutton navlink" id="connecttoclubbutton">Verify Your Club <i class="fa-solid fa-link"></i></button>
+                    <!-- <button class="connectclubbutton navlink" id="connecttoclubbutton">Verify Your Club <i class="fa-solid fa-link"></i></button> -->
                 </div>
 
                 <br><br>
