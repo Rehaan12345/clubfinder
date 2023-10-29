@@ -272,7 +272,7 @@ ClubFinder
         if vicepresident_email3:
             vp3.clubs.append(Club.query.filter_by(club_name=club_name).first())
         flash("Your new club has been created!", category="success")
-        return render_template("layout.html", user=current_user, club_info=Club.query.all())
+        return render_template("layout.html", user=current_user, club_info=Club.query.all(), joined_clubs=current_user.clubs)
 
     return render_template("createaclub.html", user=current_user)
 
@@ -355,13 +355,13 @@ def search():
     print(q)
 
     if q:
-        # If the user types something in, all of teh clubs will filter if they have (or contain) the value of q. 
+        # If the user types something in, all of the clubs will filter if they have (or contain) the value of q. 
         results = Club.query.filter(Club.club_name.contains(q) | Club.president_email.contains(q)).order_by(Club.club_name.asc()).all()
     else:
         # Else, if there is no value in q, results will be set to every item in the Club class. 
         results = Club.query.all()
     
-    return render_template("searchresults.html", results=results)
+    return render_template("searchresults.html", results=results, joined_clubs=current_user.clubs)
 
 @views.route("/joinleavebuttons")
 def joinleavebuttons():
