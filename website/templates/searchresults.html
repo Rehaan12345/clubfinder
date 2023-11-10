@@ -5,14 +5,13 @@
             <div class="clubtitle" id="content{{ club.id }}">
                 {{ club.club_name }}{% if club in joined_clubs %} <i class="fa-solid fa-star"></i>{% endif %} {% if current_user.email == club.president_email or current_user.email == club.vicepresident_email1 or current_user.email == club.vicepresident_email2 or current_user.email == club.vicepresident_email3 %}<i class="fa-solid fa-crown"></i>{% endif %}
             </div> <!-- Card title  -->
-            <br><br>
-            <!-- <button formTarget="#clubdesc_{{ club.id }}" class="clubbutton" id="viewclub" type="button">View More</button>  -->
+            <br>
             <p class="shortdesc" id="content{{ club.id }}">
                 Club President: {{ club.president_email }}
                 <br><br>
                 Meets at {{ club.start_time }} <br>
                 Meets on {{ club.club_day }} <br>
-                Meets in room {{ club.room_number }} <br>
+                <!-- Meets in room {{ club.room_number }} <br> -->
             </p> <!-- Card body -->
             <!-- Modal: -->
             <dialog class="clubdesc" id="clubdesc_{{ club.id }}">
@@ -36,7 +35,7 @@
                     {% endif %}
                     Club Advisor: {{ club.advisor_email }}
                     <br><br>
-                    Club Description: {{ club.description }}
+                    <!-- Club Description: --> {{ club.description }}
                     <br><br>
                 </div>
             </dialog>

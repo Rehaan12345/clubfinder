@@ -18,7 +18,131 @@
             
                 <table class="clubtable" id="clubtable_{{ club.id }}">
 
-                    <caption>{{ club }} Info:</caption>
+                    <caption>
+                        <div class="adjustclubadvertisementwrapper">
+                            {{ club.club_name }} Info: 
+                            <button class="adjustclubadvertisementbutton" id="advertisement_{{ club.id }}">
+                                Adjust {{ club.club_name }} Advertisement
+                            </button>
+                            <!-- <button class="adjustclubadvertisementbutton" id="example_{{ club.id }}">
+                                View Example Ad
+                            </button> -->
+                            <!-- <button class="viewsampleclubadvertisementbutton" id="viewsample_{{ club.id }}">
+                                View Sample Advertisement 
+                            </button> -->
+                            <dialog class="viewsecretpasswordmodal" id="viewsecretpassword_{{ club.id }}">
+                                <button id="passclosebutton_{{ club.id }}" class="clubclosebutton">&times;</button>
+                                <div class="clubpassviewcontainer">
+                                    <div class="label">
+                                        Club Password: 
+                                    </div>
+                                    <div class="copytext" id="copytext_{{ club.id }}">
+                                        <input type="number" class="text" id="text_{{ club.id }}" value="{{ club.secret_password }}" readonly>
+                                        <button>
+                                            <i class="fa fa-clone"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </dialog>
+                            <dialog class="adjustclubadvertisementmodal" id="adjustclubadvertisementmodal_{{ club.id }}">
+                                <!-- <div class="adjustclubadvertisementcontent"> -->
+                                    <div class="adjustclubadtitle">
+                                        Change {{ club.club_name }} Advertisement
+                                        <button id="adjustclosebutton_{{ club.id }}" class="clubclosebutton">&times;</button>
+                                    </div>
+                                    <div class="adjustclubdisclaimer">
+                                        <p>
+                                            All of the information that is submitted here will replace the information that is currently stored for your club!
+                                            <br>
+                                            Please note that there can only be three vice presidents, so the ones you add here will replace the ones that are already listed for your club. 
+                                            <br>
+                                            Also, if you are changing your club's advisor, they will first get a confirmation email to confirm the changes before they go through. Otherwise, the changes will be immediate!
+                                        </p>
+                                        <button class="adjustclubadvertisementbutton secretpass" id="secretpassview_{{ club.id }}">
+                                            Copy Club Password
+                                        </button>
+                                    </div>
+                                    <form action="#" method="POST">
+                                        <br><br>
+                                        <div class="userdetails">
+                                            <div class="userdetailsmain">
+                                                <div class="inputbox">
+                                                    <span class="details">Club Password <i class="fa-solid fa-star-of-life" style="color: #ff0000;"></i></span>
+                                                    <input type="number" placeholder="Club Password" name="clubpassword" required>
+                                                </div>
+                                                <div class="inputbox">
+                                                    <span class="details">New Club Name</span>
+                                                    <input type="text" placeholder="New Club Name" name="newclubname">
+                                                </div>
+                                                <div class="inputbox">
+                                                    <span class="details">New President's Email</span>
+                                                    <input type="text" placeholder="newclubpresident@cpsd.us" name="newpresidentemail">
+                                                </div>
+                                                <div class="inputbox">
+                                                    <span class="details">New Vice President's Email</span>
+                                                    <input type="text" placeholder="newclubvicepresident@cpsd.us (if any)" name="newvicepresidentemail1" >
+                                                </div>
+                                                <div class="inputbox">
+                                                    <span class="details">New Vice President's Email</span>
+                                                    <input type="text" placeholder="newclubvicepresident@cpsd.us (if any)" name="newvicepresidentemail2">
+                                                </div>
+                                                <div class="inputbox">
+                                                    <span class="details">New Vice President's Email</span>
+                                                    <input type="text" placeholder="newclubvicepresident@cpsd.us (if any)" name="newvicepresidentemail3">
+                                                </div>
+                                                <div class="inputbox">
+                                                    <span class="details">New Advisor's Email</span>
+                                                    <input type="text" placeholder="newclubadvisor@cpsd.us" name="newadvisoremail">
+                                                </div>
+                                                <div class="inputbox">
+                                                    <span class="details">New Room Number</span>
+                                                    <input type="number" placeholder="New Room Number" name="newroomnumber">
+                                                </div>
+                                                <div class="inputbox">
+                                                    <span class="details">New Club Start Time</span>
+                                                    <input type="time" placeholder="New Start time" name="newclubstarttime">
+                                                </div>
+                                            </div>
+                                            <div class="inputbox">
+                                                <span class="details">Select which new day(s) your club will meet:</span>
+                                                <div class="alsoadjustdays">
+                                                    <div class="day">
+                                                        <label for="monday">Monday</label>
+                                                        <input type="checkbox" value="Mondays" name="newclubday" id="monday">
+                                                    </div>
+                                                    <div class="day">
+                                                        <label for="tuesday">Tuesday</label>
+                                                        <input type="checkbox" value="Tuesdays" name="newclubday" id="tuesday">
+                                                    </div>
+                                                    <div class="day">
+                                                        <label for="wednesday">Wednesday</label>
+                                                        <input type="checkbox" value="Wednesdays" name="newclubday" id="wednesday">
+                                                    </div>
+                                                    <div class="day">
+                                                        <label for="thursday">Thursday</label>
+                                                        <input type="checkbox" value="Thursdays" name="newclubday" id="thursday">
+                                                    </div>
+                                                    <div class="day">
+                                                        <label for="friday">Friday</label>
+                                                        <input type="checkbox" value="Fridays" name="newclubday" id="friday">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br><br><br><br>
+                                            <div class="inputbox">
+                                                <span class="details">New Club Description</span>
+                                                <textarea type="text" class="alsonewinputthedescription" placeholder="New Description of Club" name="newclubdescription"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="button alsoadjustbutton" id="confirmadjustment_{{ club.id }}">
+                                            <input type="submit" value="Confirm Changes" class="submitnewclubbutton" id="confirmadjustchangesbutton_{{ club.id }}">
+                                        </div>
+                                <!-- </div> -->
+                                </form>
+                            </dialog>
+                            
+                        </div>
+                    </caption>
                 
                     <tr>
                         <!-- <th>Member # (not id num! - instead, the member count.)</th> -->

@@ -4,6 +4,8 @@
     --bg2: rgb(0, 45, 27);
     --textcolor: white;
     --navheader: rgb(0, 45, 27);
+    /* --navheader: rgb(0, 197, 118); */
+    /* Or just a wight / faded nav bar */
     --labelcolor: #adadad;
     --loginbefore: #2691d9;
     --passcolor: #a6a6a6;
@@ -32,7 +34,7 @@ body {
     font-family:var(--fontfamily);
     /* background: linear-gradient(45deg, var(--bg1), var(--bg2)); */
     /* font-family: Arial, Helvetica, sans-serif; */
-    background: lightgrey;
+    background: rgb(235, 235, 235);
     letter-spacing: 1px;
     text-decoration: none;
     display: grid;
@@ -235,24 +237,18 @@ body {
     margin-bottom: 30px;
 } 
 
-#mainnav .nav .navlink {
-    color: var(--textcolor);
-    text-decoration: none;
-    padding: 5px;
-    /* margin-top: 10px; */
-} 
-
 #header {
     display: flex;
     width: 700px;
     justify-content: space-between;
 }
 
-/* #header2 {
+#header2 {
     display: flex;
-    width: 200px;
+    /* width: 200px; */
     justify-content: space-between;
-} */
+    gap: 40px;
+}
 
 /* 
 .navlink:hover {
@@ -286,19 +282,10 @@ body {
     font-size: 1rem;
 }
 
-.navlink:hover {
+/* .navlink:hover {
     background: var(--bg1);
     border-radius: 10px;
-}
-
-.dropdown.active >
-#mainnav .nav .navlink:hover {
-    background: var(--bg1);
-    /* text-decoration: none; */
-    border-radius: 10px; 
-    padding: 5px;
-    /* color: red; */
-}
+} */
 
 #mainnav ul li {
     display: inline-block;
@@ -309,16 +296,61 @@ body {
     padding-right: 15px;
 }
 
-.activeclick {
+/* .activeclick {
     position: relative;
     background: var(--bg1);
     text-decoration: none;
     border-radius: 10px; 
     padding: 5px; 
-    height: 20px;
+    height: 2px;
     bottom: 0;
     z-index: 0;
     transition: all .5s ease;
+} */
+
+.navlink {
+    position: relative;
+    color: lightgrey;
+    text-decoration: none;
+    /* padding: 5px; */
+    display: inline-block;
+} 
+
+.navlink:after {
+    width: 0;
+    background: gold;
+    height: 3px;
+    /* transition: all .4s ease-in-out; */
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    color: white;
+}
+
+.navlink.underline:after {
+    width: 100%;
+    left: 0;
+    color: white;
+    border-radius: 5px;
+}
+
+.navlink.underline, .navlink:hover {
+    color: white;
+}
+
+.navlink:hover:after {
+    width: 100%;
+    left: 0;
+    border-radius: 5px;
+}
+
+#dropdownoption {
+    color: lightgrey;
+}
+
+#dropdownoption:hover {
+    color: white;
 }
 
 .dropdownlink {
@@ -330,25 +362,31 @@ body {
     /* margin-right: 300px; */
 }
 
+.dropdownlinks a {
+    color: white
+}
+
 .dropdown {
     position: relative;
 }
 
 .dropdownmenu {
     position: absolute;
-    margin-right: 300px;
-    width: 30vh;
+    /* margin-right: 300px; */
+    width: 25vh;
     right: 0;
     top: calc(100% + .25rem);
-    background-color: rgb(57, 57, 57);
+    /* background-color: rgb(57, 57, 57); */
+    background-color: var(--bg2);
     padding: .75rem;
-    border-radius: 10px;
+    border-radius: 5px;
     box-shadow: 0 2px 50px 0 rgba(0, 0, 0, .5);
     opacity: 0;
     pointer-events: none;
     transform: translateY(-10px);
     transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
     z-index: 10;
+    color: white;
 }
 
 .dropdown.active > .navlink + .dropdownmenu {
@@ -383,7 +421,7 @@ body {
 /********** Club Quick View Modal: **********/
 .clubdesc {
     position: fixed; 
-    transition: 200ms ease-in-out;
+    transition: 200ms ease-in-out; 
     border: 5px solid var(--bg2);
     border-radius: 10px;
     z-index: 10;
@@ -391,6 +429,7 @@ body {
     width: 500px;
     height: 500px;
     max-width: 80%;
+    cursor: auto;
 }
 
 .clubdesc::backdrop {
@@ -966,6 +1005,7 @@ form .button input:hover {
 }
 
 .club {
+    /* box-sizing: border-box; */
     /* color */
     /* Add a background image - potentially ok */ 
     width: 300px;
@@ -974,15 +1014,15 @@ form .button input:hover {
     /* margin-top: -50px; */
     /* height: 800px; */
     border: none;
+    outline: none;
     cursor: pointer;
 }
 
 .club:hover,
 .club:focus-within {
     /* transform: scale(1.01); */
-    box-shadow: 10px 10px 15px rgba(0, 0, 0, .4);
-    border: none;
-
+    box-shadow: 10px 10px 15px rgba(0, 0, 0, .6);
+    /* box-sizing: border-box; */
 }
 
 .shortdesc {
@@ -1009,6 +1049,8 @@ form .button input:hover {
     border-radius: 15px;
     height: 400px;
     border: lightgrey;
+    box-sizing: border-box;
+
 }
 
 .clubtitle {
@@ -1559,9 +1601,9 @@ form .button input:hover {
 
 .clubtable {
     width: 100%;
-    background: var(--bg1);
+    background: rgb(149, 149, 149);
     border-collapse: collapse;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
 }
 
 .clubtable caption, th, td {
@@ -1573,14 +1615,14 @@ form .button input:hover {
 }
 
 .clubtable caption {
-    background: hsl(0 0% 0% / 1);
+    background: lightgrey;
+    color: black;
     font-size: 1.05rem;
-    font-weight: 400;
-    color: var(--textcolor);
+    font-weight: 600;
 }
 
 .clubtable th {
-    background: hsl(0 0% 0% / 0.08);
+    background: hsl(0 0% 0% / 0.05);
 }
 
 .clubtable tr:nth-of-type(2n) {
@@ -1645,6 +1687,232 @@ form .button input:hover {
 .president.fa-trash:hover {
     color: black;
     transition: none;
+}
+
+.adjustclubadvertisementmodal[open] form {
+    position: relative;
+}
+
+.adjustclubadvertisementmodal[open] form .userdetails .userdetailsmain {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px 0 12px 0;
+    margin-bottom: 0;
+}
+
+.adjustclubadvertisementmodal[open] form .userdetails {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px 0 12px 0;
+}
+
+.adjustclubadvertisementbutton {
+    background-color: var(--bg2);
+    color: white;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    padding: 5px;
+    margin-top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    cursor: pointer;
+}
+
+.adjustclubadvertisementbutton:hover, .adjustclubadvertisementbutton:focus-visible {
+    background-color: gold;
+    color: black;
+}
+
+.adjustclubadvertisementmodal[open] {
+    position: fixed;
+    /* display: flex; */
+    margin-top: 15px;
+    /* max-width: 450px; */
+    max-height: 650px;
+    width: 50%;
+    padding: 25px 30px;
+    border-radius: 5px;
+    border: 5px solid var(--bg2);
+    display: grid;
+    grid-template-columns:auto;
+    place-items: center;   
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+.adjustclubadvertisementmodal::backdrop {
+    background: rgb(0 0 0 / .4);
+}
+
+.adjustclubadtitle {
+    font-size: 25px;
+}
+
+.alsoadjustdays {
+    height: 40px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto;
+}
+
+.alsoadjustdays .day {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.alsoadjustdays .day input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    height: 20px;
+    width: 20px;
+    background-color: darkgrey;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+}
+
+.alsoadjustdays .day label {
+    color: black;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.alsoadjustdays .day input[type="checkbox"]:after {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 600;
+    content: "\f00c";
+    font-size: 15px;
+    color: white;
+    display: none;
+}
+
+.alsoadjustdays .day input[type="checkbox"]:hover {
+    background-color: var(--bg1);
+}
+
+.alsoadjustdays .day input[type="checkbox"]:checked {
+    background-color: var(--bg1);
+}
+
+.alsoadjustdays .day input[type="checkbox"]:checked:after {
+    display: block;
+}
+
+.alsoadjustbutton {
+    width: 400px;
+}
+
+.alsonewinputthedescription {
+    float: left;
+    min-width: 400px;
+    max-width: 400px;
+    min-height: 45px;
+    max-height: 200px;
+    height: 45px;
+    /* width: 5000px; */
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 15px;
+    font-size: 16px; 
+    border-bottom-width: 2px;
+    transition: all 0.5 ease;
+    font-family: var(--fontfamily);
+    font-size: 18px;
+    line-height: 45px;
+}
+
+/* View Club Password Modal Styling: */
+.viewsecretpasswordmodal {
+    width: 300px;
+    height: 100px;
+}
+
+.clubpassviewcontainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.clubpassviewcontainer .label {
+    padding: 10px;
+    font-size: 18px;
+}
+
+.copytext {
+    position: relative;
+    padding: 10px;
+    background: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    display: flex;
+}
+
+.copytext input {
+    pointer-events: none;
+}
+
+.copytext input.text {
+    padding: 10px;
+    font-size: 18px;
+    color: #000000;
+    border: none;
+    outline: none;
+}
+
+.copytext button {
+    padding: 10px;
+    background: var(--bg1);
+    color: white;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.copytext button:hover, .copytext button:active {
+    background: var(--bg2);
+}
+
+.secretpass:before {
+    content: "Copied!";
+    position: absolute;
+    top: -40px;
+    right: -3px;
+    background: var(--bg1);
+    padding: 8px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    display: none;
+}
+
+.secretpass:after {
+    content: "";
+    position: absolute;
+    top: -15px;
+    right: 23px;
+    width: 10px;
+    height: 10px;
+    background: var(--bg1);
+    transform: rotate(45deg);
+    display: none;
+}
+
+.copytext.active button:before,
+.copytext.active button:after {
+    display: block;
 }
 
 /* Making that responsive: */

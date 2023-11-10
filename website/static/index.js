@@ -204,12 +204,19 @@ window.addEventListener("DOMContentLoaded", () => {
 // ********** Nav button functionality: ********** //
 window.addEventListener("DOMContentLoaded", () => {
     const activePage = window.location.pathname;
-    document.querySelectorAll("nav a").forEach((link) => {
+    document.querySelectorAll(".navlink").forEach((link) => {
         if (link.href === window.location.href) {
-            link.classList.add("activeclick");
+            link.classList.add("underline");
         }
     });
 });
+
+// window.addEventListener("DOMContentLoaded", () => {
+//     $('.navlink').on('click', function() {
+//       $('.navlink').not(this).removeClass('underline');
+//       $(this).toggleClass('underline');
+//     });
+// })
 
 // Profile dropdown menu:
 window.addEventListener("DOMContentLoaded", ()=> {
@@ -453,12 +460,11 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
 })
-
 // ********** Animate on load script: ********** //
-$(window).on("load", () => {
-    $(".loader").fadeOut(1000);
-    $(".content").fadein(1000);
-})
+// $(window).on("load", () => {
+//     $(".loader").fadeOut(1000);
+//     $(".content").fadein(1000);
+// })
 
 // ********** Opens view-more dialog when club title is clicked: ********** //
 // Waits for the window to be fully loaded before starting this function:
@@ -633,9 +639,101 @@ function openModal(e) {
                   e.clientY < dialogDimensions.top ||
                   e.clientY > dialogDimensions.bottom
                 ) {
-                  modal.close()
-                }
-              })
-        }
+                  modal.close();
+                };
+              });
+        };
     };  
 }; 
+
+// ********** Adjust Club Advertisement Modal Functionalities: ********** //
+// Sends clicked on target to the python backend:
+window.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("click", e => {
+        if (e.target.id.indexOf("advertisement") > -1) {
+            const closeAdjustButton = e.target;
+            const closeAdjustButtonClubID = e.target.id.substring(e.target.id.indexOf("_") + 1);
+            console.log(closeAdjustButtonClubID);
+            $.ajax({
+                url: "",
+                type: "GET",
+                contentType: "application/json",
+                data: {
+                    adjustClub: closeAdjustButtonClubID
+                },
+                success: console.log("Successfully did the thing for the thing!")
+            });
+        };
+    });
+});
+
+// Opening and closing the correct modal:
+window.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("click", e => {
+        if (e.target.id != null) {
+            const clubAdvertModal = e.target.id; 
+            console.log(clubAdvertModal);
+            if (clubAdvertModal.indexOf("advertisement") > -1) {
+                const clubAdvertModalID = clubAdvertModal.substring(clubAdvertModal.indexOf("_") + 1);
+                console.log("Club Advert Modal ID: " + clubAdvertModalID);
+                const modalFound = document.getElementById("adjustclubadvertisementmodal_" + clubAdvertModalID);
+                console.log(modalFound);
+                modalFound.showModal();
+                const closeAdvertisementModal = document.getElementById("adjustclosebutton_" + clubAdvertModalID);
+                console.log(closeAdvertisementModal);
+                closeAdvertisementModal.addEventListener("click", () => {
+                    modalFound.close();
+                });
+            };
+        };
+    });
+});
+
+// View club password modal:
+window.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("click", e => {
+        if (e.target.id != null) {
+            const clubPassModal = e.target.id; 
+            console.log(clubPassModal);
+            if (clubPassModal.indexOf("secretpassview") > -1) {
+                const clubPassModalID = clubPassModal.substring(clubPassModal.indexOf("_") + 1);
+                console.log("clubPassModal ID: " + clubPassModal);
+                const modalFound = document.getElementById("viewsecretpassword_" + clubPassModalID);
+                console.log(modalFound);
+                // modalFound.showModal();
+                const closePasswordModal = document.getElementById("passclosebutton_" + clubPassModalID);
+                console.log(closePasswordModal);
+                closePasswordModal.addEventListener("click", () => {
+                    modalFound.close();
+                });
+
+                // Copying the password from the modal:
+                // const copyText = document.querySelector("#copytext_" + clubPassModalID);
+                // copyText.querySelector("button").addEventListener("click", () => {
+                //     const input = document.querySelector("#text_" + clubPassModalID);
+                //     console.log(input);
+                //     navigator.clipboard.writeText(input.value);
+                //     console.log(input.value);
+                //     copyText.classList.add("active");
+                //     setTimeout(() => {
+                //         copyText.classList.remove("active");
+                //     }, 2500);
+                // });
+                const input = document.querySelector("#text_" + clubPassModalID);
+                console.log(input);
+                navigator.clipboard.writeText(input.value);
+                console.log(input.value);
+                const hitButton = document.getElementById("secretpassview_" + clubPassModalID);
+                hitButton.classList.add("active");
+                setTimeout(() => {
+                    hitButton.classList.remove("active");
+                }, 2500);
+                console.log(hitButton);
+                hitButton.innerHTML = "Copied! <i class=\"fa fa-check\"><i/>";
+                setTimeout(() => {
+                    hitButton.innerHTML = "Copy Club Password"
+                }, 2000);
+            } else { console.log("Failure to find club password"); }
+        };
+    });
+});

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../static/style.css">
     <script src="../static/index.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://unpkg.com/htmx.org@1.9.4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title> {% block title %}Clubs!{% endblock %} </title>
@@ -24,12 +24,11 @@
                 <i class="fa-solid fa-bars"></i>
             </div>
             <ul id="header" class="nav">
-                <a class="navlink" href="/">Home <i class="fa-solid fa-house-user"></i></a>
                 {% if user.is_authenticated %}
+                    <a class="navlink" href="/">Home <i class="fa-solid fa-house-user"></i></a>
                     <!-- <li class="navlink"><a class="navlink" href="/clubs">My Clubs</a></li> -->
                     <a class="navlink" href="/createaclub">Register Your Club <i class="fa-solid fa-pencil"></i></a>
                     <!-- <a href="https://github.com/Rehaan12345/clubfinder" class="navlink" target="_blank">View Github <i class="fa-solid fa-arrow-up-right-from-square"></i></a> -->
-                    <a href="/logout" class="navlink">Logout <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
                 {% if user.is_leader %}
                     <a class="navlink" href="/clubdashboard">Club Dashboard <i class="fa-solid fa-desktop"></i></a>
                 {% endif %}
@@ -46,10 +45,10 @@
                         <button class="navlink dropdownlink fa-regular fa-user user" data-dropdown-button></button> 
                         <div class="dropdownmenu">
                             <div class="dropdownlinks">
-                                <a class="navlink" href="/createaclub">Create a Club <i class="fa-solid fa-pencil"></i></a>
-                                <a href="/admin" class="navlink">Admin Dashboard <i class="fa-solid fa-table-columns"></i></a>
-                                <a href="https://github.com/Rehaan12345/clubfinder" class="navlink" target="_blank">View Github <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-                                <a href="/logout" class="navlink">Logout <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+                                <a class="navlink" id="dropdownoption" href="/createaclub">Create a Club <i class="fa-solid fa-pencil"></i></a>
+                                <a href="/admin" class="navlink" id="dropdownoption">Admin Dashboard <i class="fa-solid fa-table-columns"></i></a>
+                                <a href="https://github.com/Rehaan12345/clubfinder" class="navlink" id="dropdownoption" target="_blank">View Github <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                                <a href="/logout" class="navlink" id="dropdownoption">Logout <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
                                 <button class="verifyclubbutton verifyclubbutton" id="verifyclubbutton">Verify Your Club <i class="fa-solid fa-link"></i></button>
                             </div>
                         </div>
@@ -60,6 +59,20 @@
                 {% endif %}
             </ul>
         </nav>  
+
+        <!-- Connect to club modal: -->
+        <dialog class="connecttoclub" id="connecttoclubmodal">
+            <div class="connecttoclubtitle">
+                <div class="header"><h1>Enter Club Password</h1></div> 
+                <button data-close-button id="clubclosebutton" class="clubclosebutton">&times;</button>
+            </div>
+            <div class="connecttoclubinputbox">
+                <form method="POST">
+                    <input class="connecttoclubinput" type="number" name="connecttoclubnumber" required>
+                    <input class="connecttoclubinput" id="connecttoclubsubmit" type="submit" value="Enter">
+                </form>
+            </div>
+        </dialog>
 
         <!-- <div class="newclubwrapper">
             <div class="newclubdropdown">
@@ -115,7 +128,7 @@
                 <div class="homescreennavcontainer">
                     <div class="searchwrapperwrapper">
                         <div class="searchwrapper">
-                            <input type="search" id="search" name="q" placeholder="Search a club or email" hx-get="/search" hx-trigger="keyup changed delay:500ms" hx-target=".maincontainer">
+                            <input type="search" id="search" name="q" placeholder="Search for a specific club" hx-get="/search" hx-trigger="keyup changed delay:500ms" hx-target=".maincontainer">
                             <a href="#">
                                 <i class="fas fa-search"></i>
                             </a>
@@ -127,19 +140,6 @@
 
                 <br><br>
 
-                <!-- Connect to club modal: -->
-                <dialog class="connecttoclub" id="connecttoclubmodal">
-                    <div class="connecttoclubtitle">
-                        <div class="header"><h1>Enter Club Password</h1></div> 
-                        <button data-close-button id="clubclosebutton" class="clubclosebutton">&times;</button>
-                    </div>
-                    <div class="connecttoclubinputbox">
-                        <form method="POST">
-                            <input class="connecttoclubinput" type="number" name="connecttoclubnumber" required>
-                            <input class="connecttoclubinput" id="connecttoclubsubmit" type="submit" value="Enter">
-                        </form>
-                    </div>
-                </dialog>
 
                 <!-- ______________________________________________________________ -->
 
@@ -182,14 +182,12 @@
                             <div class="clubtitle" id="content{{ club.id }}">
                                 {{ club.club_name }}{% if club in joined_clubs %} <i class="fa-solid fa-star"></i>{% endif %} {% if current_user.email == club.president_email or current_user.email == club.vicepresident_email1 or current_user.email == club.vicepresident_email2 or current_user.email == club.vicepresident_email3 %}<i class="fa-solid fa-crown"></i>{% endif %}
                             </div> <!-- Card title  -->
-                            <br><br>
-                            <!-- <button formTarget="#clubdesc_{{ club.id }}" class="clubbutton" id="viewclub" type="button">View More</button>  -->
+                            <br>
                             <p class="shortdesc" id="content{{ club.id }}">
                                 Club President: {{ club.president_email }}
                                 <br><br>
                                 Meets at {{ club.start_time }} <br>
                                 Meets on {{ club.club_day }} <br>
-                                Meets in room {{ club.room_number }} <br>
                             </p> <!-- Card body -->
                             <!-- Modal: -->
                             <dialog class="clubdesc" id="clubdesc_{{ club.id }}">
@@ -210,10 +208,11 @@
                                      {% endif %}
                                      {% if club.vicepresident_email3 %}
                                         ,&nbsp;{{ club.vicepresident_email3 }}<br><br><br>
-                                     {% endif %}
+                                     {% endif %} 
+                                    Meets in room {{ club.room_number }} <br><br>
                                     Club Advisor: {{ club.advisor_email }}
                                     <br><br>
-                                    Club Description: {{ club.description }}
+                                    <!-- Club Description: --> {{ club.description }}
                                     <br><br>
                                 </div>
                             </dialog>
@@ -227,11 +226,8 @@
                             <br><br>
                             {% endif %}
                         </div>
-                        
                     </div>
-
                 {% endfor %}
-
             </div>
 
         {% endblock %}

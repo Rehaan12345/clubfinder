@@ -123,7 +123,7 @@ def home():
 def clubs():
     return render_template("clubs.html", club_info=current_user.clubs, user=current_user)
 
-@views.route("/clubdashboard")
+@views.route("/clubdashboard", methods=["GET", "POST"])
 @login_required
 def club_dashboard():
     # Remove a member:
@@ -156,6 +156,68 @@ def club_dashboard():
         # print(member.clubs)
         # member.clubs.remove(Club.query.filter_by(id=remove_club).first())
 
+    # Gets the club that the user is trying to change:
+    # adjust_club = request.args.get("adjustClub")
+    # if adjust_club:
+    #     print(f"Adjust club: {adjust_club}")
+    # else: print("No adjust club")
+    # adjust_club = Club.query.filter_by(id=adjust_club).first()
+
+    # Accepting Club Adjustments Requests:
+    if request.method == "POST":
+        new_clubname = request.form.get("newclubname")
+        new_presidentemail = request.form.get("newpresidentemail")
+        new_vicepresidentemail1 = request.form.get("newvicepresidentemail1")
+        new_vicepresidentemail2 = request.form.get("newvicepresidentemail2")
+        new_vicepresidentemail3 = request.form.get("newvicepresidentemail3")
+        new_advisoremail = request.form.get("newadvisoremail")
+        new_roomnumber = request.form.get("newroomnumber")
+        new_clubstarttime = request.form.get("newstarttime")
+        new_clubday = request.form.get("newclubday")
+        new_clubdescription = request.form.get("newclubdescription")
+        secret_password_to_change = request.form.get("clubpassword")
+        club_to_change = Club.query.filter_by(secret_password=secret_password_to_change).first()
+        if club_to_change: 
+            print(f"Club name to change is {club_to_change.club_name}")
+            club_to_change.club_name = new_clubname
+            print(f"New Club name: {new_clubname}")
+            print(f"Current club name to change is {club_to_change.club_name}")
+        else:
+            print("Failure to produce a name slash match ok!")
+        print(f"Final Club Name: {club_to_change.club_name}")
+        for i in Club.query.all():
+            print(i.club_name)
+            
+        # if adjust_club:
+        #     # if new_clubname:
+        #     print(f"Old Name: {adjust_club.club_name}")
+        #     adjust_club.club_name = new_clubname
+        #     print(f"New Name: {adjust_club.club_name}")
+        # else: print("fail")
+        # if new_clubname is not None:
+        #     adjust_club.club_name = new_clubname
+        # if new_presidentemail is not None: 
+        #     adjust_club.president_email = new_presidentemail
+        # if new_vicepresidentemail1 is not None:
+        #     adjust_club.vicepresident_email1 = new_vicepresidentemail1
+        # if new_vicepresidentemail2 is not None:
+        #     adjust_club.vicepresident_email2 = new_vicepresidentemail2
+        # if new_vicepresidentemail3 is not None:
+        #     adjust_club.vicepresident_email3 = new_vicepresidentemail3
+        # if new_advisoremail is not None:
+        #     adjust_club.advisor_email = new_advisoremail
+        # if new_roomnumber is not None: 
+        #     adjust_club.room_number = new_roomnumber
+        # if new_clubstarttime is not None: 
+        #     adjust_club.start_time = new_clubstarttime
+        # if new_clubday is not None:
+        #     adjust_club.club_day = new_clubday
+        # if new_clubdescription is not None:
+        #     adjust_club.description = new_clubdescription\
+
+        flash("Successfully updated your club ad!", category="success")
+        return render_template("clubdashboard.html", club_info=Club.query.all(), user_info=User.query.all(), user=current_user)
+        
     return render_template("clubdashboard.html", club_info=Club.query.all(), user_info=User.query.all(), user=current_user)
 
 @views.route("/createaclub", methods=["GET", "POST"])
