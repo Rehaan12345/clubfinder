@@ -17,8 +17,8 @@ admin = Admin()
 def create_app():
     app = Flask(__name__)
     app.config["SECRET_KEY"] = "rehaan"
-    app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://suvtfuiyffrmyr:20b5ec4301567fbe7312a176f1a13b0b62b361f58173700fce0e60571460fc5c@ec2-34-193-110-25.compute-1.amazonaws.com:5432/db6qqpd9lh4g5f"
-    # app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_NAME}" 
+    # app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://suvtfuiyffrmyr:20b5ec4301567fbe7312a176f1a13b0b62b361f58173700fce0e60571460fc5c@ec2-34-193-110-25.compute-1.amazonaws.com:5432/db6qqpd9lh4g5f"
+    app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_NAME}" 
     db.init_app(app) 
     # Configuring the mail messaging system:
     app.config["MAIL_SERVER"] = "smtp@googlemail.com"
