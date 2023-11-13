@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path 
 from flask_login import LoginManager 
+# If doesn't work - pip install werkzeug==2.3.0
 from flask_admin import Admin 
 from flask_admin.contrib.sqla import ModelView
 from flask_mail import Mail, Message
