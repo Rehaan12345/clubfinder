@@ -999,7 +999,7 @@ form .button input:hover {
     grid-auto-rows: minmax(100px, auto);
     min-height: 100vh;
     line-height: 1.6; 
-    max-width: 100%;
+    /* max-width: 100%; */
     transition: .5s ease;
     /* margin-top: -100px; */
 }
@@ -1506,6 +1506,21 @@ form .button input:hover {
         display: grid;
         grid-column: span 3;
         transition: .5s ease;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .maincontainer {
+        display: grid;
+        place-content: center; 
+    }
+
+    .club {
+        width: 300px;
+    }
+
+    .clubcontent {
+        width: 300px;
     }
 }
 

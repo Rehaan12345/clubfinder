@@ -1,6 +1,11 @@
-{% extends "admin/master.html" %}
+{% if current_user.role == "admin" %}{% extends "admin/master.html" %}
 
 {% block body %}
+
 <h1>Admin Dashboard!</h1>
+
 <button><a href="/">Go Home</a></button> 
+
 {% endblock %}
+
+{% endif %}
