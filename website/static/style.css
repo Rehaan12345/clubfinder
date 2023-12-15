@@ -1022,6 +1022,7 @@ form .button input:hover {
 .club:focus-within {
     /* transform: scale(1.01); */
     box-shadow: 10px 10px 15px rgba(0, 0, 0, .6);
+    border-radius: 15px;
     /* box-sizing: border-box; */
 }
 
@@ -1456,6 +1457,7 @@ form .button input:hover {
     }
 
     .navlink {
+        /* ** */
         display: none;
         transition: .5s ease;
     } 
