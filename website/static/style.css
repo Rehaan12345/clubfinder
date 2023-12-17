@@ -360,6 +360,7 @@ body {
     color: var(--bg1);
     cursor: pointer; 
     /* margin-right: 300px; */
+    z-index: 10;
 }
 
 .dropdownlinks a {
@@ -385,7 +386,7 @@ body {
     pointer-events: none;
     transform: translateY(-10px);
     transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
-    z-index: 10;
+    z-index: 20;
     color: white;
 }
 
