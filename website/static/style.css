@@ -562,13 +562,16 @@ body {
 
 .alert.hide {
     animation: hide_slide 1s ease forwards;
+    opacity: 0;
+    display: none;
 }
 
 @keyframes hide_slide {
-    0% {
-        transform: translateX(-10px);
+    100% {
+        opacity: 0;
+        display: none;
     }
-    40% {
+    /* 40% {
         transform: translateX(0%);
     }
     80% {
@@ -576,7 +579,7 @@ body {
     }
     100% {
         transform: translateX(100%);
-    }
+    } */
 }
 
 .alert .msg {
@@ -624,6 +627,8 @@ body {
 
 .success.hide {
     animation: hide_slide 1s ease forwards;
+    opacity: 0;
+    display: none;
 }
 
 .success .msg {
@@ -674,7 +679,7 @@ body {
     left: 0;
     bottom: 0;
     height: 3px;
-    width: 30px;
+    /* width: 100px; */
     background: var(--bg1);
 }
 
@@ -1936,4 +1941,51 @@ form .button input:hover {
 .tablecontainer {
     max-width: 100%;
     overflow-x: scroll;
+}
+
+/********** Club Info/Adjust nav bar: **********/
+.dashnav {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.infoadjustlist {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    /* margin-left: 10px;
+    margin-right: 10px; */
+    /* border: 1px solid red; */
+    background-color: var(--bg1);
+    height: 70px;
+    margin-top: 0;
+}
+
+.sec {
+    width: 50%;
+    /* border: 1px solid black; */
+    display: flex;
+    justify-content: space-around;
+    /* cursor: pointer; */
+    /* height: 70px; */
+}
+
+.sec:hover {
+    background-color: gold;
+}
+
+.navitems {
+    width: 100%;
+    cursor: pointer;
+    text-decoration: none;
+    /* border: 1px solid white; */
+    /* height: 50 */
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font: inherit;
+    font-size: 20px;
+    color: var(--bg2);
 }
