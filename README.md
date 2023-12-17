@@ -7,5 +7,5 @@ To run the developer site, clone this repository and copy the following commands
 % pip install -r requirements.txt
 ```
 ```
-% python3 main.py
+% python3 app.py
 ```
