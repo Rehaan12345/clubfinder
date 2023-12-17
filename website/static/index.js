@@ -1,4 +1,4 @@
-// ********** Flash close buttons: ********** //
+// ********** Close Flash buttons: ********** //
 window.addEventListener("DOMContentLoaded", () => {
     // Closes the flashed message on click:
     const closebutton = document.getElementById("flash");
@@ -731,9 +731,24 @@ window.addEventListener("DOMContentLoaded", () => {
                 console.log(hitButton);
                 hitButton.innerHTML = "Copied! <i class=\"fa fa-check\"><i/>";
                 setTimeout(() => {
-                    hitButton.innerHTML = "Copy Club Password"
+                    hitButton.innerHTML = "Copy Club ID <i class=\"fa-regular fa-copy\"></i>"
                 }, 2000);
-            } else { console.log("Failure to find club password"); }
+            } else { console.log("Failure to find club id!"); }
         };
     });
 });
+
+// ********** Club ID Info Modal ********** //
+window.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("click", e => {
+        const target = e.target.id;
+        if (target.localeCompare("questionbutton") === 0) {
+            const modal = document.querySelector(".clubidinfomodal");
+            modal.showModal();
+            const closeButton = document.querySelector("#closeclubidinfomodal");
+            closeButton.addEventListener("click", () => {
+                modal.close();
+            })
+        }
+    })
+})

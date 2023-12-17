@@ -14,6 +14,11 @@ views = Blueprint("views", __name__)
 @views.route("/", methods=["GET", "POST"])
 @login_required
 def home():
+    if request.method == "POST":
+        tester = request.form.get("email")
+        if tester:
+            return redirect("/clubdashboard/info")
+            # return render_template("clubdashboard.html", club_info=Club.query.all(), user_info=User.query.all(), user=current_user)
     print("32")
     cur_us = User.query.filter_by(email=current_user.email).first()
     print("34")
@@ -136,7 +141,67 @@ def clubs():
 def club_dashboard(goto):
     print(f"137 - current_user.role = {current_user.role}")
     # Remove a member:
-    if goto == "main":
+    if goto == "adjust":
+        if request.method == "POST":
+            change_club_id = request.form.get("changeclubid")
+            change_club_name = request.form.get("changeclubname")
+            change_president_email = request.form.get("changepresidentemail")
+            change_vp_email1 = request.form.get("changevicepresidentemail1")
+            change_vp_email2 = request.form.get("changevicepresidentemail2")
+            change_vp_email3 = request.form.get("changevicepresidentemail3")
+            change_advisor_email = request.form.get("changeadvisoremail")
+            change_room_number = request.form.get("changeroomnumber")
+            change_club_starttime = request.form.get("changeclubstarttime")
+            change_club_days = request.form.getlist("changeclubday")
+            change_club_description = request.form.get("changeclubdescription")
+
+            change_club = Club.query.filter_by(secret_password=change_club_id).first()
+            if change_club:
+                if change_club_name:
+                    print(f"Old club name: {change_club.club_name}")
+                    change_club.club_name = change_club_name
+                    print(f"New club name: {change_club.club_name}")
+                    db.session.commit()
+                    # flash("Club info changed!", "success")
+                    # return redirect("/clubdashboard/info")
+                else: print("Failed to change name")
+                if change_room_number:
+                    change_club.room_number = change_room_number
+                    # flash("Club info changed!", "success")
+                    db.session.commit()
+                if change_club_starttime:
+                    change_club.start_time = change_club_starttime
+                    # flash("Club info changed!", "success")
+                    db.session.commit()
+                if change_club_description:
+                    change_club.description = change_club_description
+                    # flash("Club info changed!", "success")
+                    db.session.commit()
+                if change_club_days:
+                    club_days_final = ""
+                    if len(change_club_days) == 1:
+                        club_days_final = change_club_days[0]
+                    elif len(change_club_days) == 2: 
+                        club_days_final += change_club_days[0] + " and " + change_club_days[1]
+                    else:
+                        for i in range(len(change_club_days)):
+                            if i == len(change_club_days) - 2:
+                                club_days_final += change_club_days[len(change_club_days) - 2] + " and " + change_club_days[len(change_club_days) - 1]
+                                break
+                            club_days_final += change_club_days[i] + ", "
+                    change_club.club_day = club_days_final
+                    # flash("Club info changed!", "success")
+                    db.session.commit()
+                flash("Club info successfully changed!", "success")
+                return redirect("/clubdashboard/info")
+            else:
+                flash("Club ID not found!", "error")
+                return redirect("/clubdashboard/adjust")
+            
+                
+
+        return render_template("clubdashboard.html", title="adjust", club_info=Club.query.all(), user_info=User.query.all(), user=current_user, your_clubs=Club.query.filter_by(president_email=current_user.email))
+    if goto == "info":
         if request.method == "GET":
             remove_club = request.args.get("removeClub")
             remove_member = request.args.get("removeMember")
@@ -166,68 +231,6 @@ def club_dashboard(goto):
             # print(member.clubs)
             # member.clubs.remove(Club.query.filter_by(id=remove_club).first())
 
-        # Gets the club that the user is trying to change:
-        # adjust_club = request.args.get("adjustClub")
-        # if adjust_club:
-        #     print(f"Adjust club: {adjust_club}")
-        # else: print("No adjust club")
-        # adjust_club = Club.query.filter_by(id=adjust_club).first()
-
-        # Accepting Club Adjustments Requests:
-        if request.method == "POST":
-            new_clubname = request.form.get("newclubname")
-            new_presidentemail = request.form.get("newpresidentemail")
-            new_vicepresidentemail1 = request.form.get("newvicepresidentemail1")
-            new_vicepresidentemail2 = request.form.get("newvicepresidentemail2")
-            new_vicepresidentemail3 = request.form.get("newvicepresidentemail3")
-            new_advisoremail = request.form.get("newadvisoremail")
-            new_roomnumber = request.form.get("newroomnumber")
-            new_clubstarttime = request.form.get("newstarttime")
-            new_clubday = request.form.get("newclubday")
-            new_clubdescription = request.form.get("newclubdescription")
-            secret_password_to_change = request.form.get("clubpassword")
-            club_to_change = Club.query.filter_by(secret_password=secret_password_to_change).first()
-            if club_to_change: 
-                print(f"Club name to change is {club_to_change.club_name}")
-                club_to_change.club_name = new_clubname
-                print(f"New Club name: {new_clubname}")
-                print(f"Current club name to change is {club_to_change.club_name}")
-            else:
-                print("Failure to produce a name slash match ok!")
-            print(f"Final Club Name: {club_to_change.club_name}")
-            for i in Club.query.all():
-                print(i.club_name)
-                
-            # if adjust_club:
-            #     # if new_clubname:
-            #     print(f"Old Name: {adjust_club.club_name}")
-            #     adjust_club.club_name = new_clubname
-            #     print(f"New Name: {adjust_club.club_name}")
-            # else: print("fail")
-            # if new_clubname is not None:
-            #     adjust_club.club_name = new_clubname
-            # if new_presidentemail is not None: 
-            #     adjust_club.president_email = new_presidentemail
-            # if new_vicepresidentemail1 is not None:
-            #     adjust_club.vicepresident_email1 = new_vicepresidentemail1
-            # if new_vicepresidentemail2 is not None:
-            #     adjust_club.vicepresident_email2 = new_vicepresidentemail2
-            # if new_vicepresidentemail3 is not None:
-            #     adjust_club.vicepresident_email3 = new_vicepresidentemail3
-            # if new_advisoremail is not None:
-            #     adjust_club.advisor_email = new_advisoremail
-            # if new_roomnumber is not None: 
-            #     adjust_club.room_number = new_roomnumber
-            # if new_clubstarttime is not None: 
-            #     adjust_club.start_time = new_clubstarttime
-            # if new_clubday is not None:
-            #     adjust_club.club_day = new_clubday
-            # if new_clubdescription is not None:
-            #     adjust_club.description = new_clubdescription\
-
-            flash("Successfully updated your club ad!", category="success")
-            return render_template("clubdashboard.html", club_info=Club.query.all(), user_info=User.query.all(), user=current_user)
-        
     return render_template("clubdashboard.html", club_info=Club.query.all(), user_info=User.query.all(), user=current_user)
 
 @views.route("/createaclub", methods=["GET", "POST"])
