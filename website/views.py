@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from flask_login import login_required, current_user
 from .models import User, Club 
 from .sendmail import send_mail
@@ -8,12 +8,22 @@ import smtplib
 from flask_mail import Mail, Message
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from flask_session import Session
 
 views = Blueprint("views", __name__)  
+
+# If the club password is correct / found:
+def check_club_pass(num):
+    if num == 1:
+        return False
+    if num == 2:
+        return True
+
 
 @views.route("/", methods=["GET", "POST"])
 @login_required
 def home():
+    # if sessio
     if request.method == "POST":
         tester = request.form.get("email")
         if tester:
@@ -25,6 +35,7 @@ def home():
     if cur_us.email == "rehaan1099@gmail.com":
         print("36")
         cur_us.role = "Admin"
+        db.session.commit()
         print(f"38 - done! {cur_us.role}")
     print(f"39 - {current_user.role}")
     # Join / Leave Club Buttions functionality: 
@@ -90,20 +101,33 @@ def home():
             print(club.secret_password)
         print(club_password)
     
-        if Club.query.filter_by(secret_password=club_password).first():
-            if current_user.role == "Advisor":
-                club_found = Club.query.filter_by(secret_password=club_password).first()
-                print(club_found)
-                flash("Club successfully found!", "success")
-                print(club_found.members)
+        if "secret_password" in session:
+            print(f"105 - {session['secret_password']}")
+            print(f"106 - club password: {club_password}")
+            club_password = int(club_password)
+            print(session["secret_password"] == club_password)
+            # print(club_password.isnumeric())
+            if session['secret_password'] == club_password:
+                print("108 - success")
+        # if Club.query.filter_by(secret_password=club_password).first():
+                # if current_user.role == "Advisor":
+                # club_found = Club.query.filter_by(secret_password=club_password).first()
+                # print(club_found)
+                # flash("Club successfully found!", "success")
+                # print(club_found.members)
                 current_user.is_leader = True
-                return render_template("clubdashboard.html", club_info=Club.query.all(), user_info=User.query.all(), user=current_user)
+                db.session.commit()
+                session["club_confirmed"] = "YES"
+                # return render_template("createaclub.html", user=current_user)
+                return redirect(url_for(".createaclub", club_confirmed=club_password))
+                # return redirect("/createaclub")
+                # return render_template("clubdashboard.html", club_info=Club.query.all(), user_info=User.query.all(), user=current_user)
+                # else:
+                    # print("Current user is not an advisor.")
+                    # flash("Your advisor has to verify your club's code before you can!", "error")
             else:
-                print("Current user is not an advisor.")
-                flash("Your advisor has to verify your club's code before you can!", "error")
-        else:
-            flash("No club found with matching code!", "error")
-            print("None found")
+                flash("No club found with matching code!", "error")
+                print("None found")
         
     # Filter By Buttons Functionality:
     filterby = request.args.get("filterby")
@@ -131,10 +155,10 @@ def home():
 
     return render_template("layout.html", club_info=Club.query.all(), joined_clubs=current_user.clubs, user=current_user)
 
-@views.route("/clubs", methods=["GET", "POST"])
-@login_required
-def clubs():
-    return render_template("clubs.html", club_info=current_user.clubs, user=current_user)
+# @views.route("/clubs", methods=["GET", "POST"])
+# @login_required
+# def clubs():
+#     return render_template("clubs.html", club_info=current_user.clubs, user=current_user)
 
 @views.route("/clubdashboard/<goto>", methods=["GET", "POST"])
 @login_required
@@ -198,8 +222,6 @@ def club_dashboard(goto):
                 flash("Club ID not found!", "error")
                 return redirect("/clubdashboard/adjust")
             
-                
-
         return render_template("clubdashboard.html", title="adjust", club_info=Club.query.all(), user_info=User.query.all(), user=current_user, your_clubs=Club.query.filter_by(president_email=current_user.email))
     if goto == "info":
         if request.method == "GET":
@@ -236,6 +258,8 @@ def club_dashboard(goto):
 @views.route("/createaclub", methods=["GET", "POST"])
 @login_required
 def createaclub():
+    # session["club_confirmed"] = "NO"
+    print(f"261 - {request.args.get('club_confirmed')}")
     # Accepting the post request:
     if request.method == "POST":
         club_name = request.form.get("clubname")
@@ -265,16 +289,19 @@ def createaclub():
         new_advisor = User.query.filter_by(email=advisor_email).first()
         if new_advisor:
             new_advisor.role = "Advisor"
+            db.session.commit()
 
         # Making the random password:
         secret_password = random.randint(100, 1000000)
+        session["secret_password"] = secret_password
+        print(f"Session created: {session['secret_password']}")
         print(f"Secret password: {secret_password}")
         senderemail = "crlsclubfinder@gmail.com"
         senderpassword = "wmzhhaxtzqnvyuze"
         subject = f"{club_name} has submitted you as their club advisor"
         body = f"""Hello! 
 
-{ president_email } is signing their club, {club_name}, up to the ClubFinder website. They selected you as their club advisor. If you are not their advisor, please delete this email, or email 25ranjaria@cpsd.us for technical assistance. 
+{president_email} is signing their club, {club_name}, up to the ClubFinder website. They selected you as their club advisor. If you are not their advisor, please delete this email, or email 25ranjaria@cpsd.us for technical assistance. 
 
 If you are the advisor of {club_name}, and the below information looks correct, please use the code below to confirm both you and your club's identity:
 
@@ -299,6 +326,7 @@ ClubFinder
         """
 
         send_mail(email_sender=senderemail, email_password=senderpassword, email_receiver=advisor_email, subject=subject, body=body)
+        print("Email sent")
         flash("Email successfully sent!")
 
         president = User.query.filter_by(email=president_email).first()
@@ -314,6 +342,7 @@ ClubFinder
             vp3.is_leader = True
         pres = User.query.filter_by(email=president_email).first()
         pres.role = "Leader"
+        db.session.commit()
         print(f"President: {president}")
         # Make sure the club president is the person who is currently logged in:
         if president_email == current_user.email:
@@ -325,102 +354,55 @@ ClubFinder
         # vpemail2 = User.query.filter_by(vicepresident_email2=vicepresident_email2).first()
         # vpemail3 = User.query.filter_by(vicepresident_email3=vicepresident_email3).first()
         # if name:
-        flash("Club name already in use. Try a different one!", category="error") 
+        # flash("Club name already in use. Try a different one!", category="error") 
         # elif not email:
             # flash("Email not found, try a different one.", category="error")
         # elif not vpemail1:
-        flash(f"Email {vicepresident_email1} not found, make sure their account has been created.", category="error")
+        # flash(f"Email {vicepresident_email1} not found, make sure their account has been created.", category="error")
         # elif not vpemail2:
-        flash(f"Email {vicepresident_email2} not found, make sure their account has been created.", category="error")
+        # flash(f"Email {vicepresident_email2} not found, make sure their account has been created.", category="error")
         # elif not vpemail3:
-        flash(f"Email {vicepresident_email3} not found, make sure their account has been created.", category="error")
+        # flash(f"Email {vicepresident_email3} not found, make sure their account has been created.", category="error")
         # else: 
-        new_club = Club(club_name=club_name, president_email=president_email, vicepresident_email1=vicepresident_email1, vicepresident_email2=vicepresident_email2, vicepresident_email3=vicepresident_email3, advisor_email=advisor_email, room_number=room_number, start_time=start_time, description=description, secret_password=secret_password, club_day=club_days_final)
-        print(f"New Club Name: {new_club.club_name}, President: {new_club.president_email}, VP1: {new_club.vicepresident_email1}, VP2: {new_club.vicepresident_email2}, VP3: {new_club.vicepresident_email3}, Advisor: {new_club.advisor_email}, Room Number: {new_club.room_number}, Start Time: {new_club.start_time}, Description: {new_club.description}, Club Day(s): {new_club.club_day}")
-        db.session.add(new_club)
-        db.session.commit()
-        pres.clubs.append(Club.query.filter_by(club_name=club_name).first())
-        if vicepresident_email1:
-            vp1.clubs.append(Club.query.filter_by(club_name=club_name).first())
-        if vicepresident_email2:
-            vp2.clubs.append(Club.query.filter_by(club_name=club_name).first())
-        if vicepresident_email3:
-            vp3.clubs.append(Club.query.filter_by(club_name=club_name).first())
-        flash("Your new club has been created!", category="success")
-        return render_template("layout.html", user=current_user, club_info=Club.query.all(), joined_clubs=current_user.clubs)
-
-    return render_template("createaclub.html", user=current_user)
-
-# @views.route("/send_email/<email>")
-# def send_email(email):
-#         # Sending the email:
-#         email_title = "Your club has been successfully added!"
-#         sender = "crlsclubfinder@clubfinder.com"
-#         message = Message(email_title, sender=sender, recipients=[current_user.email])
-#         email_body = "Your secret club password is 1"
-#         message.body = ""
-#         data = {
-#             "app_name": "clubfinder",
-#             "title": email_title,
-#             "body": email_body,
-#         }
-#         message.html = render_template("email.html", data=data)
-#         try: 
-#             Mail.send(message)
-#             return "Email sent"
-#         except Exception as e:
-#             print(e)
-#             return "The email was not sent"
-
-# @views.route("/email")
-# def email():
-#     # Sending the email:
-#     email_title = "Your club has been successfully added!"
-#     sender = "crlsclubfinder@clubfinder.com"
-#     msg = Message(email_title, sender=sender, recipients=[current_user.email])
-#     email_body = "Your secret club password is 1"
-#     msg.body = ""
-#     data = {
-#         "app_name": "clubfinder",
-#         "title": email_title,
-#         "body": email_body,
-#     }
-#     msg.html = render_template("email.html", data=data)
-#     try: 
-#         Mail.send(msg, sender)
-#         return "Email sent"
-#     except Exception as e:
-#         print(e)
-#         return f"The email was not sent. Error: {e}"
         
-#     return render_template("email.html")
+        # This all has to happen only after the advisor confirms the club: 
+        if create_new_club(club_name=club_name, president_email=president_email, vicepresident_email1=vicepresident_email1, vicepresident_email2=vicepresident_email2, vicepresident_email3=vicepresident_email3, advisor_email=advisor_email, room_number=room_number, start_time=start_time, description=description, secret_password=secret_password, club_day=club_days_final):
+            print(f"367 - {request.args.get('club_confirmed')}")
+            if "club_confirmed" in session: 
+                print(f"369 - Club Confirmed: {session['club_confirmed']}")
+                if session["club_confirmed"] == secret_password:
+                    # advisor_confirmed = request.form.get("advisorconfirmed")
+                    # if advisor_confirmed:
+                    pres.clubs.append(Club.query.filter_by(club_name=club_name).first())
+                    db.session.commit()
+                    if vicepresident_email1:
+                        vp1.clubs.append(Club.query.filter_by(club_name=club_name).first())
+                        db.session.commit()
+                    if vicepresident_email2:
+                        vp2.clubs.append(Club.query.filter_by(club_name=club_name).first())
+                        db.session.commit()
+                    if vicepresident_email3:
+                        vp3.clubs.append(Club.query.filter_by(club_name=club_name).first())
+                        db.session.commit()
+                    flash("Your new club has been created!", "success")
+                    # flash("Your advisor has received an email to confirm.", "success")
+                    return redirect("/")
+            else: 
+                print("Failed")
 
-# @views.route("/send_email", methods=["GET", "POST"])
-# def send_email():
-#     email_address = "rehaan1099@gmail.com" # request.form['address']
-#     email_subject = "Test Email!" # request.form['subject']
-#     email_message = "This email works ok!" # request.form['message']
+    return redirect("/createaclub")
 
-#     sender_email = 'youremail'
-#     sender_password = 'your password'
-#     receiver_email = email_address
-
-#     message = MIMEMultipart()
-#     message['From'] = sender_email
-#     message['To'] = receiver_email
-#     message['Subject'] = email_subject
-#     message.attach(MIMEText(email_message, 'plain'))
-
-#     # try:
-#     server = smtplib.SMTP('smtp.gmail.com', 587)
-#     server.starttls()
-#     server.login(sender_email, sender_password)
-#     server.sendmail(sender_email, receiver_email, message.as_string())
-#     server.quit()
-
-#     #     return 'Email Sent!'
-#     # except Exception as e:
-#     #     return str(e)
+# Actually creates the new club and commits it to the database:
+def create_new_club(club_name, president_email, vicepresident_email1, vicepresident_email2, vicepresident_email3, advisor_email, room_number, start_time, description, secret_password, club_day):
+    if "club_confirmed" in session:
+        if session["club_confirmed"] == "YES":
+            new_club = Club(club_name=club_name, president_email=president_email, vicepresident_email1=vicepresident_email1, vicepresident_email2=vicepresident_email2, vicepresident_email3=vicepresident_email3, advisor_email=advisor_email, room_number=room_number, start_time=start_time, description=description, secret_password=secret_password, club_day=club_day)
+            print(f"New Club Name: {new_club.club_name}, President: {new_club.president_email}, VP1: {new_club.vicepresident_email1}, VP2: {new_club.vicepresident_email2}, VP3: {new_club.vicepresident_email3}, Advisor: {new_club.advisor_email}, Room Number: {new_club.room_number}, Start Time: {new_club.start_time}, Description: {new_club.description}, Club Day(s): {new_club.club_day}")
+            db.session.add(new_club)
+            db.session.commit()
+            return True
+        return False
+    return False
 
 # Search:
 @views.route("/search")

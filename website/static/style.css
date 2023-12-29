@@ -535,7 +535,8 @@ body {
     overflow: hidden;
     opacity: 1;
     pointer-events: auto;
-  }
+    z-index: 20;
+}
 
 .alert.showAlert {
     opacity: 1;
@@ -615,7 +616,8 @@ body {
     overflow: hidden;
     opacity: 1;
     pointer-events: auto;
-  }
+    z-index: 20;
+}
 
 .success.showAlert {
     opacity: 1;
@@ -954,6 +956,7 @@ form .button input {
     border-radius: 5px;;
     letter-spacing: 1px;
     background: var(--bg2);
+    cursor: pointer;
 }
 
 form .button input:hover {
@@ -1624,9 +1627,11 @@ form .button input:hover {
 
 .clubtable {
     width: 100%;
-    background: rgb(149, 149, 149);
+    /* background: rgb(149, 149, 149); */
     border-collapse: collapse;
     /* margin-bottom: 10px; */
+    /* border-radius: 5px; */
+    /* border: 1px solid black; */
 }
 
 .clubtable caption, th, td {
