@@ -19,6 +19,17 @@ def check_club_pass(num):
     if num == 2:
         return True
 
+# Actually creates the new club and commits it to the database:
+def create_new_club(club_name, president_email, vicepresident_email1, vicepresident_email2, vicepresident_email3, advisor_email, room_number, start_time, description, secret_password, club_day):
+    if "club_confirmed" in session:
+        if session["club_confirmed"] == "YES":
+            new_club = Club(club_name=club_name, president_email=president_email, vicepresident_email1=vicepresident_email1, vicepresident_email2=vicepresident_email2, vicepresident_email3=vicepresident_email3, advisor_email=advisor_email, room_number=room_number, start_time=start_time, description=description, secret_password=secret_password, club_day=club_day)
+            print(f"New Club Name: {new_club.club_name}, President: {new_club.president_email}, VP1: {new_club.vicepresident_email1}, VP2: {new_club.vicepresident_email2}, VP3: {new_club.vicepresident_email3}, Advisor: {new_club.advisor_email}, Room Number: {new_club.room_number}, Start Time: {new_club.start_time}, Description: {new_club.description}, Club Day(s): {new_club.club_day}")
+            db.session.add(new_club)
+            db.session.commit()
+            return True
+        return False
+    return False
 
 @views.route("/", methods=["GET", "POST"])
 @login_required
@@ -96,6 +107,12 @@ def home():
     # Club Password Verification:
     if request.method == "POST":
         club_password = request.form.get("connecttoclubnumber")
+        is_a_club = Club.query.filter_by(secret_password=club_password).first()
+        if is_a_club:
+            is_a_club.status = "Approved"
+            db.session.commit()
+            flash("Success!", "success")
+            return redirect("/")
         clubs = Club.query.all()
         for club in clubs:
             print(club.secret_password)
@@ -119,8 +136,10 @@ def home():
                 db.session.commit()
                 session["club_confirmed"] = "YES"
                 # return render_template("createaclub.html", user=current_user)
-                return redirect(url_for(".createaclub", club_confirmed=club_password))
+                # return redirect(url_for(".createaclub", club_confirmed=club_password))
                 # return redirect("/createaclub")
+                return redirect("/")
+                
                 # return render_template("clubdashboard.html", club_info=Club.query.all(), user_info=User.query.all(), user=current_user)
                 # else:
                     # print("Current user is not an advisor.")
@@ -347,62 +366,15 @@ ClubFinder
         # Make sure the club president is the person who is currently logged in:
         if president_email == current_user.email:
             print("True")
-        # Verifying the post request:
-        # name = Club.query.filter_by(club_name=club_name).first() 
-        # email = User.query.filter_by(email=email).first()
-        # vpemail1 = User.query.filter_by(vicepresident_email1=vicepresident_email1).first()
-        # vpemail2 = User.query.filter_by(vicepresident_email2=vicepresident_email2).first()
-        # vpemail3 = User.query.filter_by(vicepresident_email3=vicepresident_email3).first()
-        # if name:
-        # flash("Club name already in use. Try a different one!", category="error") 
-        # elif not email:
-            # flash("Email not found, try a different one.", category="error")
-        # elif not vpemail1:
-        # flash(f"Email {vicepresident_email1} not found, make sure their account has been created.", category="error")
-        # elif not vpemail2:
-        # flash(f"Email {vicepresident_email2} not found, make sure their account has been created.", category="error")
-        # elif not vpemail3:
-        # flash(f"Email {vicepresident_email3} not found, make sure their account has been created.", category="error")
-        # else: 
-        
+
+        new_club = Club(club_name=club_name, president_email=president_email, vicepresident_email1=vicepresident_email1, vicepresident_email2=vicepresident_email2, vicepresident_email3=vicepresident_email3, advisor_email=advisor_email, room_number=room_number, start_time=start_time, description=description, secret_password=secret_password, club_day=club_days_final, status="Pending")
+        db.session.add(new_club)
+        db.session.commit()
+
         # This all has to happen only after the advisor confirms the club: 
-        if create_new_club(club_name=club_name, president_email=president_email, vicepresident_email1=vicepresident_email1, vicepresident_email2=vicepresident_email2, vicepresident_email3=vicepresident_email3, advisor_email=advisor_email, room_number=room_number, start_time=start_time, description=description, secret_password=secret_password, club_day=club_days_final):
-            print(f"367 - {request.args.get('club_confirmed')}")
-            if "club_confirmed" in session: 
-                print(f"369 - Club Confirmed: {session['club_confirmed']}")
-                if session["club_confirmed"] == secret_password:
-                    # advisor_confirmed = request.form.get("advisorconfirmed")
-                    # if advisor_confirmed:
-                    pres.clubs.append(Club.query.filter_by(club_name=club_name).first())
-                    db.session.commit()
-                    if vicepresident_email1:
-                        vp1.clubs.append(Club.query.filter_by(club_name=club_name).first())
-                        db.session.commit()
-                    if vicepresident_email2:
-                        vp2.clubs.append(Club.query.filter_by(club_name=club_name).first())
-                        db.session.commit()
-                    if vicepresident_email3:
-                        vp3.clubs.append(Club.query.filter_by(club_name=club_name).first())
-                        db.session.commit()
-                    flash("Your new club has been created!", "success")
-                    # flash("Your advisor has received an email to confirm.", "success")
-                    return redirect("/")
-            else: 
-                print("Failed")
+        # club_name=club_name, president_email=president_email, vicepresident_email1=vicepresident_email1, vicepresident_email2=vicepresident_email2, vicepresident_email3=vicepresident_email3, advisor_email=advisor_email, room_number=room_number, start_time=start_time, description=description, secret_password=secret_password, club_day=club_days_final
 
-    return redirect("/createaclub")
-
-# Actually creates the new club and commits it to the database:
-def create_new_club(club_name, president_email, vicepresident_email1, vicepresident_email2, vicepresident_email3, advisor_email, room_number, start_time, description, secret_password, club_day):
-    if "club_confirmed" in session:
-        if session["club_confirmed"] == "YES":
-            new_club = Club(club_name=club_name, president_email=president_email, vicepresident_email1=vicepresident_email1, vicepresident_email2=vicepresident_email2, vicepresident_email3=vicepresident_email3, advisor_email=advisor_email, room_number=room_number, start_time=start_time, description=description, secret_password=secret_password, club_day=club_day)
-            print(f"New Club Name: {new_club.club_name}, President: {new_club.president_email}, VP1: {new_club.vicepresident_email1}, VP2: {new_club.vicepresident_email2}, VP3: {new_club.vicepresident_email3}, Advisor: {new_club.advisor_email}, Room Number: {new_club.room_number}, Start Time: {new_club.start_time}, Description: {new_club.description}, Club Day(s): {new_club.club_day}")
-            db.session.add(new_club)
-            db.session.commit()
-            return True
-        return False
-    return False
+    return render_template("createaclub.html", user=current_user)
 
 # Search:
 @views.route("/search")

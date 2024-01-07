@@ -36,6 +36,7 @@ class Club(db.Model):
     description = db.Column(db.String(5000))
     secret_password = db.Column(db.Integer)
     club_day = db.Column(db.String)
+    status = db.Column(db.String)
     # Foreign Key - This column references a user's id in the User database class. - A one to many relationship:
     # user_id = db.Column(db.Integer, db.ForeignKey("user.id")) 
     # user = db.relationship("User", secondary="user_club", back_populates="club")
