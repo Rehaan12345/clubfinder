@@ -105,13 +105,13 @@ body {
     box-sizing: border-box;
 }
 
-.center form .txt_field {
+.txt_field {
     position: relative;
     border-bottom: 2px solid var(--labelcolor);
     margin: 30px 0; 
 }
 
-.center .txt_field input {
+.txt_field input {
     width: 100%;
     padding: 0 50px;
     height: 40px; 
@@ -121,7 +121,7 @@ body {
     outline: none;
 }
 
-.center .txt_field label {
+.txt_field label {
     position: absolute;
     top: 50%;
     left: 5px;
@@ -132,7 +132,7 @@ body {
     transition: .5s;
 }
 
-.center .txt_field span::before {
+.txt_field span::before {
     content: '';
     position: absolute;
     top: 40px;
@@ -143,24 +143,24 @@ body {
     transition: .5s;
 }
 
-.center .txt_field input:focus ~ label,
-.center .txt_field input:valid ~ label {
+.txt_field input:focus ~ label,
+.txt_field input:valid ~ label {
     top: -5px;
     color: var(--loginefore);
 }
 
-.center .txt_field input:focus ~ span::before,
-.center .txt_field input:valid ~ span::before {
+.txt_field input:focus ~ span::before,
+.txt_field input:valid ~ span::before {
     width: 100%;
 }
 
-.center .pass {
+.pass {
     margin: -5px 0 20px 5px;
     color: var(--passcolor);
     cursor: pointer;
 }
 
-.center .pass:hover {
+.pass:hover {
     text-decoration: underline;
 }
 
@@ -182,23 +182,23 @@ body {
     transition: .5s;
 }
 
-.center .signup_link {
+.signup_link {
     margin: 30px 0;
     text-align: center;
     font-size: 16px;
     color: #666666;
 }
 
-.center .signup_link a {
+.signup_link a {
     color: var(--loginblue);
     text-decoration: none;
 }
 
-.center .signup_link a:hover {
+.signup_link a:hover {
     text-decoration: underline;
 }
 
-.center nav ul li a{
+nav ul li a{
     color: var(--textcolor);
     font-size: 17px;
     padding: 7px 13px;
@@ -2009,4 +2009,9 @@ form .button input:hover {
 
 .clubidinfomodal {
     border: 1px solid black;
+}
+
+/* Club Confirmation Styling: */
+#succclub {
+    z-index: 10;
 }

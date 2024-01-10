@@ -25,15 +25,6 @@
         </div>
     </nav>
 
-    <!-- <div class="whichclubwrapper">
-        <select name="whichclub" id="whichclub">
-            <option value="droneclub">Select club to change</option>
-            <option value="yerp">yerp</option>
-            {% for your_club in your_clubs %}
-            <option value="{{ your_club.id }}">{{ your_club }}</option>
-            {% endfor %}
-        </select>
-    </div> -->
         <div class="makeaclubok">
             <br><br>
             <div class="title">Adjust Your Club</div>
@@ -137,8 +128,9 @@
     <div class="clubdashboardwrapper">
         <div class="allclubinfowrapper">
             {% for club in club_info %}
+                {% if club.status == "Approved" %}
 
-                {% if current_user.email == club.president_email or current_user.email == club.vicepresident_email1 or current_user.email == club.vicepresident_email2 or current_user.email == club.vicepresident_email3 %}
+                {% if current_user.email == club.president_email or current_user.email == club.vicepresident_email1 or current_user.email == club.vicepresident_email2 or current_user.email == club.vicepresident_email3 or current_user.role == "Advisor" or current_user.role == "Admin" %}
 
                     <div class="tablecontainer" id="clubtable_{{ club.id }}">
                     
@@ -214,6 +206,8 @@
                     </div>
 
                 {% endif %}    
+
+                {% endif %}
 
             <br><br>
             

@@ -130,8 +130,17 @@ function joinOrLeaveClub(e) {
             success: console.log("Successfully requested to join " + clubName) // (Change this later)
         }); 
 
+        const succjoinedclubmodal = document.querySelector(".successfullyjoinedclubmodal_" + elementClickedOnTargetID);
+        console.log("modal starting to show");
+        succjoinedclubmodal.show();
+        console.log("modal showed");
+        const succCloseButton = document.getElementById("succclubclosebutton_" + elementClickedOnTargetID);
+        succCloseButton.addEventListener("click", () => {
+            succjoinedclubmodal.close();
+        });
+
         // Reloads the page onclick:
-        window.location.reload();
+        // window.location.reload();
     } 
     else if (elementClickedOnTarget.localeCompare(leaveClubButton) === 0) {
         console.log("Leave club button pressed.");
@@ -169,6 +178,15 @@ function joinOrLeaveClub(e) {
             // A success message if all goes well, also for debugging:
             success: console.log("Successfully requested to leave " + clubName) /* Change this later */
         }); 
+
+        const succleftclubmodal = document.querySelector(".successfullyleftclubmodal_" + elementClickedOnTargetID);
+        console.log("modal starting to show");
+        succleftclubmodal.show();
+        console.log("modal showed");
+        const succCloseButton = document.getElementById("succleftclubclosebutton_" + elementClickedOnTargetID);
+        succCloseButton.addEventListener("click", () => {
+            succleftclubmodal.close();
+        });
     }
 }
 

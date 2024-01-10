@@ -32,7 +32,7 @@ def create_new_club(club_name, president_email, vicepresident_email1, vicepresid
     return False
 
 @views.route("/", methods=["GET", "POST"])
-@login_required
+# @login_required
 def home():
     # if sessio
     if request.method == "POST":
@@ -55,6 +55,7 @@ def home():
     for user in users:
         if user.is_leader:
             print(user)
+            
     join_club = request.args.get("joinClub")
     if join_club is not None:
         if Club.query.filter_by(id=join_club).first() in current_user.clubs:
@@ -70,17 +71,7 @@ def home():
             current_user.clubs.append(Club.query.filter_by(id=join_club).first())
             print(current_user.clubs)
             db.session.commit()
-            clubs = Club.query.all()
-            for club in clubs:
-                print(club.club_name) 
-                print(club.members)
-                print("---")
-            users = User.query.all()
-            for user in users:
-                print(user.email)
-                print(user.clubs)
-                print("---")
-            flash(f"{join_club} joined!", category="success")
+            return redirect("/")
     else:
         print(f"Request to join {join_club} failed!") 
     
@@ -97,22 +88,26 @@ def home():
             db.session.commit()
             print(f"Successfully left {leave_club}")
             flash(f"Left {join_club}!", category="success")
-            # return render_template("layout.html", club_info=Club.query.all(), user=current_user)
             print(f"Current user clubs: {current_user.clubs}")
+            return redirect("/")
         else:
             flash(f"You aren't in {join_club}!", category="error")
-            # return render_template("layout.html", club_info=Club.query.all(), user=current_user)
             print(f"User is not in {leave_club}")
+            return redirect("/")
 
     # Club Password Verification:
     if request.method == "POST":
         club_password = request.form.get("connecttoclubnumber")
         is_a_club = Club.query.filter_by(secret_password=club_password).first()
         if is_a_club:
-            is_a_club.status = "Approved"
-            db.session.commit()
-            flash("Success!", "success")
-            return redirect("/")
+            if is_a_club.status == "Pending":
+                is_a_club.status = "Approved"
+                db.session.commit()
+                flash(f"Successfully verified {is_a_club.club_name}", "success")
+                return redirect("/")
+            elif is_a_club.status == "Approved":
+                flash(f"{is_a_club.club_name} already verified.", "error")
+                return redirect("/")
         clubs = Club.query.all()
         for club in clubs:
             print(club.secret_password)
@@ -180,7 +175,7 @@ def home():
 #     return render_template("clubs.html", club_info=current_user.clubs, user=current_user)
 
 @views.route("/clubdashboard/<goto>", methods=["GET", "POST"])
-@login_required
+# @login_required
 def club_dashboard(goto):
     print(f"137 - current_user.role = {current_user.role}")
     # Remove a member:
@@ -275,7 +270,7 @@ def club_dashboard(goto):
     return render_template("clubdashboard.html", club_info=Club.query.all(), user_info=User.query.all(), user=current_user)
 
 @views.route("/createaclub", methods=["GET", "POST"])
-@login_required
+# @login_required
 def createaclub():
     # session["club_confirmed"] = "NO"
     print(f"261 - {request.args.get('club_confirmed')}")

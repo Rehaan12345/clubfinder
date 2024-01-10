@@ -12,17 +12,26 @@ def login():
         email = request.form.get("email")
         password = request.form.get("password")
 
-        user = User.query.filter_by(email=email).first() # Filters all of the users who have this email.
-        if user: # If this user is found: 
-            if check_password_hash(user.password, password): # Checks this user's password.
-                flash("Successfully logged in", category="success")
-                login_user(user, remember=True) # Logs in the user. Remembers the fact that this user is logged in until the user clears their browser history / session. Will be stored in the flask webserver - until the webserver restarts. 
-                return redirect("/")
-                # return render_template("layout.html", club_info=Club.query.all(), joined_clubs=current_user.clubs, user=current_user)
-            else:
-                flash("Incorrect password, try again!", category="error")
-        else: # If this user is not found:
-            flash("This email does not belong to an account. Try creating a new account!", category="error")
+        if email and password:
+            user = User.query.filter_by(email=email).first() # Filters all of the users who have this email.
+            if user: # If this user is found: 
+                if check_password_hash(user.password, password): # Checks this user's password.
+                    flash("Successfully logged in", category="success")
+                    login_user(user, remember=True) # Logs in the user. Remembers the fact that this user is logged in until the user clears their browser history / session. Will be stored in the flask webserver - until the webserver restarts. 
+                    return redirect("/")
+                    # return render_template("layout.html", club_info=Club.query.all(), joined_clubs=current_user.clubs, user=current_user)
+                else:
+                    flash("Incorrect password, try again!", category="error")
+            else: # If this user is not found:
+                flash("This email does not belong to an account. Try creating a new account!", category="error")
+
+        submit = request.form.get("loginasguest")
+        print(f"20 - {submit}")
+
+        if submit == "Login as Guest":
+            print("33 - ok")
+            login_user("guestuser123@gmail.com", remember=True)
+            return redirect("/")
 
     return render_template("login.html", user=current_user, name="auth")
 
