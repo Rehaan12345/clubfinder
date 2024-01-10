@@ -397,6 +397,6 @@ def search():
 def joinleavebuttons():
     return render_template("joinleavebuttons.html", club_info=Club.query.all(), joined_clubs=current_user.clubs, user=current_user)
 
-@views.errorhandler(404)
-def page_not_found(e):
-    return render_template("404.html"), 404
+@views.app_errorhandler(404)
+def handle_404(err):
+    return render_template("404.html", user=current_user), 404
