@@ -310,6 +310,22 @@ def createaclub():
         session["secret_password"] = secret_password
         print(f"Session created: {session['secret_password']}")
         print(f"Secret password: {secret_password}")
+
+        # New club info verification:
+        if president_email is not current_user.email:
+            flash("Only the president can register their club.", "error")
+            return redirect("/createaclub")
+
+        is_unique_club = Club.query.filter_by(club_name=club_name).first()
+        if is_unique_club:
+            flash("Club name already taken.", "error")
+            return redirect("/createaclub")
+        
+        if advisor_email[0].isnumeric():
+            flash("Invalid advisor email.", "error")
+            return redirect("/createaclub")
+
+        # Sending the confirmation email to advisor:
         senderemail = "crlsclubfinder@gmail.com"
         senderpassword = "wmzhhaxtzqnvyuze"
         subject = f"{club_name} has submitted you as their club advisor"
@@ -317,17 +333,7 @@ def createaclub():
 
 {president_email} is signing their club, {club_name}, up to the ClubFinder website. They selected you as their club advisor. If you are not their advisor, please delete this email, or email 25ranjaria@cpsd.us for technical assistance. 
 
-If you are the advisor of {club_name}, and the below information looks correct, please use the code below to confirm both you and your club's identity:
-
-Club Name: {club_name}
-President: {president_email}
-Vice-President: {vicepresident_email1}
-Vice-President: {vicepresident_email2}
-Vice-President: {vicepresident_email3}
-Room Number: {room_number}
-Start Time: {start_time}
-Description: {description}
-Club Meetings: {club_days_final}
+If you are the advisor of {club_name}, please use the code below to confirm both you and your club's identity:
 
 CODE: {secret_password}
 
