@@ -16,7 +16,7 @@ def login():
             user = User.query.filter_by(email=email).first() # Filters all of the users who have this email.
             if user: # If this user is found: 
                 if check_password_hash(user.password, password): # Checks this user's password.
-                    flash("Successfully logged in", category="success")
+                    flash(f"Successfully logged in as {user}", category="success")
                     login_user(user, remember=True) # Logs in the user. Remembers the fact that this user is logged in until the user clears their browser history / session. Will be stored in the flask webserver - until the webserver restarts. 
                     return redirect("/")
                     # return render_template("layout.html", club_info=Club.query.all(), joined_clubs=current_user.clubs, user=current_user)
@@ -30,8 +30,11 @@ def login():
 
         if submit == "Login as Guest":
             print("33 - ok")
-            login_user("guestuser123@gmail.com", remember=True)
-            return redirect("/")
+            guest_user = User.query.filter_by(email="guestuser123@gmail.com").first()
+            if guest_user:
+                login_user(guest_user, remember=True)
+                flash(f"Successfully logged in as {guest_user}", "success")
+                return redirect("/")
 
     return render_template("login.html", user=current_user, name="auth")
 
