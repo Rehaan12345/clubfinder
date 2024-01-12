@@ -41,21 +41,21 @@ def home():
             return redirect("/clubdashboard/info")
             # return render_template("clubdashboard.html", club_info=Club.query.all(), user_info=User.query.all(), user=current_user)
     print("32")
-    if current_user is not None:
-        cur_us = User.query.filter_by(email=current_user.email).first()
-        print("34")
-        if cur_us.email == "rehaan1099@gmail.com":
-            print("36")
-            cur_us.role = "Admin"
-            db.session.commit()
-            print(f"38 - done! {cur_us.role}")
-        print(f"39 - {current_user.role}")
-        # Join / Leave Club Buttions functionality: 
-        print(f"Current user: {current_user}")
-        users = User.query.all()
-        for user in users:
-            if user.is_leader:
-                print(user)
+    # if current_user is not None:
+    #     cur_us = User.query.filter_by(email=current_user.email).first()
+    #     print("34")
+    #     if cur_us.email == "rehaan1099@gmail.com":
+    #         print("36")
+    #         cur_us.role = "Admin"
+    #         db.session.commit()
+    #         print(f"38 - done! {cur_us.role}")
+    #     print(f"39 - {current_user.role}")
+    # Join / Leave Club Buttions functionality: 
+    print(f"Current user: {current_user}")
+    users = User.query.all()
+    for user in users:
+        if user.is_leader:
+            print(user)
             
     join_club = request.args.get("joinClub")
     if join_club is not None:
