@@ -169,7 +169,7 @@ def home():
         print("Afternoon Clubs!")
 
     # If the user is not logged in:
-    if current_user:
+    if current_user is None:
         return redirect("/login")
     
     # Otherwise
