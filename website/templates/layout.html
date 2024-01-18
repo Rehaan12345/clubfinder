@@ -25,9 +25,18 @@
         </script>
 
         <!-- Loading Screen: -->
-        <!-- <div class="loader">
-            <div></div>
+        <!-- <div class="loaderwrapper">
+            <span class="loader">
+                <span class="loaderinner"></span>
+            </span>
         </div> -->
+
+        <!-- <script>
+            // ********* Loading Animation Functionality: ********** //            
+            $(window).on("load", () => {
+                $(".loaderwrapper").fadeOut("fast");
+            });
+        </script> -->
 
         <!-- Main Nav Bar: -->
         <nav class="mainnav" id="mainnav">
@@ -241,7 +250,7 @@
                         </div>
                         
                     </div>
-                    <dialog class="successfullyjoinedclubmodal_{{ club.id }}" id="succclub">
+                    <!-- <dialog class="successfullyjoinedclubmodal_{{ club.id }}" id="succclub">
                         <div class="succjoinedclubmodalcontent">
                             <button data-close-button id="succclubclosebutton_{{ club.id }}" class="clubclosebutton">&times;</button>
                             <p class="succjoinedclubmodaltext">
@@ -258,7 +267,7 @@
                                 Successfully left {{ club.club_name }}
                             </p>
                         </div>
-                    </dialog>
+                    </dialog> -->
                     {% endif %}
                 {% endfor %}
             </div>
