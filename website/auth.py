@@ -30,7 +30,7 @@ def login():
 
         if submit == "Login as Guest":
             print("33 - ok")
-            guest_user = User.query.filter_by(email="guestuser123@gmail.com").first()
+            guest_user = User.query.filter_by(email="25guestuser123@cpsd").first()
             if guest_user:
                 login_user(guest_user, remember=True)
                 flash(f"Successfully logged in as {guest_user}", "success")
