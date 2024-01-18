@@ -168,6 +168,11 @@ def home():
     elif filterby == "afternoonclubs":
         print("Afternoon Clubs!")
 
+    # If the user is not logged in:
+    if current_user:
+        return redirect("/login")
+    
+    # Otherwise
     return render_template("layout.html", club_info=Club.query.all(), joined_clubs=current_user.clubs, user=current_user)
 
 # @views.route("/clubs", methods=["GET", "POST"])
