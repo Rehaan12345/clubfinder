@@ -38,11 +38,25 @@ def login():
 
     return render_template("login.html", user=current_user, name="auth")
 
+def check_email(email):
+    ind_at = email.index("@")
+    rest = email[ind_at:]
+    try:
+        if rest.index("cpsd.us") > 0:
+            return True
+        return False
+    except:
+        return False
+
+    
+
 @auth.route("/signup", methods=["GET", "POST"]) 
 def signup(): 
     if request.method == "POST":
         email = request.form.get("email")
-        username = request.form.get("username")
+        if not check_email(email):
+            flash("Email needs to be a cpsd email.", "error")
+            return redirect("/signup")
         password = request.form.get("password")
         confirm_password = request.form.get("confirm-password") 
         role = "Member"

@@ -9,6 +9,7 @@ from flask_mail import Mail, Message
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from flask_session import Session
+import datetime 
 
 views = Blueprint("views", __name__)  
 
@@ -18,6 +19,16 @@ def check_club_pass(num):
         return False
     if num == 2:
         return True
+    
+def email_failure(error_message, current_time, problem_description):
+    email_sender = "crlsclubfinder@gmail.com"
+    email_password = "wmzhhaxtzqnvyuze"
+    email_receiver = "rehaan1099@gmail.com"
+    subject = f"CLUBFINDER PROBLEM: {problem_description}"
+    body = f"PROBLEM at {current_time}: {problem_description}: \n {error_message}"
+    send_mail(email_sender=email_sender, email_password=email_password, email_receiver=email_receiver, subject=subject, body=body)
+    return True
+
 
 # Actually creates the new club and commits it to the database:
 def create_new_club(club_name, president_email, vicepresident_email1, vicepresident_email2, vicepresident_email3, advisor_email, room_number, start_time, description, secret_password, club_day):
@@ -62,6 +73,7 @@ def home():
         if Club.query.filter_by(id=join_club).first() in current_user.clubs:
             flash("You're already in that club.")
             print(f"{current_user} is already in {join_club}")
+            return redirect("/")
         else:
             print(f"User wants to join {join_club}")
             if Club.query.filter_by(id=join_club).first():
@@ -69,10 +81,39 @@ def home():
             else:
                 print(f"{join_club} not found!")
             print(f"{Club.query.filter_by(id=join_club).first()}")
-            current_user.clubs.append(Club.query.filter_by(id=join_club).first())
+            joined_club = Club.query.filter_by(id=join_club).first()
+            current_user.clubs.append(joined_club)
             print(current_user.clubs)
+            flash(f"Successfully joined {joined_club}!", "success")
             db.session.commit()
-            return redirect("/")
+            email_sender = "crlsclubfinder@gmail.com"
+            email_password = "wmzhhaxtzqnvyuze" 
+            email_receiver = current_user.email
+            subject = f"Successfully joined {joined_club}!"
+            body = f'''Hello! 
+You have successfully joined {joined_club}!
+Here is some more information on this club:
+
+President: {joined_club.president_email}
+Advisor: {joined_club.advisor_email}
+Room Number: {joined_club.room_number}
+Start Time: {joined_club.start_time}
+Meets on {joined_club.club_day}
+Club Description: {joined_club.description}
+
+Do not respond to this email.
+
+'''
+            try:
+                send_mail(email_sender=email_sender, email_password=email_password, email_receiver=email_receiver, subject=subject, body=body)
+                return redirect("/")
+            except Exception as e:
+                print("Could not send email")
+                current_time = datetime.datetime.now()
+                problem_description = "Sending joined club confirmation email"
+                email_failure(error_message=e, current_time=current_time, problem_description=problem_description)
+                return redirect("/")
+            # return redirect(url_for(".home"))
     else:
         print(f"Request to join {join_club} failed!") 
     
@@ -85,14 +126,15 @@ def home():
         if leave_club_id in current_user.clubs:
             print(f"User wants to leave {leave_club}") 
             print(Club.query.filter_by(id=leave_club).first())
-            current_user.clubs.remove(Club.query.filter_by(id=leave_club).first())
+            left_club = Club.query.filter_by(id=leave_club).first()
+            current_user.clubs.remove(left_club)
             db.session.commit()
-            print(f"Successfully left {leave_club}")
-            flash(f"Left {join_club}!", category="success")
+            print(f"Successfully left {left_club}")
+            flash(f"Left {left_club}!", "success")
             print(f"Current user clubs: {current_user.clubs}")
             return redirect("/")
         else:
-            flash(f"You aren't in {join_club}!", category="error")
+            flash(f"You aren't in {join_club}!", "error")
             print(f"User is not in {leave_club}")
             return redirect("/")
 

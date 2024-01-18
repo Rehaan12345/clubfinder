@@ -1435,6 +1435,8 @@ form .button input:hover {
         grid-template-columns: repeat(1, 40vh);
         margin-top: 100px;
         transition: .5s ease;
+        margin: 0px;
+        flex-direction: column;
     }
 
     .club {
@@ -2014,4 +2016,22 @@ form .button input:hover {
 /* Club Confirmation Styling: */
 #succclub {
     z-index: 10;
+}
+
+/********** Page Loading Animations: **********/
+.loaderwrapper {
+    z-index: 20;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: var(--bg2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loaderinner {
+    background: url(loadinggif.mp4);
 }
