@@ -32,7 +32,7 @@ def create_new_club(club_name, president_email, vicepresident_email1, vicepresid
     return False
 
 @views.route("/", methods=["GET", "POST"])
-# @login_required
+@login_required
 def home():
     # if sessio
     if request.method == "POST":
@@ -169,8 +169,8 @@ def home():
         print("Afternoon Clubs!")
 
     # If the user is not logged in:
-    if current_user is None:
-        return redirect("/login")
+    # if current_user is None:
+    #     return redirect("/login")
     
     # Otherwise
     return render_template("layout.html", club_info=Club.query.all(), joined_clubs=current_user.clubs, user=current_user)
@@ -181,7 +181,7 @@ def home():
 #     return render_template("clubs.html", club_info=current_user.clubs, user=current_user)
 
 @views.route("/clubdashboard/<goto>", methods=["GET", "POST"])
-# @login_required
+@login_required
 def club_dashboard(goto):
     print(f"137 - current_user.role = {current_user.role}")
     # Remove a member:
@@ -276,7 +276,7 @@ def club_dashboard(goto):
     return render_template("clubdashboard.html", club_info=Club.query.all(), user_info=User.query.all(), user=current_user)
 
 @views.route("/createaclub", methods=["GET", "POST"])
-# @login_required
+@login_required
 def createaclub():
     # session["club_confirmed"] = "NO"
     print(f"261 - {request.args.get('club_confirmed')}")
