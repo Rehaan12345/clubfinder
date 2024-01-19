@@ -26,15 +26,20 @@ def login():
                 flash("This email does not belong to an account. Try creating a new account!", category="error")
 
         submit = request.form.get("loginasguest")
-        print(f"20 - {submit}")
+        print(f"20 - {submit}") 
 
         if submit == "Login as Guest":
             print("33 - ok")
-            guest_user = User.query.filter_by(email="25guestuser123@cpsd").first()
+            guest_user = User.query.filter_by(email="25guestuser123@cpsd.us").first()
             if guest_user:
+                print("Found the guest user.")
                 login_user(guest_user, remember=True)
                 flash(f"Successfully logged in as {guest_user}", "success")
                 return redirect("/")
+            else:
+                print("No guest user found!")
+        else:
+            print("DIdn't register logging in as a guest.")
 
     return render_template("login.html", user=current_user, name="auth")
 
