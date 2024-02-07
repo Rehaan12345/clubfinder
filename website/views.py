@@ -29,7 +29,6 @@ def email_failure(error_message, current_time, problem_description):
     send_mail(email_sender=email_sender, email_password=email_password, email_receiver=email_receiver, subject=subject, body=body)
     return True
 
-
 # Actually creates the new club and commits it to the database:
 def create_new_club(club_name, president_email, vicepresident_email1, vicepresident_email2, vicepresident_email3, advisor_email, room_number, start_time, description, secret_password, club_day):
     if "club_confirmed" in session:
@@ -217,10 +216,21 @@ Do not respond to this email.
     # Otherwise
     return render_template("layout.html", club_info=Club.query.all(), joined_clubs=current_user.clubs, user=current_user)
 
-# @views.route("/clubs", methods=["GET", "POST"])
-# @login_required
-# def clubs():
-#     return render_template("clubs.html", club_info=current_user.clubs, user=current_user)
+@views.route("/<id>/join", methods=["GET", "POST"])
+def join(id):
+    join_club = Club.query.filter_by(id=id).first()
+    current_user.clubs.append(join_club)
+    db.session.commit()
+    flash(f"Successfully joined {join_club.club_name}!", "success")
+    return redirect("/")
+
+@views.route("/<id>/leave", methods=["GET", "POST"])
+def leave(id):
+    leave_club = Club.query.filter_by(id=id).first()
+    current_user.clubs.remove(leave_club)
+    db.session.commit()
+    flash(f"Successfully left {leave_club.club_name}!", "success")
+    return redirect("/")
 
 @views.route("/clubdashboard/<goto>", methods=["GET", "POST"])
 @login_required
