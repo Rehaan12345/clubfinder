@@ -244,9 +244,7 @@
                             <form method="POST" class="joinclubbutton" action="{{ url_for('views.join', id=club.id) }}">
                                 <button class="clubbutton" type="submit">Join {{ club }}</button> 
                             </form>
-                            <br><br>
                             {% elif club in joined_clubs %}
-                            <br><br>
                             <form method="POST" class="joinclubbutton" action="{{ url_for('views.leave', id=club.id) }}">
                                 <button class="clubbutton" type="submit">Leave {{ club }}</button> 
                             </form>

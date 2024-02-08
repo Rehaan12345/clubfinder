@@ -226,6 +226,7 @@ def join(id):
 
 @views.route("/<id>/leave", methods=["GET", "POST"])
 def leave(id):
+    print(f"229 - {id}")
     leave_club = Club.query.filter_by(id=id).first()
     current_user.clubs.remove(leave_club)
     db.session.commit()
