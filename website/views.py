@@ -141,15 +141,19 @@ Do not respond to this email.
     if request.method == "POST":
         club_password = request.form.get("connecttoclubnumber")
         is_a_club = Club.query.filter_by(secret_password=club_password).first()
-        if is_a_club:
-            if is_a_club.status == "Pending":
-                is_a_club.status = "Approved"
-                db.session.commit()
-                flash(f"Successfully verified {is_a_club.club_name}", "success")
-                return redirect("/")
-            elif is_a_club.status == "Approved":
-                flash(f"{is_a_club.club_name} already verified.", "error")
-                return redirect("/")
+        if current_user.role == "Advisor":
+            if is_a_club:
+                if is_a_club.status == "Pending":
+                    is_a_club.status = "Approved"
+                    db.session.commit()
+                    flash(f"Successfully verified {is_a_club.club_name}", "success")
+                    return redirect("/")
+                elif is_a_club.status == "Approved":
+                    flash(f"{is_a_club.club_name} already verified.", "error")
+                    return redirect("/")
+        else:
+            flash("Only advisors can verify clubs!", "error")
+            return redirect("/")
         clubs = Club.query.all()
         for club in clubs:
             print(club.secret_password)
