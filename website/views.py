@@ -371,7 +371,7 @@ def createaclub():
         print(f"Secret password: {secret_password}")
 
         # New club info verification:
-        if president_email is not current_user.email:
+        if president_email != current_user.email:
             print(f"Current user email - {current_user.email}. President email - {president_email}")
             flash("Only the president can register their club.", "error")
             return redirect("/createaclub")
