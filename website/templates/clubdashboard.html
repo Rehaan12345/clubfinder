@@ -130,7 +130,7 @@
             {% for club in club_info %}
                 {% if club.status == "Approved" %}
 
-                {% if current_user.email == club.president_email or current_user.email == club.vicepresident_email1 or current_user.email == club.vicepresident_email2 or current_user.email == club.vicepresident_email3 or current_user.role == "Advisor" or current_user.role == "Admin" %}
+                {% if current_user.email == club.president_email or current_user.email == club.vicepresident_email1 or current_user.email == club.vicepresident_email2 or current_user.email == club.vicepresident_email3 or current_user.role == club.advisor_email or current_user.role == "Admin" %}
 
                     <div class="tablecontainer" id="clubtable_{{ club.id }}">
                     
