@@ -44,6 +44,7 @@ body {
 #main1 {
     color: var(--card2);
     font-size: 55px;
+    padding: 7px;
 }
 
 #profileicon {
@@ -226,12 +227,13 @@ nav ul li a{
     list-style-type: none; 
     display: flex;
     justify-content: space-between; 
+    width: 100vw;
 }
 
 #mainnav .nav { 
     margin-top: 30px;
     margin-right: 20px;
-    margin-left: 20px;
+    /* margin-left: 20px; */
     /* width: 500px; */
     justify-content: space-between;
     margin-bottom: 30px;
@@ -435,6 +437,7 @@ nav ul li a{
 
 .clubdesc::backdrop {
     background: rgb(0 0 0 / .4);
+    
 }
 
 .clubdescheader {
@@ -1092,11 +1095,16 @@ form .button input:hover {
         transform: translateY(70%);
         transition: transform 1s ease;
     } */
-    .club:hover .clubcontent,
+    .clubcontent,
     .club:focus-within .clubcontent {
-        transform: translateY(0);
-        transition-delay: 500ms;
+        
+        transition: 0.2s ease-in-out;
     }
+
+    .club:hover{
+        transform: translateY(0);
+        transition: 0.2s ease-in-out;
+    } 
 
     .club:focus-within .clubcontent {
         transition-duration: 0ms;
@@ -1118,12 +1126,14 @@ form .button input:hover {
     padding: 0.5em 1.25em;
     border-radius: 10px;
     border: none;
+    transition: 0.1s ease-in-out
 }
 
 .clubbutton:hover,
 .clubbutton:focus {
     /* background-color: var(--clubbuttonhoverfocus); */
     background-color: gold;
+    transition: 0.2s ease-in-out;
 }
 
 /* #viewclub {
@@ -1317,10 +1327,12 @@ form .button input:hover {
     background: #fff;
     border-radius: 30px;
     align-items: center;
+    
 } 
 
 .searchwrapper:hover {
     box-shadow: 10px 10px 15px rgba(0, 0, 0, .3);
+    transition: 0.1s ease-in-out;
 }
 
 .searchwrapper:focus,
@@ -1408,7 +1420,8 @@ form .button input:hover {
 /********** Resize when the viewport gets smaller: **********/ 
 @media screen and (max-width: 1500px) {
     .maincontainer {
-        grid-template-columns: repeat(3, 40vh);
+        display: flex;
+        flex-wrap: wrap;
         margin-top: 100px;
         transition: .5s ease;
     }
@@ -1420,7 +1433,8 @@ form .button input:hover {
 
 @media screen and (max-width: 1300px) {
     .maincontainer {
-        grid-template-columns: repeat(2, 40vh);
+        display: flex;
+        flex-wrap: wrap;
         margin-top: 100px;
         transition: .5s ease;
     }
@@ -1432,7 +1446,7 @@ form .button input:hover {
 
 @media screen and (max-width: 300px) {
     .maincontainer {
-        grid-template-columns: repeat(1, 40vh);
+        display: flex;
         margin-top: 100px;
         transition: .5s ease;
         margin: 0px;
@@ -1446,7 +1460,7 @@ form .button input:hover {
 
 @media screen and (max-width: 1111px) {
     .maincontainer {
-        grid-template-columns: repeat(1, 40vh);
+        display: flex;
         margin-top: 100px;
         transition: .5s ease;
     } 
@@ -1462,14 +1476,13 @@ form .button input:hover {
 
     .fa-solid {
         opacity: 1;
-        font-size: 30px;
+        font-size: 20px;
         color: white;
-        margin-left: 100%;
+        margin-left: 10px;
     }
 
     .navlink {
         /* ** */
-        display: none;
         transition: .5s ease;
     } 
 
@@ -1516,7 +1529,7 @@ form .button input:hover {
 
 @media screen and (max-width: 1236px) {
     .filterbywrapper {
-        display: grid;
+        display: flex;
         grid-column: span 3;
         transition: .5s ease;
     }
@@ -1524,7 +1537,7 @@ form .button input:hover {
 
 @media screen and (max-width: 400px) {
     .maincontainer {
-        display: grid;
+        display: flex;
         place-content: center; 
     }
 
@@ -1588,6 +1601,7 @@ form .button input:hover {
 
 #connecttoclubbutton:hover {
     box-shadow: 10px 10px 15px rgba(0, 0, 0, .3);
+    transition: 0,1s ease-in-out;
 }
 
 .connecttoclubtitle { 
