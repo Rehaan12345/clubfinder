@@ -1846,6 +1846,10 @@ form .button input:hover {
     line-height: 45px;
 }
 
+.activeindash {
+    background-color: gold;
+}
+
 /* View Club Password Modal Styling: */
 .viewsecretpasswordmodal {
     width: 300px;
