@@ -1848,6 +1848,7 @@ form .button input:hover {
 
 .activeindash {
     background-color: gold;
+    border-bottom: 5px solid black;
 }
 
 /* View Club Password Modal Styling: */
@@ -1970,7 +1971,7 @@ form .button input:hover {
 }
 
 .sec:hover {
-    background-color: gold;
+    background-color: rgb(255, 224, 46);
 }
 
 .navitems {
