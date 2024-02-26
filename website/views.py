@@ -468,3 +468,7 @@ def handle_404(err):
 @views.app_errorhandler(500)
 def handle_404(err):
     return render_template("500.html", user=current_user), 500
+
+@views.app_errorhandler(403)
+def handle_403(err):
+    return render_template("403.html", user=current_user), 403
