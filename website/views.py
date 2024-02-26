@@ -332,9 +332,9 @@ def club_dashboard(goto):
 
     return render_template("clubdashboard.html", club_info=Club.query.all(), user_info=User.query.all(), user=current_user)
 
-@views.route("/createaclub", methods=["GET", "POST"])
+@views.route("/registeraclub", methods=["GET", "POST"])
 @login_required
-def createaclub():
+def registeraclub():
     # session["club_confirmed"] = "NO"
     print(f"261 - {request.args.get('club_confirmed')}")
     # Accepting the post request:
@@ -378,16 +378,16 @@ def createaclub():
         if president_email != current_user.email:
             print(f"Current user email - {current_user.email}. President email - {president_email}")
             flash("Only the president can register their club.", "error")
-            return redirect("/createaclub")
+            return redirect("/registeraclub")
 
         is_unique_club = Club.query.filter_by(club_name=club_name).first()
         if is_unique_club:
             flash("Club name already taken.", "error")
-            return redirect("/createaclub")
+            return redirect("/registeraclub")
         
         if advisor_email[0].isnumeric():
             flash("Invalid advisor email.", "error")
-            return redirect("/createaclub")
+            return redirect("/registeraclub")
 
         # Sending the confirmation email to advisor:
         senderemail = "crlsclubfinder@gmail.com"
@@ -439,7 +439,7 @@ ClubFinder
         # This all has to happen only after the advisor confirms the club: 
         # club_name=club_name, president_email=president_email, vicepresident_email1=vicepresident_email1, vicepresident_email2=vicepresident_email2, vicepresident_email3=vicepresident_email3, advisor_email=advisor_email, room_number=room_number, start_time=start_time, description=description, secret_password=secret_password, club_day=club_days_final
 
-    return render_template("createaclub.html", user=current_user)
+    return render_template("registeraclub.html", user=current_user)
 
 # Search:
 @views.route("/search")
