@@ -3,6 +3,7 @@ from .models import User, Club
 from werkzeug.security import generate_password_hash, check_password_hash 
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
+from .sendmail import send_mail
 
 auth = Blueprint("auth", __name__)
 
@@ -53,8 +54,6 @@ def check_email(email):
     except:
         return False
 
-    
-
 @auth.route("/signup", methods=["GET", "POST"]) 
 def signup(): 
     if request.method == "POST":
@@ -96,3 +95,33 @@ def logout():
     logout_user() # Logs out the current user. 
     flash("Logged out", category="success")
     return redirect(url_for("auth.login"))
+
+@auth.route("/forgotpassword/<stage>/<email>")
+def forgot_password(stage, email):
+    if stage == "email":
+        if request.method == "POST":
+            email = request.form.get("email")
+            user = User.query.filter_by(email=email).first()
+            if user:
+                email_sender = "crlsclubfinder@gmail.com"
+                email_password = "wmzhhaxtzqnvyuze"
+                email_receiver = email
+                subject = "Change ClubFinder Pasword"
+                body = f"Follow this link to change your password: https://www.clubfinder.com/forgotpassword/changepass/{email}"
+                send_mail(email_sender=email_sender, email_password=email_password, email_receiver=email_receiver, subject=subject, body=body)
+                flash("Email successfully sent!", "success")
+            else:
+                flash("This email is not linked with an account.", "error")
+                return redirect("/forgotpassword/email")
+    
+    if stage == "changepass":
+        new_password = request.form.get("newpassword")
+        confirm_new_password = request.form.get("confirm-newpassword")
+        if new_password != confirm_new_password:
+            flash("Passwords don't match.", "error")
+            return redirect("/forgotpassword/changepass")
+        
+
+        # Find and change this password. 
+    
+    return render_template("forgotpassword.html", user=current_user, stage=stage)
