@@ -3,7 +3,7 @@ from .models import User, Club
 from werkzeug.security import generate_password_hash, check_password_hash 
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
-from .sendmail import send_mail
+from .sendmail import send_mail, send_alt_mail
 
 auth = Blueprint("auth", __name__)
 
@@ -96,8 +96,8 @@ def logout():
     flash("Logged out", category="success")
     return redirect(url_for("auth.login"))
 
-@auth.route("/forgotpassword/<stage>/<email>")
-def forgot_password(stage, email):
+@auth.route("/<id>/<stage>/forgotpassword", methods=["GET", "POST"])
+def forgot_password(id, stage):
     if stage == "email":
         if request.method == "POST":
             email = request.form.get("email")
@@ -107,21 +107,46 @@ def forgot_password(stage, email):
                 email_password = "wmzhhaxtzqnvyuze"
                 email_receiver = email
                 subject = "Change ClubFinder Pasword"
-                body = f"Follow this link to change your password: https://www.clubfinder.com/forgotpassword/changepass/{email}"
-                send_mail(email_sender=email_sender, email_password=email_password, email_receiver=email_receiver, subject=subject, body=body)
+                text = f"Follow this link to change your password: https://www.crlsclubfinder.com/{user.id}/changepassword/"
+                html = f"""
+<h2>Change Password</h2>
+<p>Click the button below to change your password</p>
+<button class="clubbutton" type="submit"><a href='https://www.crlsclubfinder.com/{user.id}/changepass/forgotpassword'>Change Password</a></button>
+"""
+                send_alt_mail(email_sender=email_sender, email_password=email_password, email_receiver=email_receiver, subject=subject, text=text, html=html)
                 flash("Email successfully sent!", "success")
             else:
                 flash("This email is not linked with an account.", "error")
                 return redirect("/forgotpassword/email")
+        return render_template("forgotpassword.html", user=current_user, stage=stage)
     
     if stage == "changepass":
-        new_password = request.form.get("newpassword")
-        confirm_new_password = request.form.get("confirm-newpassword")
-        if new_password != confirm_new_password:
-            flash("Passwords don't match.", "error")
-            return redirect("/forgotpassword/changepass")
+        if request.method == "POST":
+            id = request.form.get("id")
+            user = User.query.filter_by(email=id).first()
+            if user is not None:
+                id = user.id
+                print(f"121 - {id}")
+                new_password = request.form.get("newpassword")
+                confirm_new_password = request.form.get("confirm-newpassword")
+                if new_password != confirm_new_password:
+                    flash("Passwords don't match.", "error")
+                    return redirect("/changepass/forgotpassword")
+                new_password = generate_password_hash(new_password, method="sha256")
+                print(f"128 Old Pass - {user.password}")
+                user.password = new_password
+                db.session.commit()
+                print(f"131 New Pass - {user.password}")
+                flash("Successfully changed password!", "success")
+                return redirect("/login")
+            else: flash("No user")
+        return render_template("forgotpassword.html", user=current_user, stage=stage, id=id)
         
-
         # Find and change this password. 
     
     return render_template("forgotpassword.html", user=current_user, stage=stage)
+
+@auth.route("/<id>/changepassword", methods=["GET", "POST"])
+def changepass(id):
+    return redirect("/id/forgotpassword")
+    # return redirect(url_for("auth.forgot_password", stage="changepass"))
