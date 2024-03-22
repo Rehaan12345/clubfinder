@@ -1,3 +1,8 @@
+alembic==1.13.1
+Flask_Migrate==4.0.7
+Flask_WTF==1.1.1
+SQLAlchemy==2.0.23
+WTForms==3.0.1
 Flask==2.3.0
 Flask_Admin==1.6.1
 Flask_Login==0.6.2
