@@ -1,31 +1,36 @@
-{% extends "layout.html" %} 
+{% extends "layout.html" %}
 
-{% block title %}Login{% endblock %} 
+{% block title %}Login{% endblock %}
 
 {% block body %}
 
-    <div class="center">
-        <h1>Login</h1>
-        <form method="POST" id="login-form">
-            <div class="txt_field">
-                <input type="text" id="email" name="email" required>
-                <label>Email</label>
+<div class="wrapperwrapper">
+    <div class="wrapper">
+        <header>Login Form</header>
+        <form action="/login" method="POST" class="loginform">
+          <div class="field email">
+            <div class="input-area">
+              <!-- <input type="text" name="email" placeholder="Email Address"> -->
+              {{ form.email }}
+              <i class="icon fas fa-envelope"></i>
+              <i class="error error-icon fas fa-exclamation-circle"></i>
             </div>
-            <div class="txt_field">
-                <input type="password" id="password" name="password" required>
-                <label>Password</label>
+            <div class="error error-txt">Email can't be blank</div>
+          </div>
+          <div class="field password">
+            <div class="input-area">
+              <!-- <input type="password" name="password" placeholder="Password"> -->
+              {{ form.password }}
+              <i class="icon fas fa-lock"></i>
+              <i class="error error-icon fas fa-exclamation-circle"></i>
             </div>
-            <input type="submit" value="Login">
-            <div class="signup_link">
-                <a href="/signup">Not a member? Sign Up</a><br>
-                <a href="/0/email/forgotpassword">Forgot Password?</a>
-            </div> 
+            <div class="error error-txt">Password can't be blank</div>
+          </div>
+          <div class="pass-txt"><a href="#">Forgot password?</a></div>
+          {{ form.submit }}
         </form>
-        <form method="POST">
-            <div class="txt_field">
-                <input type="submit" name="loginasguest" value="Login as Guest">
-            </div>
-        </form>
-    </div>
+        <div class="sign-txt">Don't have an account?<a href="/signup/basicinfo">Signup now</a></div>
+      </div>
+</div>
 
 {% endblock %}

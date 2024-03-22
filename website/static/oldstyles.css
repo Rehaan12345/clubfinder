@@ -1,0 +1,176 @@
+#mainnav {
+    background: var(--navheader);
+    list-style-type: none; 
+    display: flex;
+    justify-content: space-between; 
+    width: 100vw;
+}
+
+#mainnav .nav { 
+    margin-top: 30px;
+    margin-right: 20px;
+    /* margin-left: 20px; */
+    /* width: 500px; */
+    justify-content: space-between;
+    margin-bottom: 30px;
+} 
+
+#header {
+    display: flex;
+    width: 700px;
+    justify-content: space-between;
+}
+
+#header2 {
+    display: flex;
+    /* width: 200px; */
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.dropdown {
+    display: block;
+}
+
+.user {
+    opacity: 0;
+    display: none;
+}
+
+.fa-user::after {
+    opacity: 0;
+    display: none;
+}
+
+.fa-user::before {
+    opacity: 0;
+    display: none;
+}
+
+.loggedinasas {
+    display: block;
+}
+
+#loggedinas {
+    font-size: 1rem;
+}
+
+#mainnav ul li {
+    display: inline-block;
+    line-height: 40px;
+    margin: 0 5px;
+    text-align: center; 
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.navlink {
+    position: relative;
+    color: lightgrey;
+    text-decoration: none;
+    /* padding: 5px; */
+    display: inline-block;
+} 
+
+.navlink:after {
+    width: 0;
+    background: gold;
+    height: 3px;
+    /* transition: all .4s ease-in-out; */
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    color: white;
+}
+
+.navlink.underline:after {
+    width: 100%;
+    left: 0;
+    color: white;
+    border-radius: 5px;
+}
+
+.navlink.underline, .navlink:hover {
+    color: white;
+}
+
+.navlink:hover:after {
+    width: 100%;
+    left: 0;
+    border-radius: 5px;
+}
+
+#dropdownoption {
+    color: lightgrey;
+}
+
+#dropdownoption:hover {
+    color: white;
+}
+
+.dropdownlink {
+    background: none;
+    border: none;
+    text-decoration: none;
+    color: var(--bg1);
+    cursor: pointer; 
+    /* margin-right: 300px; */
+    z-index: 10;
+}
+
+.dropdownlinks a {
+    color: white
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdownmenu {
+    position: absolute;
+    /* margin-right: 300px; */
+    width: 25vh;
+    right: 0;
+    top: calc(100% + .25rem);
+    /* background-color: rgb(57, 57, 57); */
+    background-color: var(--bg2);
+    padding: .75rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 50px 0 rgba(0, 0, 0, .5);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+    transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+    z-index: 20;
+    color: white;
+}
+
+.dropdown.active > .navlink + .dropdownmenu {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0px);
+} 
+
+.dropdownlinks {
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem; 
+}
+
+.fa-solid {
+    opacity: 0;
+}
+
+#loggedinas {
+    pointer-events: none;
+}
+
+.fa-house-user {
+    opacity: 1;
+}
+
+.fa-desktop {
+    opacity: 1;
+}

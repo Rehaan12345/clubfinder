@@ -1,5 +1,10 @@
 /******************** Default Root Colors (BlackGreen): ********************/
 :root {
+    --background: #ecf1edff; 
+    --compliment1: #9ccca9ff; 
+    --compliment2: #b9650bff; 
+    --compliment3: #bd9b19ff; 
+    --compliment4: #254215ff;
     --bg1: rgb(0, 173, 0);
     --bg2: rgb(0, 45, 27);
     --textcolor: white;
@@ -82,6 +87,190 @@ body {
     }
 }
 
+.backgroundimage {
+    width: 100%;
+    height: 100vh;
+    background-image: url("../static/images/homepicwotext.png");
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .maintext {
+    color: white;
+  }
+
+
+/********* Home Page Styling: **********/
+/* .mainhomecontainer {
+    display: flex;
+    border: 1px solid black;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+} */
+
+.homesepdiv {
+    border: 1px solid green;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.sepcontainer {
+    width: 50%;
+    padding: 10px;
+    border: 1px solid red;
+}
+
+.subheadtitle {
+    font-size: large;
+    border-bottom: 3px dashed black;
+}
+
+/********* Login (source: https://www.codingnepalweb.com/login-form-validation-in-html-javascript/) **********/
+.wrapperwrapper {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--background);
+  }
+  
+  ::selection{
+    color: #fff;
+    background: var(--compliment2);
+  }
+  .wrapper{
+    width: 380px;
+    padding: 40px 30px 50px 30px;
+    background: #fff;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 10px 10px 15px rgba(0,0,0,0.1);
+  }
+  .wrapper header{
+    font-size: 35px;
+    font-weight: 600;
+  }
+  .wrapper form{
+    margin: 40px 0;
+  }
+  .loginform .field{
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .loginform .field.shake{
+    animation: shake 0.3s ease-in-out;
+  }
+  @keyframes shake {
+    0%, 100%{
+      margin-left: 0px;
+    }
+    20%, 80%{
+      margin-left: -12px;
+    }
+    40%, 60%{
+      margin-left: 12px;
+    }
+  }
+  .loginform .field .input-area{
+    height: 50px;
+    width: 100%;
+    position: relative;
+  }
+  .loginform input{
+    width: 75%;
+    height: 100%;
+    outline: none;
+    padding: 0 45px;
+    font-size: 18px;
+    background: none;
+    caret-color: var(--compliment2);
+    border-radius: 5px;
+    border: 1px solid #bfbfbf;
+    border-bottom-width: 2px;
+    transition: all 0.2s ease;
+  }
+  .loginform .field input:focus,
+  .loginform .field.valid input{
+    border-color: var(--compliment3);
+  }
+  .loginform .field.shake input,
+  .loginform .field.error input{
+    border-color: #dc3545;
+  }
+  .field .input-area i{
+    position: absolute;
+    top: 50%;
+    font-size: 18px;
+    pointer-events: none;
+    transform: translateY(-50%);
+  }
+  .input-area .icon{
+    left: 15px;
+    color: #bfbfbf;
+    transition: color 0.2s ease;
+  }
+  .input-area .error-icon{
+    right: 15px;
+    color: #dc3545;
+  }
+  .loginform input:focus ~ .icon,
+  .loginform .field.valid .icon{
+    color: #5372F0;
+  }
+  .loginform .field.shake input:focus ~ .icon,
+  .loginform .field.error input:focus ~ .icon{
+    color: #bfbfbf;
+  }
+  .loginform input::placeholder{
+    color: #bfbfbf;
+    font-size: 17px;
+  }
+  .loginform .field .error-txt{
+    color: #dc3545;
+    text-align: left;
+    margin-top: 5px;
+  }
+  .loginform .field .error{
+    display: none;
+  }
+  .loginform .field.shake .error,
+  .loginform .field.error .error{
+    display: block;
+  }
+  .loginform .pass-txt{
+    text-align: left;
+    margin-top: -10px;
+  }
+  .wrapper a{
+    color: var(--compliment1);
+    text-decoration: none;
+  }
+  .wrapper a:hover{
+    text-decoration: underline;
+  }
+  .loginform input[type="submit"]{
+    height: 50px;
+    margin-top: 30px;
+    color: #fff;
+    padding: 0;
+    border: none;
+    background: var(--compliment1);
+    cursor: pointer;
+    border-bottom: 2px solid rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+  }
+  .loginform input[type="submit"]:hover{
+    background: var(--compliment3);
+  }
+
 /***************** Login / Signup Styles: *****************/ 
 .center {
     font-family: Arial, Helvetica, sans-serif;
@@ -112,7 +301,7 @@ body {
     margin: 30px 0; 
 }
 
-.txt_field input {
+.authinput {
     width: 100%;
     padding: 0 50px;
     height: 40px; 
@@ -122,7 +311,7 @@ body {
     outline: none;
 }
 
-.txt_field label {
+.authlabel {
     position: absolute;
     top: 50%;
     left: 5px;
@@ -144,14 +333,14 @@ body {
     transition: .5s;
 }
 
-.txt_field input:focus ~ label,
-.txt_field input:valid ~ label {
+.authinput:focus ~ label,
+.authinput:valid ~ label {
     top: -5px;
     color: var(--loginefore);
 }
 
-.txt_field input:focus ~ span::before,
-.txt_field input:valid ~ span::before {
+.authinput:focus ~ span::before,
+.authinput:valid ~ span::before {
     width: 100%;
 }
 
@@ -222,204 +411,97 @@ nav ul li a{
 }
 
 /***************** Nav Styling: *****************/
-#mainnav {
-    background: var(--navheader);
-    list-style-type: none; 
-    display: flex;
-    justify-content: space-between; 
-    width: 100vw;
-}
-
-#mainnav .nav { 
-    margin-top: 30px;
+.mainnav {
+    background: var(--compliment4);
+    height: 80px;
+    width: 100%;
+  }
+  label.logo {
+    color: var(--background);
+    font-size: 35px;
+    line-height: 80px;
+    padding: 0 100px;
+    font-weight: bold;
+  }
+  .mainnav ul {
+    float: right;
     margin-right: 20px;
-    /* margin-left: 20px; */
-    /* width: 500px; */
-    justify-content: space-between;
-    margin-bottom: 30px;
-} 
-
-#header {
-    display: flex;
-    width: 700px;
-    justify-content: space-between;
-}
-
-#header2 {
-    display: flex;
-    /* width: 200px; */
-    justify-content: space-between;
-    gap: 40px;
-}
-
-/* 
-.navlink:hover {
-    padding: 5px;
-} */
-
-.dropdown {
-    display: block;
-}
-
-.user {
-    opacity: 0;
-    display: none;
-}
-
-.fa-user::after {
-    opacity: 0;
-    display: none;
-}
-
-.fa-user::before {
-    opacity: 0;
-    display: none;
-}
-
-.loggedinasas {
-    display: block;
-}
-
-#loggedinas {
-    font-size: 1rem;
-}
-
-/* .navlink:hover {
-    background: var(--bg1);
-    border-radius: 10px;
-} */
-
-#mainnav ul li {
+  }
+  .mainnav ul li{
     display: inline-block;
-    line-height: 40px;
+    line-height: 80px;
     margin: 0 5px;
-    text-align: center; 
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-/* .activeclick {
-    position: relative;
-    background: var(--bg1);
+  }
+  .mainnav ul li a{
+    color: var(--background);
+    font-size: 17px;
+    padding: 7px 13px;
+    border-radius: 3px;
+    text-transform: uppercase;
     text-decoration: none;
-    border-radius: 10px; 
-    padding: 5px; 
-    height: 2px;
-    bottom: 0;
-    z-index: 0;
-    transition: all .5s ease;
-} */
-
-.navlink {
-    position: relative;
-    color: lightgrey;
-    text-decoration: none;
-    /* padding: 5px; */
-    display: inline-block;
-} 
-
-.navlink:after {
-    width: 0;
-    background: gold;
-    height: 3px;
-    /* transition: all .4s ease-in-out; */
-    content: "";
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    color: white;
-}
-
-.navlink.underline:after {
-    width: 100%;
-    left: 0;
-    color: white;
-    border-radius: 5px;
-}
-
-.navlink.underline, .navlink:hover {
-    color: white;
-}
-
-.navlink:hover:after {
-    width: 100%;
-    left: 0;
-    border-radius: 5px;
-}
-
-#dropdownoption {
-    color: lightgrey;
-}
-
-#dropdownoption:hover {
-    color: white;
-}
-
-.dropdownlink {
-    background: none;
-    border: none;
-    text-decoration: none;
-    color: var(--bg1);
-    cursor: pointer; 
-    /* margin-right: 300px; */
-    z-index: 10;
-}
-
-.dropdownlinks a {
-    color: white
-}
-
-.dropdown {
-    position: relative;
-}
-
-.dropdownmenu {
-    position: absolute;
-    /* margin-right: 300px; */
-    width: 25vh;
-    right: 0;
-    top: calc(100% + .25rem);
-    /* background-color: rgb(57, 57, 57); */
-    background-color: var(--bg2);
-    padding: .75rem;
-    border-radius: 5px;
-    box-shadow: 0 2px 50px 0 rgba(0, 0, 0, .5);
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(-10px);
-    transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
-    z-index: 20;
-    color: white;
-}
-
-.dropdown.active > .navlink + .dropdownmenu {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateY(0px);
-} 
-
-.dropdownlinks {
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-    gap: 2.5rem; 
-}
-
-.fa-solid {
-    opacity: 0;
-}
-
-#loggedinas {
-    pointer-events: none;
-}
-
-.fa-house-user {
-    opacity: 1;
-}
-
-.fa-desktop {
-    opacity: 1;
-}
+  }
+  a.active,a:hover{
+    border-bottom: 3px solid var(--compliment3);
+    transition: .5s;
+    color: var(--background);
+  }
+  .checkbtn{
+    font-size: 30px;
+    color: var(--compliment3);
+    float: right;
+    line-height: 80px;
+    margin-right: 40px;
+    cursor: pointer;
+    display: none;
+  }
+  #check{
+    display: none;
+  }
+  @media (max-width: 952px){
+    label.logo{
+      font-size: 30px;
+      padding-left: 50px;
+    }
+    .mainnav ul li a{
+      font-size: 16px;
+    }
+  }
+  @media (max-width: 858px){
+    .checkbtn{
+      display: block;
+    }
+    ul{
+      position: fixed;
+      width: 100%;
+      height: 100vh;
+      background: var(--compliment3);
+      top: 80px;
+      left: -100%;
+      text-align: center;
+      transition: all .5s;
+    }
+    .mainnav ul li{
+      display: block;
+      margin: 50px 0;
+      line-height: 30px;
+    }
+    .mainnav ul li a{
+      font-size: 20px;
+    }
+    a:hover,a.active{
+      background: none;
+      color: var(--compliment2);
+    }
+    #check:checked ~ ul{
+      left: 0;
+    }
+  }
+  section{
+    /* background: url(bg1.jpg) no-repeat; */
+    background-color: var(--background);
+    background-size: cover;
+    height: calc(100vh - 80px);
+  }
 
 /********** Club Quick View Modal: **********/
 .clubdesc {

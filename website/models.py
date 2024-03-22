@@ -1,6 +1,8 @@
 from . import db
 from flask_login import UserMixin
 
+# Flask Migration source - https://www.youtube.com/watch?v=dCym9EICKGQ
+
 # Table representing the many to many relationship between User and Club. This table is made up of two columns for each foreign key of both users and clubs. 
 joined_clubs = db.Table("joined_clubs",
                             db.Column("user_id", db.Integer, db.ForeignKey("user.id")),
@@ -37,6 +39,7 @@ class Club(db.Model):
     secret_password = db.Column(db.Integer)
     club_day = db.Column(db.String)
     status = db.Column(db.String)
+    rehaan = db.Column(db.String)
     # Foreign Key - This column references a user's id in the User database class. - A one to many relationship:
     # user_id = db.Column(db.Integer, db.ForeignKey("user.id")) 
     # user = db.relationship("User", secondary="user_club", back_populates="club")
@@ -48,3 +51,12 @@ class Club(db.Model):
 class UserClubs(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(User.id), primary_key=True)
     club_id = db.Column(db.Integer, db.ForeignKey(Club.id), primary_key=True)
+
+class Info(db.Model):
+    text_id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String, unique=True)
+    body = db.Column(db.String)
+    subheader = db.Column(db.String)
+
+    def __str__(self):
+        return self.title

@@ -7,6 +7,7 @@ from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_mail import Mail, Message
 import os
+from flask_migrate import Migrate
 
 # Initializing the SQL database:
 db = SQLAlchemy()
@@ -20,6 +21,7 @@ def create_app():
     app.config["SECRET_KEY"] = "rehaan"
     # app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://jlfpuxzdqrkneh:f3ca613563b5efcad1f6c485e7a27118b7cd0d78c2326a70ee98fb21d9f4c248@ec2-52-0-79-72.compute-1.amazonaws.com:5432/ddmnvas8sg8evg"
     app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_NAME}" 
+    migrate = Migrate(app, db)
     db.init_app(app) 
     # Configuring the mail messaging system:
     app.config["MAIL_SERVER"] = "smtp@googlemail.com"
@@ -30,8 +32,9 @@ def create_app():
     mail = Mail(app) 
 
     # Import the blueprints:
-    from .views import views 
+    from .views import views
     from .auth import auth
+    from .clubs import clubs
 
     # Import the User and Club classes
     from .models import User, Club 
@@ -58,5 +61,6 @@ def create_app():
     # Register the blueprints with the Flask application:
     app.register_blueprint(views, url_prefix="/")
     app.register_blueprint(auth, url_prefix="/")
+    app.register_blueprint(clubs, url_prefix="/")
 
     return app

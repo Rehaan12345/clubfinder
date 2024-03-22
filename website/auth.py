@@ -4,11 +4,14 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
 from .sendmail import send_mail, send_alt_mail
+from .forms import LoginForm
 
 auth = Blueprint("auth", __name__)
 
 @auth.route("/login", methods=["GET", "POST"]) 
 def login():
+    form = LoginForm()
+
     if request.method == "POST":
         email = request.form.get("email")
         password = request.form.get("password")
@@ -42,7 +45,7 @@ def login():
         else:
             print("DIdn't register logging in as a guest.")
 
-    return render_template("login.html", user=current_user, name="auth")
+    return render_template("login.html", user=current_user, name="auth", form=form)
 
 def check_email(email):
     ind_at = email.index("@")

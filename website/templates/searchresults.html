@@ -41,11 +41,11 @@
             <!-- ^ End of Modal ^ -->
             <br><br>
             {% if club not in joined_clubs %}
-            <form method="POST" class="joinclubbutton" action="{{ url_for('views.join', id=club.id) }}">
+            <form method="POST" class="joinclubbutton" action="{{ url_for('clubs.join', id=club.id) }}">
                 <button class="clubbutton" type="submit">Join {{ club }}</button> 
             </form>
             {% elif club in joined_clubs %}
-            <form method="POST" class="joinclubbutton" action="{{ url_for('views.leave', id=club.id) }}">
+            <form method="POST" class="joinclubbutton" action="{{ url_for('clubs.leave', id=club.id) }}">
                 <button class="clubbutton" type="submit">Leave {{ club }}</button> 
             </form>
             {% endif %}
