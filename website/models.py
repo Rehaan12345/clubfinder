@@ -2,6 +2,8 @@ from . import db
 from flask_login import UserMixin
 
 # Flask Migration source - https://www.youtube.com/watch?v=dCym9EICKGQ
+# flask db migrate
+# flask db stamp head
 
 # Table representing the many to many relationship between User and Club. This table is made up of two columns for each foreign key of both users and clubs. 
 joined_clubs = db.Table("joined_clubs",
@@ -60,3 +62,13 @@ class Info(db.Model):
 
     def __str__(self):
         return self.title
+    
+class Mentor(db.Model):
+    mentor_id = db.Column(db.Integer, primary_key=True)
+    firstname = db.Column(db.String)
+    lastname = db.Column(db.String)
+    # race = db.Column(db.String)
+    # religion = db.Column(db.String)
+    # gender = db.Column(db.String)
+    # languages = db.Column(db.String)
+    # academics = db.Column(db.String)

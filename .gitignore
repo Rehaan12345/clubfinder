@@ -1,3 +1,7 @@
-.__pycache__
-.instance
-.tester
+__pycache__/
+instance/
+tester/
+migrations/
+requirements 2.txt
+test.py
+Procfile

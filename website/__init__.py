@@ -35,9 +35,10 @@ def create_app():
     from .views import views
     from .auth import auth
     from .clubs import clubs
+    from .findamentor import findamentor
 
     # Import the User and Club classes
-    from .models import User, Club 
+    from .models import User, Club, Info, Mentor
 
     with app.app_context():
         db.create_all()
@@ -46,6 +47,8 @@ def create_app():
     # Adding both classes (User and Club) to the admin page:
     admin.add_view(ModelView(User, db.session))
     admin.add_view(ModelView(Club, db.session))
+    admin.add_view(ModelView(Info, db.session))
+    admin.add_view(ModelView(Mentor, db.session))
 
     login_manager = LoginManager()
     # Where the user goes if they're not logged in. 
@@ -62,5 +65,6 @@ def create_app():
     app.register_blueprint(views, url_prefix="/")
     app.register_blueprint(auth, url_prefix="/")
     app.register_blueprint(clubs, url_prefix="/")
+    app.register_blueprint(findamentor, url_prefix="/")
 
     return app

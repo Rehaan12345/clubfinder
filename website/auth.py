@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
 from .sendmail import send_mail, send_alt_mail
-from .forms import LoginForm
+from .forms import LoginForm, SignupForm
 
 auth = Blueprint("auth", __name__)
 
@@ -59,13 +59,15 @@ def check_email(email):
 
 @auth.route("/signup", methods=["GET", "POST"]) 
 def signup(): 
+    form = SignupForm()
+
     if request.method == "POST":
         email = request.form.get("email")
         if not check_email(email):
             flash("Email needs to be a cpsd email.", "error")
             return redirect("/signup")
         password = request.form.get("password")
-        confirm_password = request.form.get("confirm-password") 
+        confirm_password = request.form.get("confirm_password") 
         role = "Member"
         if email[0].isnumeric():
             role = "Member"
@@ -88,9 +90,8 @@ def signup():
             login_user(new_user, remember=True)
             flash("Your account has been created!", category="success")
             return redirect("/")
-            # return render_template("layout.html", club_info=Club.query.all(), joined_clubs=current_user.clubs, user=current_user)
 
-    return render_template("signup.html", user=current_user, name="auth")
+    return render_template("signup.html", user=current_user, name="auth", form=form)
 
 @auth.route("/logout") 
 @login_required # Makes sure we cannot access this route / page unless the user is logged in - can't logged out if not logged in.  

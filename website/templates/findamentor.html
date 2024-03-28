@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block title %}Find A Mentor{% endblock %}
+
+{% block body %}
+
+<div class="findmentorbody">
+    <div class="findmentortitle">Find Your Mentor</div>
+    <div class="findmentorcontainer">
+    {% for mentor in mentors %}
+
+    <div class="mentorcardscontainer">
+        <div class="mentorcard">
+          <div class="box">
+            <div class="content">
+              <h3>{{ mentor["firstname"] }} {{ mentor["lastname"] }}</h3>
+              <div class="speccontent">
+                <div class="morecont">
+                    Race: {{ mentor["race"] }}
+                </div>
+                <div class="morecont">
+                    Religion: {{ mentor["religion"] }}
+                </div>
+                <div class="morecont">
+                    Gender: {{ mentor["gender"] }}
+                </div>
+                <div class="morecont">
+                    Languages: {{ mentor["languages"] }}
+                </div>
+                <div class="morecont">
+                    Academics: {{ mentor["academics"] }}
+                </div>
+              </div>
+              <a href="#">Read More</a>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

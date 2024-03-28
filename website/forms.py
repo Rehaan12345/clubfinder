@@ -28,3 +28,10 @@ class LoginForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired()], render_kw={"placeholder": "25ranjaria@cpsd.us"})
     password = PasswordField("Password", validators=[DataRequired()], render_kw={"placeholder": "password123!"})
     submit = SubmitField("Log In")
+
+# Regular Signup form:
+class SignupForm(FlaskForm):
+    email = StringField("Email", validators=[DataRequired()], render_kw={"placeholder": "25ranjaria@cpsd.us"})
+    password = PasswordField("Password", validators=[DataRequired()], render_kw={"placeholder": "password123!"})
+    confirm_password = PasswordField("Confirm Password", validators=[DataRequired()], render_kw={"placeholder": "Confirm Password"})
+    submit = SubmitField("Sign Up")

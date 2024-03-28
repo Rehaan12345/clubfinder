@@ -26,6 +26,14 @@ def home():
 
     return render_template("layout.html", user=current_user, info=Info.query.all())
 
+@views.route("/removetext/<id>", methods=["GET", "POST"])
+def remove_text(id):
+    remove_text = Info.query.filter_by(text_id=id).first()
+    db.session.delete(remove_text)
+    db.session.commit()
+    flash("Successfully deleted")
+    return redirect("/")
+
 @views.app_errorhandler(404)
 def handle_404(err):
     return render_template("404.html", user=current_user), 404

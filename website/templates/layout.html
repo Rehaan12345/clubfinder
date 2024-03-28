@@ -56,7 +56,7 @@
               <li><a href="#" class="navlink">{{ current_user.email }} </a></li>
               {% else %}
               <li><a href="/login" class="navlink">Log In</a></li>
-              <li><a href="/signup/basicinfo" class="navlink">Sign up</a></li>
+              <li><a href="/signup" class="navlink">Sign up</a></li>
               {% endif %}
             </ul>
         </nav>
@@ -100,7 +100,6 @@
         </div>
         <div class="mainhomecontainer">
           <!-- <div class="hometitle">CRLS PathFinders</div> -->
-          <div class="homesepdiv">
             <form method="POST" class="addinfo">
                 <label for="addtitle">Title</label>
                 <input type="text" name="addtitle" required>
@@ -108,13 +107,17 @@
                 <input type="text" name="addbody" required>
                 <input type="submit">
             </form>
+          <div class="homesepdiv">
             {% if info %}
 
             {% for text in info %}
 
             <div class="sepcontainer">
-                <div class="subheadtitle">{{ text.title }}</div>
-                <div class="subcontent">{{ text.body }}</div>
+                <div class="sepcontainercontent">
+                    <a href="/removetext/{{ text.text_id }}">Remove {{ text.text_id }}</a>
+                    <div class="subheadtitle">{{ text.title }}</div>
+                    <div class="subcontent">{{ text.body }}</div>
+                </div>
             </div>
 
             {% endfor %}
