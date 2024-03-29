@@ -2104,25 +2104,8 @@ form .button input:hover {
     z-index: 10;
 }
 
-/********** Page Loading Animations: **********/
-.loaderwrapper {
-    z-index: 20;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: var(--bg2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.loaderinner {
-    background: url(loadinggif.mp4);
-}
-
 /********* Loading Spinner Styling: *********/
+/* Source: https://youtu.be/q76TexbMXJg?si=ePGjuuoYoZW_xrUv */
 
 .loader {
     position: fixed;
