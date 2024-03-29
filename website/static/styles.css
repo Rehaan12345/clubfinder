@@ -2121,3 +2121,42 @@ form .button input:hover {
 .loaderinner {
     background: url(loadinggif.mp4);
 }
+
+/********* Loading Spinner Styling: *********/
+
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--background);
+    transition: opacity 0.75s, visibility 0.75s;
+}
+
+.loaderhidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader::after {
+    content: "";
+    width: 75px;
+    height: 75px;
+    border: 15px solid var(--compliment1);
+    border-top-color: var(--compliment4);
+    border-radius: 50%;
+    animation: loading .75s ease infinite;
+}
+
+@keyframes loading {
+    from {
+        transform: rotate(0turn);
+    }
+    to {
+        transform: rotate(1turn);
+    }
+}

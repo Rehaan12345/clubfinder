@@ -773,3 +773,15 @@ window.addEventListener("DOMContentLoaded", () => {
         }
     })
 });
+
+/********* Loading Spinner Styling: *********/
+// Switch <window> for <document> and "load" for "DOMContentLoaded" to show the animation less.
+window.addEventListener("load", () => { 
+    const loader = document.querySelector(".loader");
+
+    loader.classList.add("loaderhidden");
+
+    loader.addEventListener("transitionend", () => {
+        document.body.removeChild("loader");
+    })
+})
