@@ -424,7 +424,7 @@ ClubFinder
             vp3 = User.query.filter_by(email=vicepresident_email3).first()
             vp3.is_leader = True
         pres = User.query.filter_by(email=president_email).first()
-        if pres.sole != "Admin" and pres.role != "Advisor":
+        if pres.role != "Admin" and pres.role != "Advisor":
             pres.role = "Leader"
             db.session.commit()
         print(f"President: {president}")
