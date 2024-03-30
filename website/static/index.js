@@ -241,22 +241,30 @@ window.addEventListener("DOMContentLoaded", () => {
 
 // Profile dropdown menu:
 window.addEventListener("DOMContentLoaded", ()=> {
-    document.addEventListener("click", e=> {
-        const isDropDownButton = e.target.matches("[data-dropdown-button]");
-        if(!isDropDownButton && e.target.closest("[data-dropdown]") != null) return;
+    // document.addEventListener("click", e=> {
+    //     const isDropDownButton = e.target.matches("[data-dropdown-button]");
+    //     if(!isDropDownButton && e.target.closest("[data-dropdown]") != null) return;
 
-        let currentDropDown;
-        if(isDropDownButton) {
-            currentDropDown = e.target.closest("[data-dropdown]");
-            // currentDropDown = document.querySelector("dropdown");
-            currentDropDown.classList.toggle("active");
-        }
+    //     let currentDropDown;
+    //     if(isDropDownButton) {
+    //         currentDropDown = e.target.closest("[data-dropdown]");
+    //         // currentDropDown = document.querySelector("dropdown");
+    //         currentDropDown.classList.toggle("active");
+    //     }
         
-        document.querySelectorAll("[data-dropdown].active").forEach(dropdown => {
-            if (dropdown === currentDropDown) return;
-            dropdown.classList.remove("active");
-        });
-    });
+    //     document.querySelectorAll("[data-dropdown].active").forEach(dropdown => {
+    //         if (dropdown === currentDropDown) return;
+    //         dropdown.classList.remove("active");
+    //     });
+    // });
+    const profileButton = document.querySelector("#loggedinas");
+    console.log(profileButton);
+    profileButton.addEventListener("click", () => {
+        const dropDown = document.querySelector(".dropdownmenu");
+        console.log(dropDown);
+        dropDown.classList.add("active");
+        console.log("Opened ok");
+    })
 });
 
 // Register your club dropdown menu:

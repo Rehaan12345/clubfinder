@@ -6,7 +6,7 @@ requirements 2.txt
 test.py
 Procfile
 gitignore
-DS_Store
+.DS_Store
 
 
 # Ignore not working source: https://stackoverflow.com/questions/25436312/gitignore-not-working

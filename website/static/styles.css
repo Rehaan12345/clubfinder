@@ -426,6 +426,10 @@ nav ul li a{
 }
 
 /***************** Nav Styling: *****************/
+/* .navlink {
+    cursor: pointer;
+}
+
 .mainnav {
     background: var(--compliment4);
     height: 80px;
@@ -512,71 +516,167 @@ nav ul li a{
     }
   }
   section{
-    /* background: url(bg1.jpg) no-repeat; */
     background-color: var(--background);
     background-size: cover;
     height: calc(100vh - 80px);
-  }
+  } */
 
-/* Dropdown Styling: */
-
-#dropdownoption {
-    color: lightgrey;
+label.logo {
+color: var(--background);
+font-size: 35px;
+line-height: 80px;
+padding: 0 100px;
+font-weight: bold;
 }
 
-#dropdownoption:hover {
-    color: white;
+.checkbtn{
+    font-size: 30px;
+    color: var(--compliment3);
+    float: right;
+    line-height: 80px;
+    margin-right: 40px;
+    cursor: pointer;
+    display: none;
 }
 
-.dropdownlink {
-    background: none;
-    border: none;
-    text-decoration: none;
-    color: var(--bg1);
-    cursor: pointer; 
-    /* margin-right: 300px; */
-    z-index: 10;
+#check {
+    display: none;
 }
 
-.dropdownlinks a {
-    color: white
+.active {
+    font-weight: bold;
+    color: var(--compliment3)
 }
 
-.dropdown {
-    position: relative;
-}
-
-.dropdownmenu {
-    position: absolute;
-    /* margin-right: 300px; */
-    width: 25vh;
-    right: 0;
-    top: calc(100% + .25rem);
-    /* background-color: rgb(57, 57, 57); */
-    background-color: var(--bg2);
-    padding: .75rem;
-    border-radius: 5px;
-    box-shadow: 0 2px 50px 0 rgba(0, 0, 0, .5);
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(-10px);
-    transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
-    z-index: 20;
-    color: white;
-}
-
-.dropdown.active > .navlink + .dropdownmenu {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateY(0px);
-} 
-
-.dropdownlinks {
-    z-index: 10;
+/* Source (for below): https://codepen.io/Mark_Bell00/pen/vYELmNM */
+.mainnav {
     display: flex;
-    flex-direction: column;
-    gap: 2.5rem; 
+    background-color: var(--compliment4);
+    justify-content: space-between;
 }
+
+.mainul {
+    float: right;
+    margin-right: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+ul li {
+    list-style: none;
+    margin: 0 auto;
+    border-left: 2px solid var(--compliment3);
+    display: inline-block;
+    padding: 0 30px;
+    position: relative;
+    text-decoration: none;
+    text-align: center;
+}
+
+li a {
+    color: var(--compliment4);
+}
+
+li a:hover {
+    color: var(--compliment3);
+}
+
+li:hover {
+    cursor: pointer;
+}
+
+ul li ul {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    padding-left: 0;
+    left: 0;
+    display: none;
+    background: var(--compliment4);
+}
+
+ul li:hover > ul,
+ul li ul:hover {
+    visibility: visible;
+    opacity: 1;
+    display: block;
+    min-width: 250px;
+    width: 50px;
+    text-align: left;
+    padding-top: 20px;
+    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, .3);
+    z-index: 100;
+}
+
+#emailli {
+    transition: none;
+    pointer-events: none;
+}
+
+ul li ul li {
+    clear: both;
+    width: 100%;
+    text-align: left;
+    margin-bottom: 20px;
+    border-style: none;
+}
+
+ul li ul li a:hover {
+    padding-left: 10px;
+    border-left: 2px solid var(--compliment3);
+    transition: all 0.3s ease;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--compliment2);
+}
+
+ul li ul li a { transition: all 0.5s ease; }
+
+@media (max-width: 952px){
+    label.logo{
+      font-size: 30px;
+      padding-left: 50px;
+    }
+    .mainnav ul li a{
+      font-size: 16px;
+    }
+  }
+  @media (max-width: 858px){
+    .checkbtn{
+      display: block;
+    }
+    ul{
+      position: fixed;
+      width: 100%;
+      height: 100vh;
+      background: var(--compliment3);
+      top: 80px;
+      left: -100%;
+      text-align: center;
+      transition: all .5s;
+    }
+    .mainnav ul li{
+      display: block;
+      margin: 50px 0;
+      line-height: 30px;
+    }
+    .mainnav ul li a{
+      font-size: 20px;
+    }
+    a:hover,a.active{
+      background: none;
+      color: var(--compliment2);
+    }
+    #check:checked ~ ul{
+      left: 0;
+    }
+  }
 
 /********** Club Quick View Modal: **********/
 .clubdesc {
