@@ -13,8 +13,11 @@
     <title> CRLSClubFinder | {% block title %}Clubs{% endblock %} </title>
 </head>
     <body>
-
-        <div class="loader"></div>
+        <div class="loadingwrapper">
+            <div class="loading"></div>
+        </div>
+        <div class="content">
+            <div class="loader"></div>
 
         <!-- Google Analytics Tag: -->
         <!-- Google tag (gtag.js) -->
@@ -124,5 +127,7 @@
 
         {% endblock %}
 
+        </div>
+        
     </body>
 </html>

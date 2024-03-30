@@ -792,5 +792,15 @@ window.addEventListener("load", () => {
 
     loader.addEventListener("transitionend", () => {
         document.body.removeChild("loader");
-    })
+    });
 })
+
+// ********** Loading Functionality: ********** //
+function loading() {
+    const loading = document.querySelector(".loading");
+    loading.classList.add("loadingactive");
+    const loadingWrapper = document.querySelector(".loadingwrapper");
+    loadingWrapper.classList.add("loadingwrapperactive");
+    const content = document.querySelector(".content");
+    content.classList.add("contenthide");
+}
