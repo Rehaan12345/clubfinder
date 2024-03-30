@@ -363,7 +363,7 @@ def registeraclub():
             
         print(f"Club days final: {club_days_final}")
         new_advisor = User.query.filter_by(email=advisor_email).first()
-        if new_advisor:
+        if new_advisor.role != "Admin" and new_advisor.role != "Advisor":
             new_advisor.role = "Advisor"
             db.session.commit()
 
@@ -424,8 +424,9 @@ ClubFinder
             vp3 = User.query.filter_by(email=vicepresident_email3).first()
             vp3.is_leader = True
         pres = User.query.filter_by(email=president_email).first()
-        pres.role = "Leader"
-        db.session.commit()
+        if pres.sole != "Admin" and pres.role != "Advisor":
+            pres.role = "Leader"
+            db.session.commit()
         print(f"President: {president}")
         # Make sure the club president is the person who is currently logged in:
         if president_email == current_user.email:
