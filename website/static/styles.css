@@ -518,6 +518,66 @@ nav ul li a{
     height: calc(100vh - 80px);
   }
 
+/* Dropdown Styling: */
+
+#dropdownoption {
+    color: lightgrey;
+}
+
+#dropdownoption:hover {
+    color: white;
+}
+
+.dropdownlink {
+    background: none;
+    border: none;
+    text-decoration: none;
+    color: var(--bg1);
+    cursor: pointer; 
+    /* margin-right: 300px; */
+    z-index: 10;
+}
+
+.dropdownlinks a {
+    color: white
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdownmenu {
+    position: absolute;
+    /* margin-right: 300px; */
+    width: 25vh;
+    right: 0;
+    top: calc(100% + .25rem);
+    /* background-color: rgb(57, 57, 57); */
+    background-color: var(--bg2);
+    padding: .75rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 50px 0 rgba(0, 0, 0, .5);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+    transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+    z-index: 20;
+    color: white;
+}
+
+.dropdown.active > .navlink + .dropdownmenu {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0px);
+} 
+
+.dropdownlinks {
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem; 
+}
+
 /********** Club Quick View Modal: **********/
 .clubdesc {
     position: fixed; 
