@@ -8,10 +8,6 @@ from flask_admin.contrib.sqla import ModelView
 from flask_mail import Mail, Message
 import os
 from flask_migrate import Migrate
-from sqlalchemy import exc
-from sqlalchemy import event
-from sqlalchemy import select
-from sqlalchemy import create_engine
 
 # Initializing the SQL database:
 db = SQLAlchemy()
@@ -70,36 +66,5 @@ def create_app():
     app.register_blueprint(auth, url_prefix="/")
     app.register_blueprint(clubs, url_prefix="/")
     app.register_blueprint(findamentor, url_prefix="/")
-
-    # Source: https://docs.sqlalchemy.org/en/20/core/pooling.html#pool-disconnects
-    some_engine = create_engine(f"sqlite:///{DB_NAME}")
-
-    @event.listens_for(some_engine, "engine_connect")
-    def ping_connection(connection, branch):
-        if branch:
-            # this parameter is always False as of SQLAlchemy 2.0,
-            # but is still accepted by the event hook.  In 1.x versions
-            # of SQLAlchemy, "branched" connections should be skipped.
-            return
-
-        try:
-            # run a SELECT 1.   use a core select() so that
-            # the SELECT of a scalar value without a table is
-            # appropriately formatted for the backend
-            connection.scalar(select(1))
-        except exc.DBAPIError as err:
-            # catch SQLAlchemy's DBAPIError, which is a wrapper
-            # for the DBAPI's exception.  It includes a .connection_invalidated
-            # attribute which specifies if this connection is a "disconnect"
-            # condition, which is based on inspection of the original exception
-            # by the dialect in use.
-            if err.connection_invalidated:
-                # run the same SELECT again - the connection will re-validate
-                # itself and establish a new connection.  The disconnect detection
-                # here also causes the whole connection pool to be invalidated
-                # so that all stale connections are discarded.
-                connection.scalar(select(1))
-            else:
-                raise
 
     return app
