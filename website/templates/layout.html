@@ -47,7 +47,7 @@
                         <ul class="dropdown">
                             <li><a id="emailli">{{ user.email }}</a></li>
                             <li><a class="navlink" id="dropdownoption" href="/registeraclub">Register a Club <i class="fa-solid fa-pencil"></i></a></li>
-                            <li><a href="/admin" class="navlink" id="dropdownoption">Admin Dashboard <i class="fa-solid fa-table-columns"></i></a></li>
+                            {% if user.role == "Admin" %}<li><a href="/admin" class="navlink" id="dropdownoption">Admin Dashboard <i class="fa-solid fa-table-columns"></i></a></li>{% endif %}
                             <li><a href="/logout" class="navlink">Log Out</a></li>
                             <li>{% if user.role == "Admin" or user.role == "Advisor" %}<button class="verifyclubbutton verifyclubbutton" id="verifyclubbutton">Verify Your Club <i class="fa-solid fa-link"></i></button>{% endif %}</li>
                         </ul>
