@@ -14,6 +14,7 @@ from .allinfo import PFInfo
 
 views = Blueprint("views", __name__)
 
+@login_required
 @views.route("/", methods=["GET", "POST"])
 def home():
     if request.method == "POST":
@@ -26,6 +27,7 @@ def home():
 
     return render_template("layout.html", user=current_user, info=Info.query.all())
 
+@login_required
 @views.route("/removetext/<id>", methods=["GET", "POST"])
 def remove_text(id):
     remove_text = Info.query.filter_by(text_id=id).first()
