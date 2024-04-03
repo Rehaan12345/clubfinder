@@ -5,6 +5,11 @@ from flask_login import UserMixin
 # flask db migrate
 # flask db stamp head
 
+# Better source - https://stackoverflow.com/questions/17768940/target-database-is-not-up-to-date
+# flask db stamp head
+# flask db migrate
+# flask db upgrade
+
 # Table representing the many to many relationship between User and Club. This table is made up of two columns for each foreign key of both users and clubs. 
 joined_clubs = db.Table("joined_clubs",
                             db.Column("user_id", db.Integer, db.ForeignKey("user.id")),
@@ -72,3 +77,8 @@ class Mentor(db.Model):
     # gender = db.Column(db.String)
     # languages = db.Column(db.String)
     # academics = db.Column(db.String)
+
+class MenuItem(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, unique=True)
+    path = db.Column(db.String)

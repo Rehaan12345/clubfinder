@@ -21,7 +21,6 @@ def create_app():
     app.config["SECRET_KEY"] = "rehaan"
     # app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://jlfpuxzdqrkneh:f3ca613563b5efcad1f6c485e7a27118b7cd0d78c2326a70ee98fb21d9f4c248@ec2-52-0-79-72.compute-1.amazonaws.com:5432/ddmnvas8sg8evg"
     app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_NAME}" 
-    migrate = Migrate(app, db)
     db.init_app(app) 
     # Configuring the mail messaging system:
     app.config["MAIL_SERVER"] = "smtp@googlemail.com"
@@ -37,18 +36,21 @@ def create_app():
     from .clubs import clubs
     from .findamentor import findamentor
 
-    # Import the User and Club classes
-    from .models import User, Club, Info, Mentor
+    # Import the model classes
+    from .models import User, Club, Info, Mentor, MenuItem
 
     with app.app_context():
         db.create_all()
         admin.init_app(app)
+        
+    migrate = Migrate(app, db)
 
     # Adding both classes (User and Club) to the admin page:
     admin.add_view(ModelView(User, db.session))
     admin.add_view(ModelView(Club, db.session))
     admin.add_view(ModelView(Info, db.session))
     admin.add_view(ModelView(Mentor, db.session))
+    admin.add_view(ModelView(MenuItem, db.session))
 
     login_manager = LoginManager()
     # Where the user goes if they're not logged in. 
