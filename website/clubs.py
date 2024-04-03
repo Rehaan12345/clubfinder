@@ -363,6 +363,10 @@ def registeraclub():
             
         print(f"Club days final: {club_days_final}")
         new_advisor = User.query.filter_by(email=advisor_email).first()
+        # Makes sure the advisor already has an account set up:
+        if new_advisor is None:
+            flash("Make sure your advisor creates an account first!", "error")
+            return redirect("/registeraclub")
         if new_advisor.role != "Admin" and new_advisor.role != "Advisor":
             new_advisor.role = "Advisor"
             db.session.commit()
