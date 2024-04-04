@@ -563,7 +563,7 @@ font-weight: bold;
     align-items: center;
 }
 
-ul li {
+li {
     list-style: none;
     margin: 0 auto;
     border-left: 2px solid var(--compliment3);
@@ -586,7 +586,7 @@ li:hover {
     cursor: pointer;
 }
 
-ul li ul {
+.dropdown {
     visibility: hidden;
     opacity: 0;
     position: absolute;
@@ -597,7 +597,7 @@ ul li ul {
 }
 
 ul li:hover > ul,
-ul li ul:hover {
+.dropdown:hover {
     visibility: visible;
     opacity: 1;
     display: block;
@@ -1383,7 +1383,9 @@ form .button input:hover {
     padding: 0.5em 1.25em;
     border-radius: 10px;
     border: none;
-    transition: 0.1s ease-in-out
+    transition: 0.1s ease-in-out;
+    /* height: 20px; */
+    font-size: small;
 }
 
 .clubbutton:hover,
