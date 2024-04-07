@@ -10,70 +10,57 @@
         <div class="userdetails">
             <div class="userdetailsmain">
                 <div class="inputbox">
-                    <span class="details">Club Name <i class="fa-solid fa-star-of-life" id="clubname" style="color: #ff0000;"></i></span>
-                    <input type="text" placeholder="Club Name" name="clubname" required>
+                    {{ form.clubname.label(class="details") }}
+                    {{ form.clubname }}
                 </div>
                 <div class="inputbox">
-                    <span class="details">President's Email <i class="fa-solid fa-star-of-life" id="presidentemail" style="color: #ff0000;"></i></span>
-                    <input type="text" placeholder="clubpresident@cpsd.us" name="presidentemail" required>
+                    {{ form.presidentemail.label(class="details") }}
+                    {{ form.presidentemail }}
                 </div>
                 <div class="inputbox">
-                    <span class="details">Vice President's Email</span>
-                    <input type="text" placeholder="clubvicepresident@cpsd.us (if any)" name="vicepresidentemail1" >
+                    {{ form.vicepresidentemail1.label(class="details") }}
+                    {{ form.vicepresidentemail1 }}
                 </div>
                 <div class="inputbox">
-                    <span class="details">Vice President's Email</span>
-                    <input type="text" placeholder="clubvicepresident@cpsd.us (if any)" name="vicepresidentemail2">
+                    {{ form.vicepresidentemail2.label(class="details") }}
+                    {{ form.vicepresidentemail2 }}
                 </div>
                 <div class="inputbox">
-                    <span class="details">Vice President's Email</span>
-                    <input type="text" placeholder="clubvicepresident@cpsd.us (if any)" name="vicepresidentemail3">
+                    {{ form.vicepresidentemail3.label(class="details") }}
+                    {{ form.vicepresidentemail3 }}
                 </div>
                 <div class="inputbox">
-                    <span class="details">Advisor's Email <i class="fa-solid fa-star-of-life" id="advisoremail" style="color: #ff0000;"></i></span>
-                    <input type="text" placeholder="clubadvisor@cpsd.us" name="advisoremail" required>
+                    {{ form.advisoremail.label(class="details") }}
+                    {{ form.advisoremail }}
                 </div>
                 <div class="inputbox">
-                    <span class="details">Room Number <i class="fa-solid fa-star-of-life" id="roomnumber" style="color: #ff0000;"></i></span>
-                    <input type="number" placeholder="Room Number" name="roomnumber" required>
+                    {{ form.roomnumber.label(class="details") }}
+                    {{ form.roomnumber }}
                 </div>
                 <div class="inputbox">
-                    <span class="details">Club Start Time <i class="fa-solid fa-star-of-life" id="clubstarttime" style="color: #ff0000;"></i></span>
-                    <input type="time" placeholder="Start time" name="clubstarttime" required>
+                    {{ form.clubstarttime.label(class="details") }}
+                    {{ form.clubstarttime }}
                 </div>
             </div>
             <div class="inputbox">
-                <span class="details">Select which day(s) your club meets: <i class="fa-solid fa-star-of-life" id="clubdays" style="color: #ff0000;"></i></span>
+                {{ form.clubday.label(class="details") }}
                 <div class="clubdaysdaysdays">
+                    {% for day in form.clubday %}
                     <div class="day">
-                        <input type="checkbox" value="Mondays" name="clubday" id="monday">
-                        <label for="monday">Monday</label>
+                        {{ day }}
+                        {{ day.label }}
                     </div>
-                    <div class="day">
-                        <input type="checkbox" value="Tuesdays" name="clubday" id="tuesday">
-                        <label for="tuesday">Tuesday</label>
-                    </div>
-                    <div class="day">
-                        <input type="checkbox" value="Wednesdays" name="clubday" id="wednesday">
-                        <label for="wednesday">Wednesday</label>
-                    </div>
-                    <div class="day">
-                        <input type="checkbox" value="Thursdays" name="clubday" id="thursday">
-                        <label for="thursday">Thursday</label>
-                    </div>
-                    <div class="day">
-                        <input type="checkbox" value="Fridays" name="clubday" id="friday">
-                        <label for="friday">Friday</label></div>
+                    {% endfor %}
                 </div>
             </div>
             <br><br><br><br>
             <div class="inputbox">
-                <span class="details">Club Description <i class="fa-solid fa-star-of-life" id="clubdescription" style="color: #ff0000;"></i></span>
-                <textarea type="text" id="inputthedescription" placeholder="Description of club" name="clubdescription" required></textarea>
+                {{ form.clubdescription.label(class="details") }}
+                {{ form.clubdescription(id="inputthedescription") }}
             </div>
         </div>
         <div class="button">
-            <input type="submit" value="Confirm" class="submitnewclubbutton" onclick="loading();">
+            {{ form.submit(class="submitnewclubbutton", onclick="loading();") }}
         </div>
     </form>
 </div>

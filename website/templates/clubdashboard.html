@@ -89,80 +89,61 @@
                             <div class="userdetails">
                                 <div class="userdetailsmain">
                                     <div class="inputbox">
-                                        <span class="details">Club ID <i class="fa-solid fa-star-of-life" id="clubid" style="color: #ff0000;"> </i><i class="fa-regular fa-circle-question" id="questionbutton"></i></span>
-                                        <input type="number" placeholder="123456789" name="changeclubid" required>
-                                    </div>
-                                    <dialog class="clubidinfomodal">
-                                        <button id="closeclubidinfomodal" class="clubclosebutton">&times;</button>
-                                            <p>
-                                                Please copy and paste your <b>Club ID</b> in this field. <br><br>You can copy it from the <b>Club Info</b> section.
-                                            </p>
-                                    </dialog>
-                                    <div class="inputbox">
-                                        <span class="details">New Club Name</span>
-                                        <input type="text" placeholder="New Club Name" name="changeclubname">
+                                        {{ form.clubid.label(class="details") }} 
+                                        {{ form.clubid }}
                                     </div>
                                     <div class="inputbox">
-                                        <span class="details">New President's Email</span>
-                                        <input type="text" placeholder="clubpresident@cpsd.us" name="changepresidentemail">
+                                        {{ form.changeclubname.label(class="details") }}
+                                        {{ form.changeclubname }}
                                     </div>
                                     <div class="inputbox">
-                                        <span class="details">New Vice President's Email</span>
-                                        <input type="text" placeholder="clubvicepresident@cpsd.us (if any)" name="changevicepresidentemail1" >
+                                        {{ form.changepresidentemail.label(class="details") }}
+                                        {{ form.changepresidentemail }}
                                     </div>
                                     <div class="inputbox">
-                                        <span class="details">New Vice President's Email</span>
-                                        <input type="text" placeholder="clubvicepresident@cpsd.us (if any)" name="changevicepresidentemail2">
+                                        {{ form.changevicepresidentemail1.label(class="details") }}
+                                        {{ form.changevicepresidentemail1 }}
                                     </div>
                                     <div class="inputbox">
-                                        <span class="details">New Vice President's Email</span>
-                                        <input type="text" placeholder="clubvicepresident@cpsd.us (if any)" name="changevicepresidentemail3">
+                                        {{ form.changevicepresidentemail2.label(class="details") }}
+                                        {{ form.changevicepresidentemail2 }}
                                     </div>
                                     <div class="inputbox">
-                                        <span class="details">Change Advisor's Email</span>
-                                        <input type="text" placeholder="clubadvisor@cpsd.us" name="changeadvisoremail">
+                                        {{ form.changevicepresidentemail3.label(class="details") }}
+                                        {{ form.changevicepresidentemail3 }}
                                     </div>
                                     <div class="inputbox">
-                                        <span class="details">Change Room Number</span>
-                                        <input type="number" placeholder="Room Number" name="changeroomnumber">
+                                        {{ form.changeadvisoremail.label(class="details") }}
+                                        {{ form.changeadvisoremail }}
                                     </div>
                                     <div class="inputbox">
-                                        <span class="details">Change Club Start Time</span>
-                                        <input type="time" placeholder="Start time" name="changeclubstarttime">
+                                        {{ form.changeroomnumber.label(class="details") }}
+                                        {{ form.changeroomnumber }}
+                                    </div>
+                                    <div class="inputbox">
+                                        {{ form.changeclubstarttime.label(class="details") }}
+                                        {{ form.changeclubstarttime }}
                                     </div>
                                 </div>
                                 <div class="inputbox">
-                                    <span class="details">Select which new day(s) your club meets (these days will override your previously chosen days):</span><br>
+                                    {{ form.changeclubday.label(class="details") }}
                                     <div class="clubdaysdaysdays">
+                                        {% for day in form.changeclubday %}
                                         <div class="day">
-                                            <input type="checkbox" value="Mondays" name="changeclubday" id="monday">
-                                            <label for="monday">Monday</label>
+                                            {{ day }}
+                                            {{ day.label }}
                                         </div>
-                                        <div class="day">
-                                            <input type="checkbox" value="Tuesdays" name="changeclubday" id="tuesday">
-                                            <label for="tuesday">Tuesday</label>
-                                        </div>
-                                        <div class="day">
-                                            <input type="checkbox" value="Wednesdays" name="changeclubday" id="wednesday">
-                                            <label for="wednesday">Wednesday</label>
-                                        </div>
-                                        <div class="day">
-                                            <input type="checkbox" value="Thursdays" name="changeclubday" id="thursday">
-                                            <label for="thursday">Thursday</label>
-                                        </div>
-                                        <div class="day">
-                                            <input type="checkbox" value="Fridays" name="changeclubday" id="friday">
-                                            <label for="friday">Friday</label></div>
+                                        {% endfor %}
                                     </div>
                                 </div>
                                 <br><br><br><br>
-                                <div class="inputbox"><br>
-                                    <span class="details">New Club Description</span>
-                                    <textarea type="text" id="inputthedescription" placeholder="Description of club" name="changeclubdescription"></textarea>
+                                <div class="inputbox">
+                                    {{ form.changeclubdescription.label(class="details") }}
+                                    {{ form.changeclubdescription(id="inputthedescription") }}
                                 </div>
                             </div>
                             <div class="button">
-                                <input type="submit" value="Confirm" class="submitnewclubbutton">
+                                {{ form.submit(class="submitnewclubbutton") }}
                             </div>
                         </form>
                     </div>

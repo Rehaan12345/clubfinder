@@ -9,7 +9,8 @@ from flask_mail import Mail, Message
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from flask_session import Session
-import datetime 
+import datetime
+from .forms import RegisterClub, AdjustClub
 
 clubs = Blueprint("clubs", __name__)  
 
@@ -239,6 +240,8 @@ def leave(id):
 @clubs.route("/clubdashboard", methods=["GET", "POST"])
 @login_required
 def club_dashboard():
+    form = AdjustClub()
+
     print(f"137 - current_user.role = {current_user.role}")
     # Remove a member:
     # if goto == "adjust":
@@ -328,11 +331,13 @@ def club_dashboard():
         # print(member.clubs)
         # member.clubs.remove(Club.query.filter_by(id=remove_club).first())
 
-    return render_template("clubdashboard.html", club_info=Club.query.all(), user_info=User.query.all(), user=current_user)
+    return render_template("clubdashboard.html", club_info=Club.query.all(), user_info=User.query.all(), user=current_user, form=form)
 
 @clubs.route("/registeraclub", methods=["GET", "POST"])
 @login_required
 def registeraclub():
+    form = RegisterClub()
+
     # session["club_confirmed"] = "NO"
     print(f"261 - {request.args.get('club_confirmed')}")
     # Accepting the post request:
@@ -442,7 +447,7 @@ ClubFinder
         # This all has to happen only after the advisor confirms the club: 
         # club_name=club_name, president_email=president_email, vicepresident_email1=vicepresident_email1, vicepresident_email2=vicepresident_email2, vicepresident_email3=vicepresident_email3, advisor_email=advisor_email, room_number=room_number, start_time=start_time, description=description, secret_password=secret_password, club_day=club_days_final
 
-    return render_template("registeraclub.html", user=current_user)
+    return render_template("registeraclub.html", user=current_user, form=form)
 
 # Search:
 @clubs.route("/search")
