@@ -783,7 +783,7 @@ ul li ul li a { transition: all 0.5s ease; }
 }
 
 /***************** Flash messages (Alert / Success) Styling: ***************/ 
-.alert {
+.error {
     background: var(--alertorangebackground);
     padding: 20px 40px;
     min-width: 420px;
@@ -798,12 +798,12 @@ ul li ul li a { transition: all 0.5s ease; }
     z-index: 20;
 }
 
-.alert.showAlert {
+.error.showAlert {
     opacity: 1;
     pointer-events: auto;
 }
 
-.alert.show {
+.error.show {
     animation: show_slide 1s ease forwards;
 }
 
@@ -822,7 +822,7 @@ ul li ul li a { transition: all 0.5s ease; }
     }
 }
 
-.alert.hide {
+.error.hide {
     animation: hide_slide 1s ease forwards;
     opacity: 0;
     display: none;
@@ -844,13 +844,13 @@ ul li ul li a { transition: all 0.5s ease; }
     } */
 }
 
-.alert .msg {
+.error .msg {
     padding: 0 20px;
     font-size: 18px;
     color: var(--alertorangemessage);
 }
 
-.alert .btn-close {
+.error .btn-close {
     position: absolute;
     right: 0px;
     top: 50%;
@@ -860,7 +860,7 @@ ul li ul li a { transition: all 0.5s ease; }
     cursor: pointer;
   }
 
-.alert .btn-close:hover {
+.error .btn-close:hover {
     background: var(--alertorangesideborder);
 }
 
@@ -1865,86 +1865,85 @@ form .button input:hover {
     background-color: var(--bg1);
 }
 
-/********** Club Dashboard Table Styling: **********/
-/* .clubinfo {
-    padding-left: 50px;
+.allclubinfowrapper {
+    margin: 20px;
+    /* background-color: var(--compliment1); */
+}
+
+.clubdashboardwrapper {
+    /* border: 1px solid var(--compliment1);
+    background-color: var(--compliment1); */
+    border-radius: 10px;
+}
+
+.makeaclubokdash {
+    max-width: 700px;
+    max-height: 650px;
+    width: 100%;
+    padding: 25px 30px;
+    border-radius: 5px;
+    display: grid;
+    /* grid-template-columns:auto; */
+    place-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.makeaclubokdash .title {
+    font-size: 25px;
+    font-weight: 500;
+    position: relative;
+}
+
+.makeaclubokdash .title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    /* width: 100px; */
+    background: var(--bg1);
+}
+
+.makeaclubokdash form {
+    position: relative;
+}
+
+.makeaclubokdash form .userdetails .userdetailsmain {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px 0 12px 0;
+    margin-bottom: 0;
+}
+
+.makeaclubokdash form .userdetails {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px 0 12px 0;
+}
+
+/* .tabs-lifted {
+    justify-content: center;
+}
+
+.tabs {
+    justify-content: center;
+}
+
+.tab {
+    min-width: 800px;
 } */
 
-.clubtable {
-    width: 100%;
-    /* background: rgb(149, 149, 149); */
-    border-collapse: collapse;
-    /* margin-bottom: 10px; */
-    /* border-radius: 5px; */
-    /* border: 1px solid black; */
+.tab-content {
+    background-color: var(--compliment1);
 }
 
-.clubtable caption, th, td {
-    padding: 1rem;
-}
-
-.clubtable caption, th {
-    text-align: left;
-}
-
-.clubtable caption {
-    background: lightgrey;
-    color: black;
-    font-size: 1.05rem;
-    font-weight: 600;
-}
-
-.clubtable th {
-    background: hsl(0 0% 0% / 0.05);
-}
-
-.clubtable tr:nth-of-type(2n) {
-    background: hsl(0 0% 0% / 0.1);
-}
-
-.tablecontainer {
-    padding-left: 50px;
-    padding-right: 50px;
-}
-
-#clubtablerow:hover {
-    background: hsl(0 0% 0% / 0.03);
-}
-
-.fa-trash {
-    color: black;
-    opacity: 1;
-    font-size: 30px;
-    transition: .3s;
-}
-
-.fa-trash:hover {
-    color: red;
-    transform: rotate(360deg);
-}
-
-.kickmodal {
-    width: 250px;
-    height: 150px;
-}
-
-.kickbuttonscontainer {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    margin-top: 30px;
-}
-
-.kickconfirmbuttons {
-    background-color: var(--bg1);
-    border-radius: 5px;
-    width: 60px;
-    height: 30px;
-}
-
-.kickconfirmbuttons:hover {
-    background-color: var(--bg2);
-    color: white;
+.tab::before {
+    background-color: var(--compliment1);
 }
 
 .fa-crown {

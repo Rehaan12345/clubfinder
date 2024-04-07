@@ -10,216 +10,167 @@
 
     <!-- <br><br> -->
 
-    {% if title == "adjust" %}
 
-    <!-- ********** Adjust Club View ********** -->
+    <div role="tablist" class="tabs tabs-lifted">
+        <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Member Info" />
+        <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
 
-    <nav class="dashnav">
-        <div class="infoadjustlist">
-            <div class="sec" id="infosec">
-                <a href="/clubdashboard/info" class="navitems" id="clubinfo">Club Info</a>
-            </div>
-            <div class="sec" id="adjustsec">
-                <a href="/clubdashboard/adjust" class="navitems activeindash" id="adjustclub">Adjust Club Info</a>
-            </div>
-        </div>
-    </nav>
-
-        <div class="makeaclubok">
-            <br><br>
-            <div class="title">Adjust Your Club</div>
-            <form action="#" method="POST">
-                <div class="userdetails">
-                    <div class="userdetailsmain">
-                        <div class="inputbox">
-                            <span class="details">Club ID <i class="fa-solid fa-star-of-life" id="clubid" style="color: #ff0000;"> </i><i class="fa-regular fa-circle-question" id="questionbutton"></i></span>
-                            <input type="number" placeholder="123456789" name="changeclubid" required>
-                        </div>
-                        <dialog class="clubidinfomodal">
-                            <button id="closeclubidinfomodal" class="clubclosebutton">&times;</button>
-                                <p>
-                                    Please copy and paste your <b>Club ID</b> in this field. <br><br>You can copy it from the <b>Club Info</b> section.
-                                </p>
-                        </dialog>
-                        <div class="inputbox">
-                            <span class="details">New Club Name</span>
-                            <input type="text" placeholder="New Club Name" name="changeclubname">
-                        </div>
-                        <div class="inputbox">
-                            <span class="details">New President's Email</span>
-                            <input type="text" placeholder="clubpresident@cpsd.us" name="changepresidentemail">
-                        </div>
-                        <div class="inputbox">
-                            <span class="details">New Vice President's Email</span>
-                            <input type="text" placeholder="clubvicepresident@cpsd.us (if any)" name="changevicepresidentemail1" >
-                        </div>
-                        <div class="inputbox">
-                            <span class="details">New Vice President's Email</span>
-                            <input type="text" placeholder="clubvicepresident@cpsd.us (if any)" name="changevicepresidentemail2">
-                        </div>
-                        <div class="inputbox">
-                            <span class="details">New Vice President's Email</span>
-                            <input type="text" placeholder="clubvicepresident@cpsd.us (if any)" name="changevicepresidentemail3">
-                        </div>
-                        <div class="inputbox">
-                            <span class="details">Change Advisor's Email</span>
-                            <input type="text" placeholder="clubadvisor@cpsd.us" name="changeadvisoremail">
-                        </div>
-                        <div class="inputbox">
-                            <span class="details">Change Room Number</span>
-                            <input type="number" placeholder="Room Number" name="changeroomnumber">
-                        </div>
-                        <div class="inputbox">
-                            <span class="details">Change Club Start Time</span>
-                            <input type="time" placeholder="Start time" name="changeclubstarttime">
-                        </div>
-                    </div>
-                    <div class="inputbox">
-                        <span class="details">Select which new day(s) your club meets (these days will override your previously chosen days):</span><br>
-                        <div class="clubdaysdaysdays">
-                            <div class="day">
-                                <input type="checkbox" value="Mondays" name="changeclubday" id="monday">
-                                <label for="monday">Monday</label>
-                            </div>
-                            <div class="day">
-                                <input type="checkbox" value="Tuesdays" name="changeclubday" id="tuesday">
-                                <label for="tuesday">Tuesday</label>
-                            </div>
-                            <div class="day">
-                                <input type="checkbox" value="Wednesdays" name="changeclubday" id="wednesday">
-                                <label for="wednesday">Wednesday</label>
-                            </div>
-                            <div class="day">
-                                <input type="checkbox" value="Thursdays" name="changeclubday" id="thursday">
-                                <label for="thursday">Thursday</label>
-                            </div>
-                            <div class="day">
-                                <input type="checkbox" value="Fridays" name="changeclubday" id="friday">
-                                <label for="friday">Friday</label></div>
-                        </div>
-                    </div>
-                    <br><br><br><br>
-                    <div class="inputbox"><br>
-                        <span class="details">New Club Description</span>
-                        <textarea type="text" id="inputthedescription" placeholder="Description of club" name="changeclubdescription"></textarea>
-                    </div>
-                </div>
-                <div class="button">
-                    <input type="submit" value="Confirm" class="submitnewclubbutton">
-                </div>
-            </form>
-        </div>
-
-    {% else %}
-
-    <!-- ********** Club Info View: ********** -->
-
-    <nav class="dashnav">
-        <div class="infoadjustlist">
-            <div class="sec" id="infosec">
-                <a href="/clubdashboard/info" class="navitems activeindash" id="clubinfo">Club Info</a>
-            </div>
-            <div class="sec" id="adjustsec">
-                <a href="/clubdashboard/adjust" class="navitems" id="adjustclub">Adjust Club Info</a>
-            </div>
-        </div>
-    </nav>
-
-    <div class="clubdashboardwrapper">
-        <div class="allclubinfowrapper">
-            {% for club in club_info %}
-                {% if club.status == "Approved" %}
-
-                {% if current_user.email == club.president_email or current_user.email == club.vicepresident_email1 or current_user.email == club.vicepresident_email2 or current_user.email == club.vicepresident_email3 or current_user.role == club.advisor_email or current_user.role == "Admin" %}
-
-                    <div class="tablecontainer" id="clubtable_{{ club.id }}">
-                    
-                        <table class="clubtable" id="clubtable_{{ club.id }}">
-
-                            <caption>
-                                <div class="adjustclubadvertisementwrapper">
-                                    {{ club.club_name }} Info: 
-                                </div>
-                                <div class="viewclubidwrapper">
-                                    <button class="adjustclubadvertisementbutton secretpass" id="secretpassview_{{ club.id }}">
-                                        Copy Club ID <i class="fa-regular fa-copy"></i>
-                                    </button>
-                                </div>
-                                <dialog class="viewsecretpasswordmodal" id="viewsecretpassword_{{ club.id }}">
-                                    <button id="passclosebutton_{{ club.id }}" class="clubclosebutton">&times;</button>
-                                    <div class="clubpassviewcontainer">
-                                        <div class="label">
-                                            Club Password: 
-                                        </div>
-                                        <div class="copytext" id="copytext_{{ club.id }}">
-                                            <input type="number" class="text" id="text_{{ club.id }}" value="{{ club.secret_password }}" readonly>
-                                            <button>
-                                                <i class="fa fa-clone"></i>
+            <div class="clubdashboardwrapper">
+                <div class="allclubinfowrapper">
+                    {% for club in club_info %}
+                        {% if club.status == "Approved" %}
+        
+                            {% if current_user.email == club.president_email or current_user.email == club.vicepresident_email1 or current_user.email == club.vicepresident_email2 or current_user.email == club.vicepresident_email3 or current_user.role == club.advisor_email or current_user.role == "Admin" %}
+                            
+                                <div class="overflow-x-auto">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th><h1>{{ club.club_name }}</h1><div class="viewclubidwrapper">
+                                            <button class="adjustclubadvertisementbutton secretpass" id="secretpassview_{{ club.id }}">
+                                                Copy Club ID <i class="fa-regular fa-copy"></i>
                                             </button>
                                         </div>
+                                        <dialog class="viewsecretpasswordmodal" id="viewsecretpassword_{{ club.id }}">
+                                            <button id="passclosebutton_{{ club.id }}" class="clubclosebutton">&times;</button>
+                                            <div class="clubpassviewcontainer">
+                                                <div class="label">
+                                                    Club Password: 
+                                                </div>
+                                                <div class="copytext" id="copytext_{{ club.id }}">
+                                                    <input type="number" class="text" id="text_{{ club.id }}" value="{{ club.secret_password }}" readonly>
+                                                    <button>
+                                                        <i class="fa fa-clone"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </dialog> </th>
+                                            <th>Member</th>
+                                            <th>Role</th>
+                                            <th>Kick</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for member in club.members %}
+                                        <tr class="bg-base-200">
+                                            <th></th>
+                                            <th>{{ member.email }}</th>
+                                            <td>{{ member.role }}</td>
+                                            <td><a href="/kickmember/{{ club.id }}/{{ member.id }}"><i class="fa-solid fa-trash"></i></a></td>
+                                        </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
                                     </div>
-                                </dialog>
-                            </caption>
-                        
-                            <tr>
-                                <!-- <th>Member # (not id num! - instead, the member count.)</th> -->
-                                <th>Kick</th>
-                                <th>Name</th>
-                                <th>Role</th>
-                            </tr>
-                            
-                            {% for member in club.members %}
-                            <!-- <td>Member Count</td> -->
-                                <tr id="clubtablerow">
-                                    <td>
-                                        {% if member.email == current_user.email or member.email == club.vicepresident_email1 or member.email == club.vicepresident_email2 or member.email == club.vicepresident_email3 %}
-                                        <i class="fa-solid fa-trash president" id="kickbutton_{{ club.id }}-{{ member.id }}*"></i>
-                                        {% else %}
-                                        <i class="fa-solid fa-trash" id="kickbutton_{{ club.id }}-{{ member.id }}"></i>
-                                        {% endif %}
-                                    </td>
-                                    <dialog class="kickmodal" id="kickbuttonconfirmationbutton_{{ club.id }}-{{ member.id }}">
-                                        Are you sure you want to kick {{ member.email }} from {{ club }}?
-                                        <div class="kickbuttonscontainer" id="{{ member.id }}">
-                                            <button class="kickconfirmbuttons yestokick_{{ club.id }}" id="yestokick_{{ club.id }}-{{ member.id }}">Yes</button>
-                                            <button class="kickconfirmbuttons notokick_{{ member.id }}" id="notokick_{{ club.id }}-{{ member.id }}">No</button>
-                                        </div>
-                                    </dialog>
-                                    <td data-cell="email">{{ member.email }}</td>
-                                    <td data-cell="role">
-                                        {% if member.email == current_user.email %}
-                                            <i class="fa-solid fa-crown"></i> President
-                                        {% elif member.email == club.vicepresident_email1 or member.email == club.vicepresident_email2 or member.email == club.vicepresident_email3 %}
-                                            Vice President
-                                        {% else %}
-                                            <!-- Member -->
-                                            Member
-                                            <!-- {{ member.role }} -->
-                                        {% endif %}
-                                    </td>
-                                </tr>
-
-                            {% endfor %}      
-
-                        </table>
+        
+                            {% endif %}    
+        
+                        {% endif %}
+        
+                    <br><br>
                     
+                    {% endfor %}
+        
+                </div>
+                <div class="adjustclubinfowrapper">
+                    
+                </div>
+            </div>
+
+        </div>
+      
+        <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Adjust Club" checked />
+        <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                <!-- <div class="clubdashboardwrapper"> -->
+                    <div class="makeaclubokdash">
+                        <br><br>
+                        <div class="title">Adjust Your Club</div>
+                        <form action="#" method="POST">
+                            <div class="userdetails">
+                                <div class="userdetailsmain">
+                                    <div class="inputbox">
+                                        <span class="details">Club ID <i class="fa-solid fa-star-of-life" id="clubid" style="color: #ff0000;"> </i><i class="fa-regular fa-circle-question" id="questionbutton"></i></span>
+                                        <input type="number" placeholder="123456789" name="changeclubid" required>
+                                    </div>
+                                    <dialog class="clubidinfomodal">
+                                        <button id="closeclubidinfomodal" class="clubclosebutton">&times;</button>
+                                            <p>
+                                                Please copy and paste your <b>Club ID</b> in this field. <br><br>You can copy it from the <b>Club Info</b> section.
+                                            </p>
+                                    </dialog>
+                                    <div class="inputbox">
+                                        <span class="details">New Club Name</span>
+                                        <input type="text" placeholder="New Club Name" name="changeclubname">
+                                    </div>
+                                    <div class="inputbox">
+                                        <span class="details">New President's Email</span>
+                                        <input type="text" placeholder="clubpresident@cpsd.us" name="changepresidentemail">
+                                    </div>
+                                    <div class="inputbox">
+                                        <span class="details">New Vice President's Email</span>
+                                        <input type="text" placeholder="clubvicepresident@cpsd.us (if any)" name="changevicepresidentemail1" >
+                                    </div>
+                                    <div class="inputbox">
+                                        <span class="details">New Vice President's Email</span>
+                                        <input type="text" placeholder="clubvicepresident@cpsd.us (if any)" name="changevicepresidentemail2">
+                                    </div>
+                                    <div class="inputbox">
+                                        <span class="details">New Vice President's Email</span>
+                                        <input type="text" placeholder="clubvicepresident@cpsd.us (if any)" name="changevicepresidentemail3">
+                                    </div>
+                                    <div class="inputbox">
+                                        <span class="details">Change Advisor's Email</span>
+                                        <input type="text" placeholder="clubadvisor@cpsd.us" name="changeadvisoremail">
+                                    </div>
+                                    <div class="inputbox">
+                                        <span class="details">Change Room Number</span>
+                                        <input type="number" placeholder="Room Number" name="changeroomnumber">
+                                    </div>
+                                    <div class="inputbox">
+                                        <span class="details">Change Club Start Time</span>
+                                        <input type="time" placeholder="Start time" name="changeclubstarttime">
+                                    </div>
+                                </div>
+                                <div class="inputbox">
+                                    <span class="details">Select which new day(s) your club meets (these days will override your previously chosen days):</span><br>
+                                    <div class="clubdaysdaysdays">
+                                        <div class="day">
+                                            <input type="checkbox" value="Mondays" name="changeclubday" id="monday">
+                                            <label for="monday">Monday</label>
+                                        </div>
+                                        <div class="day">
+                                            <input type="checkbox" value="Tuesdays" name="changeclubday" id="tuesday">
+                                            <label for="tuesday">Tuesday</label>
+                                        </div>
+                                        <div class="day">
+                                            <input type="checkbox" value="Wednesdays" name="changeclubday" id="wednesday">
+                                            <label for="wednesday">Wednesday</label>
+                                        </div>
+                                        <div class="day">
+                                            <input type="checkbox" value="Thursdays" name="changeclubday" id="thursday">
+                                            <label for="thursday">Thursday</label>
+                                        </div>
+                                        <div class="day">
+                                            <input type="checkbox" value="Fridays" name="changeclubday" id="friday">
+                                            <label for="friday">Friday</label></div>
+                                    </div>
+                                </div>
+                                <br><br><br><br>
+                                <div class="inputbox"><br>
+                                    <span class="details">New Club Description</span>
+                                    <textarea type="text" id="inputthedescription" placeholder="Description of club" name="changeclubdescription"></textarea>
+                                </div>
+                            </div>
+                            <div class="button">
+                                <input type="submit" value="Confirm" class="submitnewclubbutton">
+                            </div>
+                        </form>
                     </div>
-
-                {% endif %}    
-
-                {% endif %}
-
-            <br><br>
-            
-            {% endfor %}
-
-        </div>
-        <div class="adjustclubinfowrapper">
-            
-        </div>
-    </div>
-    {% endif %}
-
-    
+                <!-- </div> -->
+         </div>
+      
+        <!-- <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Tab 3" />
+        <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">Tab content 3</div> -->
+      </div>
 
 {% endblock %}

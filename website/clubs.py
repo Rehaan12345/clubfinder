@@ -47,7 +47,7 @@ def home():
     if request.method == "POST":
         tester = request.form.get("email")
         if tester:
-            return redirect("/clubdashboard/info")
+            return redirect("/clubdashboard")
             # return render_template("clubdashboard.html", club_info=Club.query.all(), user_info=User.query.all(), user=current_user)
     print("32")
     # if current_user is not None:
@@ -104,13 +104,13 @@ Do not respond to this email.
 '''
             try:
                 send_mail(email_sender=email_sender, email_password=email_password, email_receiver=email_receiver, subject=subject, body=body)
-                return redirect("/")
+                return redirect("/findaclub")
             except Exception as e:
                 print("Could not send email")
                 current_time = datetime.datetime.now()
                 problem_description = "Sending joined club confirmation email"
                 email_failure(error_message=e, current_time=current_time, problem_description=problem_description)
-                return redirect("/")
+                return redirect("/findaclub")
             # return redirect(url_for(".home"))
     else:
         print(f"Request to join {join_club} failed!") 
@@ -130,11 +130,11 @@ Do not respond to this email.
             print(f"Successfully left {left_club}")
             flash(f"Left {left_club}!", "success")
             print(f"Current user clubs: {current_user.clubs}")
-            return redirect("/")
+            return redirect("/findaclub")
         else:
             flash(f"You aren't in {join_club}!", "error")
             print(f"User is not in {leave_club}")
-            return redirect("/")
+            return redirect("/findaclub")
 
     # Club Password Verification:
     if request.method == "POST":
@@ -225,7 +225,7 @@ def join(id):
     current_user.clubs.append(join_club)
     db.session.commit()
     flash(f"Successfully joined {join_club.club_name}!", "success")
-    return redirect("/")
+    return redirect("/findaclub")
 
 @clubs.route("/<id>/leave", methods=["GET", "POST"])
 def leave(id):
@@ -234,100 +234,99 @@ def leave(id):
     current_user.clubs.remove(leave_club)
     db.session.commit()
     flash(f"Successfully left {leave_club.club_name}!", "success")
-    return redirect("/")
+    return redirect("/findaclub")
 
-@clubs.route("/clubdashboard/<goto>", methods=["GET", "POST"])
+@clubs.route("/clubdashboard", methods=["GET", "POST"])
 @login_required
-def club_dashboard(goto):
+def club_dashboard():
     print(f"137 - current_user.role = {current_user.role}")
     # Remove a member:
-    if goto == "adjust":
-        if request.method == "POST":
-            change_club_id = request.form.get("changeclubid")
-            change_club_name = request.form.get("changeclubname")
-            change_president_email = request.form.get("changepresidentemail")
-            change_vp_email1 = request.form.get("changevicepresidentemail1")
-            change_vp_email2 = request.form.get("changevicepresidentemail2")
-            change_vp_email3 = request.form.get("changevicepresidentemail3")
-            change_advisor_email = request.form.get("changeadvisoremail")
-            change_room_number = request.form.get("changeroomnumber")
-            change_club_starttime = request.form.get("changeclubstarttime")
-            change_club_days = request.form.getlist("changeclubday")
-            change_club_description = request.form.get("changeclubdescription")
+    # if goto == "adjust":
+    if request.method == "POST":
+        change_club_id = request.form.get("changeclubid")
+        change_club_name = request.form.get("changeclubname")
+        change_president_email = request.form.get("changepresidentemail")
+        change_vp_email1 = request.form.get("changevicepresidentemail1")
+        change_vp_email2 = request.form.get("changevicepresidentemail2")
+        change_vp_email3 = request.form.get("changevicepresidentemail3")
+        change_advisor_email = request.form.get("changeadvisoremail")
+        change_room_number = request.form.get("changeroomnumber")
+        change_club_starttime = request.form.get("changeclubstarttime")
+        change_club_days = request.form.getlist("changeclubday")
+        change_club_description = request.form.get("changeclubdescription")
 
-            change_club = Club.query.filter_by(secret_password=change_club_id).first()
-            if change_club:
-                if change_club_name:
-                    print(f"Old club name: {change_club.club_name}")
-                    change_club.club_name = change_club_name
-                    print(f"New club name: {change_club.club_name}")
-                    db.session.commit()
-                    # flash("Club info changed!", "success")
-                    # return redirect("/clubdashboard/info")
-                else: print("Failed to change name")
-                if change_room_number:
-                    change_club.room_number = change_room_number
-                    # flash("Club info changed!", "success")
-                    db.session.commit()
-                if change_club_starttime:
-                    change_club.start_time = change_club_starttime
-                    # flash("Club info changed!", "success")
-                    db.session.commit()
-                if change_club_description:
-                    change_club.description = change_club_description
-                    # flash("Club info changed!", "success")
-                    db.session.commit()
-                if change_club_days:
-                    club_days_final = ""
-                    if len(change_club_days) == 1:
-                        club_days_final = change_club_days[0]
-                    elif len(change_club_days) == 2: 
-                        club_days_final += change_club_days[0] + " and " + change_club_days[1]
-                    else:
-                        for i in range(len(change_club_days)):
-                            if i == len(change_club_days) - 2:
-                                club_days_final += change_club_days[len(change_club_days) - 2] + " and " + change_club_days[len(change_club_days) - 1]
-                                break
-                            club_days_final += change_club_days[i] + ", "
-                    change_club.club_day = club_days_final
-                    # flash("Club info changed!", "success")
-                    db.session.commit()
-                flash("Club info successfully changed!", "success")
-                return redirect("/clubdashboard/info")
-            else:
-                flash("Club ID not found!", "error")
-                return redirect("/clubdashboard/adjust")
+        change_club = Club.query.filter_by(secret_password=change_club_id).first()
+        if change_club:
+            if change_club_name:
+                print(f"Old club name: {change_club.club_name}")
+                change_club.club_name = change_club_name
+                print(f"New club name: {change_club.club_name}")
+                db.session.commit()
+                # flash("Club info changed!", "success")
+                # return redirect("/clubdashboard/info")
+            else: print("Failed to change name")
+            if change_room_number:
+                change_club.room_number = change_room_number
+                # flash("Club info changed!", "success")
+                db.session.commit()
+            if change_club_starttime:
+                change_club.start_time = change_club_starttime
+                # flash("Club info changed!", "success")
+                db.session.commit()
+            if change_club_description:
+                change_club.description = change_club_description
+                # flash("Club info changed!", "success")
+                db.session.commit()
+            if change_club_days:
+                club_days_final = ""
+                if len(change_club_days) == 1:
+                    club_days_final = change_club_days[0]
+                elif len(change_club_days) == 2: 
+                    club_days_final += change_club_days[0] + " and " + change_club_days[1]
+                else:
+                    for i in range(len(change_club_days)):
+                        if i == len(change_club_days) - 2:
+                            club_days_final += change_club_days[len(change_club_days) - 2] + " and " + change_club_days[len(change_club_days) - 1]
+                            break
+                        club_days_final += change_club_days[i] + ", "
+                change_club.club_day = club_days_final
+                # flash("Club info changed!", "success")
+                db.session.commit()
+            flash("Club info successfully changed!", "success")
+            return redirect("/clubdashboard")
+        else:
+            flash("Club ID not found!", "error")
+            return redirect("/clubdashboard")
             
-        return render_template("clubdashboard.html", title="adjust", club_info=Club.query.all(), user_info=User.query.all(), user=current_user, your_clubs=Club.query.filter_by(president_email=current_user.email))
-    if goto == "info":
-        if request.method == "GET":
-            remove_club = request.args.get("removeClub")
-            remove_member = request.args.get("removeMember")
-            print(f"Remove Member: {remove_member}")
-            print(f"Remove Club: {remove_club}")
-            print(f"Remove Member: {User.query.filter_by(id=remove_member).first()}")
-            member = User.query.filter_by(id=remove_member).first()
-            print(f"Remove Club: {Club.query.filter_by(id=remove_club).first()}")
-            club = Club.query.filter_by(id=remove_club).first()
-            print(current_user)
-            print(current_user.clubs)
-            print(f"Member: {member}")
-            all_clubs = Club.query.all()
-            for club in all_clubs:
-                for club_member in club.members:
-                    # print(club_member.clubs)
-                    print(club_member)
-                    if member == club_member:
-                        print(f"Member Found: {club_member}")
-                        if Club.query.filter_by(id=remove_club).first() in member.clubs:
-                            member.clubs.remove(Club.query.filter_by(id=remove_club).first())
-                        else:
-                            print(f"{member} is not in {remove_club}")
-                        continue
+    # if goto == "info":
+    if request.method == "GET":
+        remove_club = request.args.get("removeClub")
+        remove_member = request.args.get("removeMember")
+        print(f"Remove Member: {remove_member}")
+        print(f"Remove Club: {remove_club}")
+        print(f"Remove Member: {User.query.filter_by(id=remove_member).first()}")
+        member = User.query.filter_by(id=remove_member).first()
+        print(f"Remove Club: {Club.query.filter_by(id=remove_club).first()}")
+        club = Club.query.filter_by(id=remove_club).first()
+        print(current_user)
+        print(current_user.clubs)
+        print(f"Member: {member}")
+        all_clubs = Club.query.all()
+        for club in all_clubs:
+            for club_member in club.members:
+                # print(club_member.clubs)
+                print(club_member)
+                if member == club_member:
+                    print(f"Member Found: {club_member}")
+                    if Club.query.filter_by(id=remove_club).first() in member.clubs:
+                        member.clubs.remove(Club.query.filter_by(id=remove_club).first())
                     else:
-                        print("Member not found")
-            # print(member.clubs)
-            # member.clubs.remove(Club.query.filter_by(id=remove_club).first())
+                        print(f"{member} is not in {remove_club}")
+                    continue
+                else:
+                    print("Member not found")
+        # print(member.clubs)
+        # member.clubs.remove(Club.query.filter_by(id=remove_club).first())
 
     return render_template("clubdashboard.html", club_info=Club.query.all(), user_info=User.query.all(), user=current_user)
 
@@ -464,3 +463,24 @@ def search():
 @clubs.route("/joinleavebuttons")
 def joinleavebuttons():
     return render_template("joinleavebuttons.html", club_info=Club.query.all(), joined_clubs=current_user.clubs, user=current_user)
+
+@clubs.route("/kickmember/<clubid>/<memberid>", methods=["GET", "POST"])
+def kick_member(clubid, memberid):
+    club = Club.query.filter_by(id=clubid).first()
+    member = User.query.filter_by(id=memberid).first()
+
+    if club.president_email == member.email:
+        flash("Cannot kick president!", "error")
+    elif member.role == "Admin":
+        flash("Cannot kick admin!", "error")
+    elif member.role == "Advisor":
+        flash("Cannot kick advisor!", "error")
+    else:
+        member.clubs.remove(club)
+        db.session.commit()
+        
+        print(f"475 - Kicked {member} from {club}.")
+
+        flash(f"Kicked {member} from {club}")
+
+    return redirect("/clubdashboard")

@@ -51,6 +51,7 @@
                         <ul class="dropdown">
                             <li class="mainil dropdownli"><a id="emailli" class="dropdowna">{{ user.email }}</a></li>
                             <li class="mainil dropdownli"><a class="navlink" id="dropdownoption" href="/registeraclub" class="dropdowna">Register a Club <i class="fa-solid fa-pencil"></i></a></li>
+                            {% if user.role == "Leader" or user.role == "Advisor" or user.role == "Admin" %}<li class="mainil dropdownli"><a class="dropdownna" href="/clubdashboard">Club Dashboard</a></li>{% endif %}
                             {% if user.role == "Admin" %}<li class="mainil dropdownli"><a href="/admin" id="dropdownoption" class="dropdowna">Admin <i class="fa-solid fa-table-columns"></i></a></li>{% endif %}
                             <li class="mainil"><a href="/logout" class="dropdowna dropdownli">Log Out</a></li>
                             <li class="mainil">{% if user.role == "Admin" or user.role == "Advisor" %}<button class="verifyclubbutton verifyclubbutton dropdownli" id="verifyclubbutton">Verify Your Club <i class="fa-solid fa-link"></i></button>{% endif %}</li>
@@ -82,7 +83,7 @@
             {% if messages %}
                 {% for category, message in messages %}
                     {% if category == "error" %}
-                        <div class="alert show" id="flash"> 
+                        <div class="error show" id="flash"> 
                             <button class="btn-close">&times;</button>
                             <span class="msg">{{ message }}</span>
                         </div>
