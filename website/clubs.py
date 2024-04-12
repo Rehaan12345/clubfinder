@@ -463,7 +463,7 @@ def search():
         # Else, if there is no value in q, results will be set to every item in the Club class. 
         results = Club.query.all()
     
-    return render_template("searchresults.html", results=results, joined_clubs=current_user.clubs)
+    return render_template("searchresults.html", club_info=results, joined_clubs=current_user.clubs)
 
 @clubs.route("/joinleavebuttons")
 def joinleavebuttons():

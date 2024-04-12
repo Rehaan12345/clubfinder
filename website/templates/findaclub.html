@@ -25,83 +25,8 @@
 
         <br><br>
 
-    <!-- The Main Container (where the clubs are held): -->
-    <div class="maincontainer" id="maincontainer"> 
-        <!-- Clubs are added here: -->
-        {% for club in club_info %}
-            {% if club.status == "Approved" %}
-            <div class="club" id="{{ club.club_name }}1"> <!-- Card -->
-                <div class="clubcontent" id="content{{ club.id }}"> <!-- Card content -->
-                    <div class="clubtitle" id="content{{ club.id }}">
-                        {{ club.club_name }}{% if club in joined_clubs %} <i class="fa-solid fa-star"></i>{% endif %} {% if current_user.email == club.president_email or current_user.email == club.vicepresident_email1 or current_user.email == club.vicepresident_email2 or current_user.email == club.vicepresident_email3 %}<i class="fa-solid fa-crown"></i>{% endif %}
-                    </div> <!-- Card title  -->
-                    <br>
-                    <p class="shortdesc" id="content{{ club.id }}">
-                        Club President: {{ club.president_email }}
-                        <br><br>
-                        Meets {% if club.start_time %} at {% endif %}{{ club.start_time }} on {{ club.club_day }} <br>
-                    </p> <!-- Card body -->
-                    <!-- Modal: -->
-                    <dialog class="clubdesc" id="clubdesc_{{ club.id }}">
-                        <div class="clubdescheader">
-                            <div class="clubdescname">{{ club.club_name }}</div>
-                            <div class="closebuttonwrapper"></div>
-                            <button data-close-button id="clubclosebutton_{{ club.id }}" class="clubclosebutton">&times;</button>
-                        </div>
-                        <div class="clubdescdesc" id="clubdescdesc{{ club.club_name }}">
-                            Club President: {{ club.president_email }}
-                                <br><br>
-                                {% if club.vicepresident_email1 or club.vicepresident_email2 or club.vicepresident_email3 %}
-                                Vice President{% if club.vicepresident_email1 and club.vicepresident_email2 %}s{% endif %}:
-                                {{ club.vicepresident_email1 }}<br/><br/>
-                                {% endif %}
-                                {% if club.vicepresident_email2 %}
-                                ,&nbsp;{{ club.vicepresident_email2 }}<br/><br/><br/>
-                                {% endif %}
-                                {% if club.vicepresident_email3 %}
-                                ,&nbsp;{{ club.vicepresident_email3 }}<br><br><br>
-                                {% endif %} 
-                            Meets in room {{ club.room_number }} <br><br>
-                            Club Advisor: {{ club.advisor_email }}
-                            <br><br>
-                            <!-- Club Description: --> {{ club.description }}
-                            <br><br>
-                        </div>
-                    </dialog>
-                    <!-- ^ End of Modal ^ -->
-                    <br><br>
-                    {% if club not in joined_clubs %}
-                    <form method="POST" class="joinclubbutton" action="{{ url_for('clubs.join', id=club.id) }}">
-                        <button class="clubbutton" type="submit">Join {{ club }}</button> 
-                    </form>
-                    {% elif club in joined_clubs %}
-                    <form method="POST" class="joinclubbutton" action="{{ url_for('clubs.leave', id=club.id) }}">
-                        <button class="clubbutton" type="submit">Leave {{ club }}</button> 
-                    </form>
-                    {% endif %}
-                </div>
-                
-            </div>
-            <!-- <dialog class="successfullyjoinedclubmodal_{{ club.id }}" id="succclub">
-                <div class="succjoinedclubmodalcontent">
-                    <button data-close-button id="succclubclosebutton_{{ club.id }}" class="clubclosebutton">&times;</button>
-                    <p class="succjoinedclubmodaltext">
-                        Successfully joined {{ club.club_name }}!
-                        <br>
-                        Please check your email for more information about the club.
-                    </p>
-                </div>
-            </dialog>
-            <dialog class="successfullyleftclubmodal_{{ club.id }}" id="succclub">
-                <div class="succleftclubmodalcontent">
-                    <button data-close-button id="succleftclubclosebutton_{{ club.id }}" class="clubclosebutton">&times;</button>
-                    <p class="succleftclubmodaltext">
-                        Successfully left {{ club.club_name }}
-                    </p>
-                </div>
-            </dialog> -->
-            {% endif %}
-        {% endfor %}
-    </div>
+        <div class="maincontainer" id="maincontainer">
+            {% include "clubcard.html" %}
+        </div>
 
         {% endblock %}
