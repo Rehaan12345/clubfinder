@@ -68,17 +68,27 @@ class Info(db.Model):
     def __str__(self):
         return self.title
     
-class Mentor(db.Model):
+class Links(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+    path = db.Column(db.String)
+    open = db.Column(db.Boolean)
+    dropdown = db.Column(db.Boolean)
+
+    def __str__(self):
+        return self.name
+    
+class Mentors(db.Model):
     mentor_id = db.Column(db.Integer, primary_key=True)
     firstname = db.Column(db.String)
     lastname = db.Column(db.String)
-    # race = db.Column(db.String)
-    # religion = db.Column(db.String)
-    # gender = db.Column(db.String)
-    # languages = db.Column(db.String)
-    # academics = db.Column(db.String)
+    race = db.Column(db.String)
+    religion = db.Column(db.String)
+    gender = db.Column(db.String)
+    languages = db.Column(db.String)
+    academics = db.Column(db.String)
 
-class MenuItem(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, unique=True)
-    path = db.Column(db.String)
+    def __str__(self):
+        return f"{self.firstname} {self.lastname}"
+    
+# When making new models, create the entire class at once, and then write flask db migrate, flask db stamp head.

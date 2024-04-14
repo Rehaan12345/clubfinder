@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from flask_login import login_required, current_user
-from .models import User, Club, Info
+from .models import User, Club, Info, Links
 from .sendmail import send_mail
 from . import db
 import random
@@ -25,7 +25,7 @@ def home():
         db.session.commit()
         flash("Added new info!")
 
-    return render_template("layout.html", user=current_user, info=Info.query.all())
+    return render_template("layout.html", user=current_user, info=Info.query.all(), links=Links.query.all())
 
 @login_required
 @views.route("/removetext/<id>", methods=["GET", "POST"])

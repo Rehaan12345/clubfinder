@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from flask_login import login_required, current_user
-from .models import User, Club 
+from .models import User, Club, Links
 from .sendmail import send_mail
 from . import db
 import random
@@ -218,7 +218,7 @@ Do not respond to this email.
     #     return redirect("/login")
     
     # Otherwise
-    return render_template("findaclub.html", club_info=Club.query.all(), joined_clubs=current_user.clubs, user=current_user)
+    return render_template("findaclub.html", club_info=Club.query.all(), joined_clubs=current_user.clubs, user=current_user, links=Links.query.all())
 
 @clubs.route("/<id>/join", methods=["GET", "POST"])
 def join(id):
@@ -331,7 +331,7 @@ def club_dashboard():
         # print(member.clubs)
         # member.clubs.remove(Club.query.filter_by(id=remove_club).first())
 
-    return render_template("clubdashboard.html", club_info=Club.query.all(), user_info=User.query.all(), user=current_user, form=form)
+    return render_template("clubdashboard.html", club_info=Club.query.all(), user_info=User.query.all(), user=current_user, form=form, links=Links.query.all())
 
 @clubs.route("/registeraclub", methods=["GET", "POST"])
 @login_required
@@ -447,7 +447,7 @@ ClubFinder
         # This all has to happen only after the advisor confirms the club: 
         # club_name=club_name, president_email=president_email, vicepresident_email1=vicepresident_email1, vicepresident_email2=vicepresident_email2, vicepresident_email3=vicepresident_email3, advisor_email=advisor_email, room_number=room_number, start_time=start_time, description=description, secret_password=secret_password, club_day=club_days_final
 
-    return render_template("registeraclub.html", user=current_user, form=form)
+    return render_template("registeraclub.html", user=current_user, form=form, links=Links.query.all())
 
 # Search:
 @clubs.route("/search")
@@ -463,11 +463,11 @@ def search():
         # Else, if there is no value in q, results will be set to every item in the Club class. 
         results = Club.query.all()
     
-    return render_template("searchresults.html", club_info=results, joined_clubs=current_user.clubs)
+    return render_template("searchresults.html", club_info=results, joined_clubs=current_user.clubs, links=Links.query.all())
 
 @clubs.route("/joinleavebuttons")
 def joinleavebuttons():
-    return render_template("joinleavebuttons.html", club_info=Club.query.all(), joined_clubs=current_user.clubs, user=current_user)
+    return render_template("joinleavebuttons.html", club_info=Club.query.all(), joined_clubs=current_user.clubs, user=current_user, links=Links.query.all())
 
 @clubs.route("/kickmember/<clubid>/<memberid>", methods=["GET", "POST"])
 def kick_member(clubid, memberid):

@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from .models import User, Club
+from .models import User, Club, Links
 from werkzeug.security import generate_password_hash, check_password_hash 
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
@@ -45,7 +45,7 @@ def login():
         else:
             print("DIdn't register logging in as a guest.")
 
-    return render_template("login.html", user=current_user, name="auth", form=form)
+    return render_template("login.html", user=current_user, name="auth", form=form, links=Links.query.all())
 
 def check_email(email):
     ind_at = email.index("@")
@@ -91,7 +91,7 @@ def signup():
             flash("Your account has been created!", category="success")
             return redirect("/")
 
-    return render_template("signup.html", user=current_user, name="auth", form=form)
+    return render_template("signup.html", user=current_user, name="auth", form=form, links=Links.query.all())
 
 @auth.route("/logout") 
 @login_required # Makes sure we cannot access this route / page unless the user is logged in - can't logged out if not logged in.  
@@ -122,7 +122,7 @@ def forgot_password(id, stage):
             else:
                 flash("This email is not linked with an account.", "error")
                 return redirect("/forgotpassword/email")
-        return render_template("forgotpassword.html", user=current_user, stage=stage)
+        return render_template("forgotpassword.html", user=current_user, stage=stage, links=Links.query.all())
     
     if stage == "changepass":
         if request.method == "POST":
@@ -144,11 +144,11 @@ def forgot_password(id, stage):
                 flash("Successfully changed password!", "success")
                 return redirect("/login")
             else: flash("No user")
-        return render_template("forgotpassword.html", user=current_user, stage=stage, id=id)
+        return render_template("forgotpassword.html", user=current_user, stage=stage, id=id, links=Links.query.all())
         
         # Find and change this password. 
     
-    return render_template("forgotpassword.html", user=current_user, stage=stage)
+    return render_template("forgotpassword.html", user=current_user, stage=stage, links=Links.query.all())
 
 @auth.route("/<id>/changepassword", methods=["GET", "POST"])
 def changepass(id):
