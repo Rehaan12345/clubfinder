@@ -72,19 +72,21 @@
 
         {% block body %}
 
-        <!-- <div class="backgroundimage">
-            <div class="maintext"><h1>CRLS PathFinders</h1></div>
-        </div> -->
         <div class="hero min-h-screen" style="background-image: url(../static/images/homepicwotext.png);">
             <div class="hero-overlay bg-opacity-80"></div>
             <div class="hero-content text-center text-neutral-content">
               <div class="max-w-md">
                 <h1 class="mb-5 text-5xl font-bold">CRLS PathFinders</h1>
                 <p class="mb-5">Find academic support, one-on-one tutoring, upperclassmen class shadowing, and any club within the CRLS community, all for free!</p>
-                <button class="btn btn-primary">Get Started</button>
+                {% if user.is_authenticated %}
+                  <button class="btn btn-primary">Learn More</button>
+                {% else %}
+                  <button class="btn btn-primary"><a href="/login">Create an Account</a></button>
+                {% endif %}
               </div>
             </div>
-          </div>
+        </div>
+
         <div class="mainhomecontainer">
           <!-- <div class="hometitle">CRLS PathFinders</div> -->
             <form method="POST" class="addinfo">
@@ -94,20 +96,22 @@
                 <input type="text" name="addbody" required>
                 <input type="submit">
             </form>
+
           <div class="homesepdiv">
+
             {% if info %}
 
-            {% for text in info %}
+              {% for text in info %}
 
-            <div class="sepcontainer">
-                <div class="sepcontainercontent">
-                    <a href="/removetext/{{ text.text_id }}">Remove {{ text.text_id }}</a>
-                    <div class="subheadtitle">{{ text.title }}</div>
-                    <div class="subcontent">{{ text.body }}</div>
+                <div class="sepcontainer">
+                    <div class="sepcontainercontent">
+                        <a href="/removetext/{{ text.text_id }}">Remove {{ text.text_id }}</a>
+                        <div class="subheadtitle">{{ text.title }}</div>
+                        <div class="subcontent">{{ text.body }}</div>
+                    </div>
                 </div>
-            </div>
 
-            {% endfor %}
+              {% endfor %}
 
             {% endif %}
           </div>
