@@ -227,7 +227,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const activePage = window.location.pathname;
     document.querySelectorAll(".navlink").forEach((link) => {
         if (link.href === window.location.href) {
-            link.classList.add("active");
+            link.classList.add("isactive");
         }
     });
 });

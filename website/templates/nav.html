@@ -1,0 +1,37 @@
+<div class="navbar bg-base-300">
+    <div class="flex-1 px-2 lg:flex-none">
+        <a href="/" class="text-lg font-bold navlink" id="pflogo">PathFinders</a>
+    </div> 
+    <div class="flex justify-end flex-1 px-2">
+        <div class="flex items-stretch">
+        <a class="btn btn-ghost rounded-btn navlink" href="/">Home</a>
+        {% if user.is_authenticated %}
+        <a class="btn btn-ghost rounded-btn navlink" href="/findaclub">Find a Club</a>
+        <div class="dropdown dropdown-end">
+            <div tabindex="0" role="button" class="btn btn-ghost rounded-btn navlink">Account</div>
+            <ul tabindex="0" class="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4">
+            <li class="mainil dropdownli"><a id="emailli" class="dropdowna navlink">{{ user.email }}</a></li>
+
+            <li class="mainil dropdownli"><a class="navlink" id="dropdownoption" href="/registeraclub" class="dropdowna">Register a Club <i class="fa-solid fa-pencil"></i></a></li>
+
+            {% if user.role == "Leader" or user.role == "Advisor" or user.role == "Admin" %}
+                <li class="mainil dropdownli"><a class="dropdownna navlink" href="/clubdashboard">Club Dashboard</a></li>
+            {% endif %}
+
+            {% if user.role == "Admin" %}
+                <li class="mainil dropdownli"><a href="/admin" id="dropdownoption" class="dropdowna navlink">Admin <i class="fa-solid fa-table-columns"></i></a></li>
+            {% endif %}
+            <li class="mainil"><a href="/logout" class="dropdowna dropdownli navlink">Log Out</a></li>
+            <li class="mainil">
+                {% if user.role == "Admin" or user.role == "Advisor" %}
+                    <button class="verifyclubbutton verifyclubbutton dropdownli" id="verifyclubbutton">Verify Your Club <i class="fa-solid fa-link"></i></button>
+                {% endif %}</li>
+            </ul>
+        </div>
+        {% else %}
+        <a class="btn btn-ghost rounded-btn navlink" href="/login">Login</a>
+        <a class="btn btn-ghost rounded-btn navlink" href="/signup">Signup</a>
+        {% endif %}
+        </div>
+    </div>
+</div>

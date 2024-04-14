@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" type="text/css" href="../static/styles.css">
     <script src="../static/index.js"></script>
-    <title> CRLSClubFinder | {% block title %}Clubs{% endblock %} </title>
+    <title> CRLSPathFinders | {% block title %}Home{% endblock %} </title>
 </head>
     <body class="rehaan">
         <div class="loadingwrapper">
@@ -33,36 +33,9 @@
 
         gtag('config', 'G-15D7GN7H31');
         </script>
-
-        <!-- Main Nav Bar: -->
-        <nav class="mainnav">
-            <div class="partone">
-                <label class="logo">PathFinders</label>
-                <input type="checkbox" id="check">
-                <label for="check" class="checkbtn">
-                  <i class="fas fa-bars"></i>
-                </label>
-            </div>
-            <ul class="mainul">
-                {% if user.is_authenticated %}
-                    <li class="mainil"><a href="/" class="navlink">Home</a></li>
-                    <li class="mainil"><a href="/findaclub" class="navlink">Find a Club</a></li>
-                    <li class="mainil"><a class="maina">Account &dtrif;</a>
-                        <ul class="dropdown">
-                            <li class="mainil dropdownli"><a id="emailli" class="dropdowna">{{ user.email }}</a></li>
-                            <li class="mainil dropdownli"><a class="navlink" id="dropdownoption" href="/registeraclub" class="dropdowna">Register a Club <i class="fa-solid fa-pencil"></i></a></li>
-                            {% if user.role == "Leader" or user.role == "Advisor" or user.role == "Admin" %}<li class="mainil dropdownli"><a class="dropdownna" href="/clubdashboard">Club Dashboard</a></li>{% endif %}
-                            {% if user.role == "Admin" %}<li class="mainil dropdownli"><a href="/admin" id="dropdownoption" class="dropdowna">Admin <i class="fa-solid fa-table-columns"></i></a></li>{% endif %}
-                            <li class="mainil"><a href="/logout" class="dropdowna dropdownli">Log Out</a></li>
-                            <li class="mainil">{% if user.role == "Admin" or user.role == "Advisor" %}<button class="verifyclubbutton verifyclubbutton dropdownli" id="verifyclubbutton">Verify Your Club <i class="fa-solid fa-link"></i></button>{% endif %}</li>
-                        </ul>
-                    </li>
-                {% else %}
-                    <li class="mainil"><a href="/login" class="navlink">Log In</a></li>
-                    <li class="mainil"><a href="/signup" class="navlink">Sign up</a></li>  
-                {% endif %}
-              </ul>
-        </nav>
+        
+        <!-- Navbar: -->
+        {% include "nav.html" %}
 
         <!-- Connect to club modal: -->
         <dialog class="connecttoclub" id="connecttoclubmodal">
@@ -99,9 +72,19 @@
 
         {% block body %}
 
-        <div class="backgroundimage">
+        <!-- <div class="backgroundimage">
             <div class="maintext"><h1>CRLS PathFinders</h1></div>
-        </div>
+        </div> -->
+        <div class="hero min-h-screen" style="background-image: url(../static/images/homepicwotext.png);">
+            <div class="hero-overlay bg-opacity-80"></div>
+            <div class="hero-content text-center text-neutral-content">
+              <div class="max-w-md">
+                <h1 class="mb-5 text-5xl font-bold">CRLS PathFinders</h1>
+                <p class="mb-5">Find academic support, one-on-one tutoring, upperclassmen class shadowing, and any club within the CRLS community, all for free!</p>
+                <button class="btn btn-primary">Get Started</button>
+              </div>
+            </div>
+          </div>
         <div class="mainhomecontainer">
           <!-- <div class="hometitle">CRLS PathFinders</div> -->
             <form method="POST" class="addinfo">
