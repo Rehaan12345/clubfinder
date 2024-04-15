@@ -18,6 +18,7 @@ admin = Admin()
 
 def create_app():
     app = Flask(__name__)
+    app.jinja_env.add_extension('jinja2.ext.loopcontrols')
     app.config["SECRET_KEY"] = "rehaan"
     # app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://jlfpuxzdqrkneh:f3ca613563b5efcad1f6c485e7a27118b7cd0d78c2326a70ee98fb21d9f4c248@ec2-52-0-79-72.compute-1.amazonaws.com:5432/ddmnvas8sg8evg"
     app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_NAME}" 

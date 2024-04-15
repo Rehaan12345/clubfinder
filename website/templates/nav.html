@@ -28,21 +28,50 @@
                         
                         {% for link in links %}
 
-                            {% if link.dropdown %}
+                            {% if link.open %}
 
-                                <li class="mainil dropdownli"><a class="dropdownna navlink" href="{{ link.path }}">{{ link.name }}</a></li>
+                                {% if link.dropdown %}
+
+                                    <li class="mainil dropdownli"><a class="dropdownna navlink" href="{{ link.path }}">{{ link.name }}</a></li>
+
+                                {% endif %}
+
+                            {% endif %}
+
+                        {% endfor %}
+
+                        {% for link in links %}
+
+                            {% if not link.open %}
+
+                                {% if link.name == "Club Dashboard" or link.name == "Admin" %}
+                                
+                                    {% if user.role == "Admin" or user.role == "Advisor" or user.is_leader %}
+
+                                        <li class="mainil dropdownli"><a class="dropdownna navlink" href="{{ link.path }}">{{ link.name }}</a></li>
+
+                                    {% endif %}
+
+                                {% endif %}
 
                             {% endif %}
 
                         {% endfor %}
 
                         <li class="mainil">
+
                             {% if user.role == "Admin" or user.role == "Advisor" %}
-                                <button class="verifyclubbutton verifyclubbutton dropdownli" id="verifyclubbutton">Verify Your Club <i class="fa-solid fa-link"></i></button>
-                            {% endif %}</li>
-                        </ul>
+
+                                <button class="verifyclubbutton verifyclubbutton dropdownli" id="verifyclubbutton">
+                                    Verify Your Club <i class="fa-solid fa-link"></i>
+                                </button>
+
+                            {% endif %}
+                        
+                        </li>
 
                     </ul>
+                    
                 </div>
 
                 {% else %}
