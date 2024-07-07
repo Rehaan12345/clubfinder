@@ -1,0 +1,231 @@
+{% extends "layout.html" %}
+
+{% block title %}Signup{% endblock %}
+
+{% block body %}
+
+<div class="multistepwrapper">
+  {% if step == "basicinfo" %}
+
+  <div class="infowrapper">
+      <form action="{{ url_for('auth.signup', step='morespecific') }}" class="signupform" method="POST">
+          <div class="stepmenu">
+              <ul>
+                  <li class="formbold-step-menu1 active">
+                      <span>1</span>
+                      <a href="/signup/basicinfo">Basic Info</a>
+                  </li>
+                  <li class="formbold-step-menu2">
+                      <span>2</span>
+                      More Specific
+                  </li>
+                  <li class="formbold-step-menu3">
+                      <span>3</span>
+                      Confirm
+                  </li>
+              </ul>
+          </div>
+  
+          <div class="basicinfocontent">
+            <div class="formbold-input-flex">
+              <div>
+                  <!-- Source: https://stackoverflow.com/questions/34738331/using-flask-wtforms-how-do-i-style-my-form-section-of-the-html -->
+                  {{ form.firstname.label(class="formbold-form-label") }} 
+                  {{ form.firstname(class="formbold-form-input") }}
+              </div>
+              <div>
+                  {{ form.lastname.label(class="formbold-form-label") }} 
+                  {{ form.lastname(class="formbold-form-input") }}
+              </div>
+            </div>
+            <div class="formbold-input-flex">
+                <!-- <div>
+                  {{ form.dob.label(class="formbold-form-label") }} 
+                  {{ form.dob(class="formbold-form-input") }}
+                </div> -->
+                <div>
+                  {{ form.email.label(class="formbold-form-label") }} 
+                  {{ form.email(class="formbold-form-input") }}
+                </div>
+                <div>
+                    {{ form.password.label(class="formbold-form-label") }} 
+                    {{ form.password(class="formbold-form-input") }}
+                </div>
+            </div>
+            <!-- <div class="formbold-input-flex"> -->
+              <div>
+                  {{ form.confirmpassword.label(class="formbold-form-label") }} 
+                  {{ form.confirmpassword(class="formbold-form-input") }}
+              </div>
+            <!-- </div> -->
+            <!-- Add a confirmation password div here and wrap both divs in the same flex div as above. -->
+            <!-- <button class="nextstep" type="submit">Next Step</button> -->
+            {{ form.submit(class="nextstep") }}
+      </form>
+  </div>
+
+  {% elif step == "morespecific" %}
+
+  <div class="infowrapper">
+      <form action="{{ url_for('findamentor.becomeamentor', step='confirm') }}" class="signupform" method="POST">
+
+          <div class="stepmenu">
+              <ul>
+                  <li class="formbold-step-menu1">
+                      <span>1</span>
+                      <a href="/signup/basicinfo">Basic Info</a>
+                  </li>
+                  <li class="formbold-step-menu2 active">
+                      <span>2</span>
+                      <a href="/signup/morespecific">More Specific</a>
+                  </li>
+                  <li class="formbold-step-menu3">
+                      <span>3</span>
+                      Confirm
+                  </li>
+              </ul>
+          </div>
+
+          <div class="infocontent">
+              <ul class="mainselector">
+
+                <li class="buttonwrapper">
+                  <div class="selectortitlewrapper">
+                    <p class="selectortitle">{{ form.mentormentee.label }}</p>
+                  </div>
+                  {% for item in form %} 
+                  
+                    {# {% for sub in item %}
+
+                      <div class="selectoritem">
+                        <label class="buttonlabel">
+                          {{ sub }}
+                          {{ sub.label }}
+                          <span class="checkmark" id="radiocheck"></span>
+                        </label>
+                      </div>
+
+                    {% endfor %} #}
+
+                      
+
+                    </li>
+                  
+                  {% endfor %}
+
+
+                    
+
+                    <div class="hiddenselector">
+                      <input type="text" name="email" value="{{ email }}" hidden>
+                    </div>
+                </ul>
+          </div>
+          {{ form.submit(class="nextstep") }}
+      </form>
+  </div>
+
+  {% elif step == "confirm" %}
+
+  <div class="infowrapper">
+    <div class="stepmenu">
+      <ul>
+          <li class="formbold-step-menu1">
+              <span>1</span>
+              <a href="/signup/basicinfo">Basic Info</a>
+          </li>
+          <li class="formbold-step-menu2">
+              <span>2</span>
+              <a href="/signup/morespecific">More Specific</a>
+          </li>
+          <li class="formbold-step-menu3 active">
+              <span>3</span>
+              Confirm
+          </li>
+      </ul>
+  </div>
+    <div class="steptitle">Confirm Your Information</div>
+    <div class="confirmbody">
+      <form action="{{ url_for('auth.signup', step='finish') }}" class="signupform" method="POST">
+        <div class="confirmtext">
+          <div class="confirmanschoi">
+            <div class="confirmcat">
+              Mentee/Mentor:
+            </div>
+            <div class="confirmchoice">
+              {% if mentormentee == "Mentor" %}Mentor{% else %}Mentee{% endif %}
+            </div>
+          </div>
+          {% for item in form %}
+          {{ item }}
+          {% endfor %}
+          <div class="confirmanschoi">
+            <div class="confirmcat">
+              Race:
+            </div>
+            <div class="confirmchoice">
+              {{ race }}
+            </div>
+          </div>
+          <div class="confirmanschoi">
+            <div class="confirmcat">
+              Religion:
+            </div>
+            <div class="confirmchoice">
+              {{ religion }}
+            </div>
+          </div>
+          <div class="confirmanschoi">
+            <div class="confirmcat">
+              Gender:
+            </div>
+            <div class="confirmchoice">
+              {{ gender }}
+            </div>
+          </div>
+          <div class="confirmanschoi">
+            <div class="confirmcat">
+              Languages:
+            </div>
+            <div class="confirmchoice">
+              {{ languages }}
+            </div>
+          </div>
+          <div class="confirmanschoi">
+            <div class="confirmcat">
+              Academics
+            </div>
+            <div class="confirmchoice">
+              {{ academics }}
+            </div>
+          </div>
+        </div>
+        <div class="controlbutton">
+          {{ form.submit(class="nextstep") }}
+          <button class="nextstep goback" type="submit" id="goback"><a href="/signup/morespecific">Back</a></button>
+        </div>
+        
+      </form>
+    </div>
+  </div>
+
+  {% elif step == "finish" %}
+
+  <div class="infowrapper">
+    <div class="steptitle">Sign up complete!</div>
+    <div class="finishbody">
+      <p class="finishtext">
+        Sign up is complete! 
+        <br>
+        Please click <b>here</b> to explore the possibilities of being a mentor/mentee, or click <b>here</b> to return to the main page!
+        <br>
+        Thank you!
+      </p>
+    </div>
+  </div>
+
+  {% endif %}
+
+</div>
+
+{% endblock %}

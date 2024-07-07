@@ -78,10 +78,11 @@ class Links(db.Model):
     def __str__(self):
         return self.name
     
-class Mentors(db.Model):
+class Mentor(db.Model):
     mentor_id = db.Column(db.Integer, primary_key=True)
     firstname = db.Column(db.String)
     lastname = db.Column(db.String)
+    email = db.Column(db.String)
     race = db.Column(db.String)
     religion = db.Column(db.String)
     gender = db.Column(db.String)

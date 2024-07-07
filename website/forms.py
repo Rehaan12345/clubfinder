@@ -21,7 +21,7 @@ class MentorSignupForm(FlaskForm):
     gender = RadioField("Gender", choices=[("Male"), ("Female"), ("Non-Binary")])
     languages = MultiCheckboxField("Languages", choices=[("Amharic"), ("Bangla"), ("Spanish"), ("Hindi"), ("Portuguese"), ("Chinese")])
     academics = MultiCheckboxField("Academics", choices=[("English"), ("History"), ("Chemistry"), ("Physics"), ("Biology"), ("Computer Science")])
-    submit = SubmitField("Log In")
+    submit = SubmitField("Continue")
 
 # Login Signup form:
 class LoginForm(FlaskForm):

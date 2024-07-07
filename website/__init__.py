@@ -38,7 +38,7 @@ def create_app():
     from .findamentor import findamentor
 
     # Import the model classes
-    from .models import User, Club, Info, Mentors, Links
+    from .models import User, Club, Info, Mentor, Links
 
     with app.app_context():
         db.create_all()
@@ -50,7 +50,7 @@ def create_app():
     admin.add_view(ModelView(User, db.session))
     admin.add_view(ModelView(Club, db.session))
     admin.add_view(ModelView(Info, db.session))
-    admin.add_view(ModelView(Mentors, db.session))
+    admin.add_view(ModelView(Mentor, db.session))
     admin.add_view(ModelView(Links, db.session))
 
     login_manager = LoginManager()

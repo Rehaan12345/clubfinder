@@ -1,0 +1,148 @@
+
+<nav class="mainnav" id="mainnav">
+    <!-- <div class="hamburger">
+         <i class="fa-solid fa-bars"></i>
+     </div>-->
+     <ul id="header" class="nav">
+         {% if user.is_authenticated %}
+             <a class="navlink" href="/">Home <i class="fa-solid fa-house-user"></i></a>
+             <!-- <li class="navlink"><a class="navlink" href="/clubs">My Clubs</a></li> -->
+             <!-- <a class="navlink" href="/createaclub">Register Your Club <i class="fa-solid fa-pencil"></i></a> -->
+             <!-- <a href="https://github.com/Rehaan12345/clubfinder" class="navlink" target="_blank">View Github <i class="fa-solid fa-arrow-up-right-from-square"></i></a> -->
+         {% if user.is_leader or user.role == "Admin" or user.role == "Advisor" %}
+             <a class="navlink" href="/clubdashboard/info">Club Dashboard <i class="fa-solid fa-desktop"></i></a>
+         {% endif %}
+         {% endif %}
+     </ul>
+     <ul id="header2" class="nav">
+         {% if user.is_authenticated %} 
+         <!-- <div id="loggedinasok">
+             <button class="navlink dropdownlink" data-dropdown-button><a class="navlink" id="loggedinas">{{ current_user.email }} <i class="fa-regular fa-id-badge"></i></a></button>
+         </div> -->
+             <div class="dropdown" data-dropdown>
+                 <!-- Dropdown: -->
+                 <button class="navlink dropdownlink loggedinasas" data-dropdown-button><a class="navlink" id="loggedinas">{{ current_user.email }} <i class="fa-regular fa-id-badge"></i></a></button>
+                 <button class="navlink dropdownlink fa-regular fa-user user" data-dropdown-button></button> 
+                 <div class="dropdownmenu">
+                     <div class="dropdownlinks">
+                         <a class="navlink" id="dropdownoption" href="/registeraclub">Register a Club <i class="fa-solid fa-pencil"></i></a>
+                         <!-- {% if user.role == "Admin" %} -->
+                         <a href="/admin" class="navlink" id="dropdownoption">Admin Dashboard <i class="fa-solid fa-table-columns"></i></a>
+                         <!-- {% endif %} -->
+                         <a href="https://github.com/Rehaan12345/clubfinder" class="navlink" id="dropdownoption" target="_blank">View Github <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                         <a href="/logout" class="navlink" id="dropdownoption">Logout <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+                         {% if user.role == "Admin" or user.role == "Advisor" %}<button class="verifyclubbutton verifyclubbutton" id="verifyclubbutton">Verify Your Club <i class="fa-solid fa-link"></i></button>{% endif %}
+                     </div>
+                 </div>
+             </div>
+         {% else %}
+             <li class="navlink"><a class="navlink" href="/login">Login</a></li>
+             <li class="navlink"><a class="navlink" href="/signup">Signup</a></li>
+         {% endif %}
+     </ul>
+     
+ </nav>  
+
+ {% block body %}
+
+            <h1 id="main1">
+                <center>CRLS ClubFinder<br>
+                </center>
+                </h1>
+
+                <!-- Search Bar: -->
+                <div class="homescreennavcontainer">
+                    <div class="searchwrapperwrapper">
+                        <div class="searchwrapper">
+                            <input type="search" id="search" name="q" placeholder="Search for a specific club" hx-get="/search" hx-trigger="keyup changed delay:500ms" hx-target=".maincontainer">
+                            <a href="#">
+                                <i class="fas fa-search"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- <button class="connectclubbutton navlink" id="connecttoclubbutton"><a href="#" class="navlink" id="connecttoclubbutton">Verify Your Club </a></button> -->
+                    <!-- <button class="connectclubbutton navlink" id="connecttoclubbutton">Verify Your Club <i class="fa-solid fa-link"></i></button> -->
+                </div>
+
+                <br><br>
+
+            <!-- The Main Container (where the clubs are held): -->
+            <div class="maincontainer" id="maincontainer"> 
+                <!-- Clubs are added here: -->
+                {% for club in club_info %}
+                    {% if club.status == "Approved" %}
+                    <div class="club" id="{{ club.club_name }}1"> <!-- Card -->
+                        <div class="clubcontent" id="content{{ club.id }}"> <!-- Card content -->
+                            <div class="clubtitle" id="content{{ club.id }}">
+                                {{ club.club_name }}{% if club in joined_clubs %} <i class="fa-solid fa-star"></i>{% endif %} {% if current_user.email == club.president_email or current_user.email == club.vicepresident_email1 or current_user.email == club.vicepresident_email2 or current_user.email == club.vicepresident_email3 %}<i class="fa-solid fa-crown"></i>{% endif %}
+                            </div> <!-- Card title  -->
+                            <br>
+                            <p class="shortdesc" id="content{{ club.id }}">
+                                Club President: {{ club.president_email }}
+                                <br><br>
+                                Meets {% if club.start_time %} at {% endif %}{{ club.start_time }} on {{ club.club_day }} <br>
+                            </p> <!-- Card body -->
+                            <!-- Modal: -->
+                            <dialog class="clubdesc" id="clubdesc_{{ club.id }}">
+                                <div class="clubdescheader">
+                                    <div class="clubdescname">{{ club.club_name }}</div>
+                                    <div class="closebuttonwrapper"></div>
+                                    <button data-close-button id="clubclosebutton_{{ club.id }}" class="clubclosebutton">&times;</button>
+                                </div>
+                                <div class="clubdescdesc" id="clubdescdesc{{ club.club_name }}">
+                                    Club President: {{ club.president_email }}
+                                     <br><br>
+                                     {% if club.vicepresident_email1 or club.vicepresident_email2 or club.vicepresident_email3 %}
+                                        Vice President{% if club.vicepresident_email1 and club.vicepresident_email2 %}s{% endif %}:
+                                        {{ club.vicepresident_email1 }}<br/><br/>
+                                     {% endif %}
+                                     {% if club.vicepresident_email2 %}
+                                        ,&nbsp;{{ club.vicepresident_email2 }}<br/><br/><br/>
+                                     {% endif %}
+                                     {% if club.vicepresident_email3 %}
+                                        ,&nbsp;{{ club.vicepresident_email3 }}<br><br><br>
+                                     {% endif %} 
+                                    Meets in room {{ club.room_number }} <br><br>
+                                    Club Advisor: {{ club.advisor_email }}
+                                    <br><br>
+                                    <!-- Club Description: --> {{ club.description }}
+                                    <br><br>
+                                </div>
+                            </dialog>
+                            <!-- ^ End of Modal ^ -->
+                            <br><br>
+                            {% if club not in joined_clubs %}
+                            <form method="POST" class="joinclubbutton" action="{{ url_for('views.join', id=club.id) }}">
+                                <button class="clubbutton" type="submit">Join {{ club }}</button> 
+                            </form>
+                            {% elif club in joined_clubs %}
+                            <form method="POST" class="joinclubbutton" action="{{ url_for('views.leave', id=club.id) }}">
+                                <button class="clubbutton" type="submit">Leave {{ club }}</button> 
+                            </form>
+                            {% endif %}
+                        </div>
+                        
+                    </div>
+                    <!-- <dialog class="successfullyjoinedclubmodal_{{ club.id }}" id="succclub">
+                        <div class="succjoinedclubmodalcontent">
+                            <button data-close-button id="succclubclosebutton_{{ club.id }}" class="clubclosebutton">&times;</button>
+                            <p class="succjoinedclubmodaltext">
+                                Successfully joined {{ club.club_name }}!
+                                <br>
+                                Please check your email for more information about the club.
+                            </p>
+                        </div>
+                    </dialog>
+                    <dialog class="successfullyleftclubmodal_{{ club.id }}" id="succclub">
+                        <div class="succleftclubmodalcontent">
+                            <button data-close-button id="succleftclubclosebutton_{{ club.id }}" class="clubclosebutton">&times;</button>
+                            <p class="succleftclubmodaltext">
+                                Successfully left {{ club.club_name }}
+                            </p>
+                        </div>
+                    </dialog> -->
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+        {% endblock %}
